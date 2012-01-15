@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Sun Jan 15 01:44:12 2012 +0800
+# $Date: Sun Jan 15 10:28:15 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -21,7 +21,7 @@
 
 from pyramid.config import Configurator
 from func import setup_pyramid
-from view import index
+from view import *
 
 def get_app():
     """get the WSGI application for stooj"""
