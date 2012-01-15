@@ -1,5 +1,5 @@
 # $File: func.py
-# $Date: Sun Jan 15 10:53:33 2012 +0800
+# $Date: Sun Jan 15 11:00:43 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -79,7 +79,9 @@ def view_config(**kargs):
         del kargs['route']
 
         def newfunc(context, request):
-            request.response.content_type = 'text/html; charset=UTF-8';
+            resp = request.response
+            resp.content_type = 'text/html'
+            resp.charset = 'utf-8'
             from i18n import translators    # XXX
             if func.func_code.co_argcount == 2:
                 return func(translators, request)
