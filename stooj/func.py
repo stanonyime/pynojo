@@ -1,5 +1,5 @@
 # $File: func.py
-# $Date: Sun Jan 15 11:00:43 2012 +0800
+# $Date: Fri Jan 20 10:25:52 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -36,76 +36,32 @@ class Const(object):
 
 
 
-# list(kargs:dict)
-_route_list = list()    
-_view_list = list()     
-_subscriber_list = list()
+_route_list = list()    # list(kargs:dict)
+_route_cnt = 0
 
-def setup_pyramid(conf):
-    """Setup pyramid route, views and subscribers.
+def mkroute(**kargs):
+    """Return a route name that can be passed to pyramid.config.add_view, 
+    and setup_pyramid_route should be called to add these routes to a config
     
-    Keyword arguments:
+    Keyword argument:
+        kargs: keyword arguments passed to add_route. Note that it might be changed"""
+    global _route_list, _route_cnt
+    name = 'mkrt-' + str(_route_cnt)
+    _route_cnt += 1
+    kargs['name'] = name
+    _route_list.append(kargs)
+    return name
+
+
+def setup_pyramid_route(conf):
+    """Setup pyramid routes used by mkroute
+    
+    Keyword argument:
         conf: an instance of pyramid.conf.Configurator to be configured
     """
 
-    global _route_list, _view_list
+    global _route_list
     for i in _route_list:
         conf.add_route(**i)
-    global _view_list
-    for i in _view_list:
-        conf.add_view(**i)
-    for i in _subscriber_list:
-        conf.add_subscriber(**i)
 
 
-
-_route_cnt = 0
-def view_config(**kargs):
-    """view_config for stooj, similar to pyramid.view.view_config, but there are some differences:
-
-    1. keyword argument ``route`` must be supplied, which is the route pattern
-    2. there are two forms of the view callable:
-        func(_, request) or func(_, context, request),
-        where _ is the function for l10n translation
-    3. keyword argument ``renderer`` should be specified using
-        the relative path of view/template if using Chameleon template"""
-
-    def f(func):
-        global _route_list, _view_list, _route_cnt
-        from config import config
-        name = str(_route_cnt)
-        _route_cnt += 1
-        _route_list.append({'name': name, 'pattern': config.PREFIX + kargs['route']})
-        del kargs['route']
-
-        def newfunc(context, request):
-            resp = request.response
-            resp.content_type = 'text/html'
-            resp.charset = 'utf-8'
-            from i18n import translators    # XXX
-            if func.func_code.co_argcount == 2:
-                return func(translators, request)
-            return func(translators, context, request)
-
-        kargs['view'] = newfunc
-        kargs['route_name'] = name
-        try:
-            val = kargs['renderer']
-            if val[-3:] == '.pt' or val[-4:] == '.txt':
-                kargs['renderer'] = 'stooj:view/template/' + val
-        except KeyError:
-            pass
-        _view_list.append(kargs)
-        return newfunc
-
-    return f
-
-
-def subscriber(*iface):
-    """see pyramid.events.subscriber"""
-    def f(func):
-        global _subscriber_list
-        for i in iface:
-            _subscriber_list.append({'subscriber': func, 'iface': i})
-        return func
-    return f

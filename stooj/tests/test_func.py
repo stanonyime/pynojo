@@ -9,4 +9,3 @@ class ConstUnitTests(unittest.TestCase):
         with self.assertRaises(Const.ConstError) as exc:
             c.x = 0
         self.assertTrue('const x' in repr(exc.exception))
-

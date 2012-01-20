@@ -1,0 +1,6 @@
+<div metal:use-macro="layout">
+	<div metal:fill-slot="content">
+		${_('{0}from{t}', 'msg', t = 'template')} <br />
+		${msg}
+	</div>
+</div>

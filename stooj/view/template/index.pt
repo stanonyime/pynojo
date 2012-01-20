@@ -1,6 +1,1 @@
-<div metal:use-macro="layout">
-	<div metal:fill-slot="content">
-		${_('{0}, {w}!', 'hello', w = 'world')} <br />
-		msg: ${msg}
-	</div>
-</div>
+../../tests/template/index.pt

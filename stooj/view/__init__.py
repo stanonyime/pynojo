@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Sun Jan 15 10:22:11 2012 +0800
+# $Date: Fri Jan 20 10:57:18 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -22,20 +22,16 @@ globals added to template:
     _: i18n translation function
 """
 
-from pyramid.renderers import get_renderer
-from pyramid.events import BeforeRender
-from ..func import subscriber
+from pyramid.events import (subscriber, BeforeRender)
 
 _layout_macro = None
-
 @subscriber(BeforeRender)
 def _add_global(event):
     from ..i18n import translators    # XXX
-    global _layout_macro, _translator
+    from pyramid.renderers import get_renderer
+    global _layout_macro
     if _layout_macro is None:
-        _layout_macro = get_renderer('template/layout.pt').implementation().macros['layout']
+        _layout_macro = get_renderer('template/layout.pt').implementation()
     event['layout'] = _layout_macro
     event['_'] = translators
 
-
-__all__ = ['index']

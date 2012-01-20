@@ -1,5 +1,5 @@
 # $File: index.py
-# $Date: Sun Jan 15 01:31:49 2012 +0800
+# $Date: Fri Jan 20 10:56:39 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -17,9 +17,10 @@
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from ..func import view_config
+from pyramid.view import view_config
+from ..func import mkroute
 
-@view_config(route = 'index', renderer = 'index.pt')
-def _index(_, request):
-    return {'msg': _('hello from python')}
+@view_config(route_name = mkroute(pattern = ''), renderer = 'template/index.pt')
+def _index(request):
+    return {'msg': request._('msgfrompython')}
 
