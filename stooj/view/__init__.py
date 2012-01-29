@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Fri Jan 20 10:57:18 2012 +0800
+# $Date: Sun Jan 29 22:30:16 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -16,10 +16,12 @@
 # You should have received a copy of the GNU General Public License
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
-"""define views for stooj
-globals added to template:
-    layout: global layout macro
-    _: i18n translation function
+"""
+This module define the views for stooj.
+
+The following globals will be added to Chameleon templates:
+    * *layout*: global layout macro
+    * *_*: i18n translation function
 """
 
 from pyramid.events import (subscriber, BeforeRender)

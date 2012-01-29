@@ -1,5 +1,5 @@
 # $File: _base.py
-# $Date: Sat Jan 14 18:06:23 2012 +0800
+# $Date: Sun Jan 29 23:33:12 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -17,8 +17,11 @@
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from sqlalchemy import (Column, Integer, Text)
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column
+from sqlalchemy.types import *
+from sqlalchemy.sql.expression import text
 
-Base = declarative_base()
+
+from sqlalchemy.ext.declarative import declarative_base as _base
+Base = _base()
 

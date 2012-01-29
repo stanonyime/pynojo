@@ -1,6 +1,6 @@
 # $File: min-server.py
 # $Author: Jiakai <jia.kai66@gmail.com>
-# $Date: Sun Jan 15 10:33:46 2012 +0800
+# $Date: Sun Jan 29 11:22:52 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -23,6 +23,7 @@ import stooj
 from wsgiref.simple_server import make_server
 
 if __name__ == '__main__':
+    print 'initializing...'
     app = stooj.get_app()
     server = make_server('0.0.0.0', 8080, app)
     print 'server initialized, listening on 8080'

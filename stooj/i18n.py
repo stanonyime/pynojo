@@ -1,5 +1,5 @@
 # $File: i18n.py
-# $Date: Fri Jan 20 10:48:12 2012 +0800
+# $Date: Sun Jan 29 22:59:08 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -18,12 +18,15 @@
 #
 
 class StrTranslator:
-    """i18n class for stooj"""
     def __init__(self, lang):
+        """
+        :param lang: the language
+        :type lang: str
+        """
         pass
 
     def get_translate(self, str, *args, **kargs):
-        """return the translation of ``str``, with ``args`` and ``kargs`` passed
+        """return the translation of *str*, with *args* and *kargs* passed
         to str.format"""
         # XXX: not implemented
         return str.format(*args, **kargs)
@@ -31,9 +34,12 @@ class StrTranslator:
 translators = StrTranslator('').get_translate # XXX: translator for each language
 
 def init(conf):
-    """Initialize i18n support for the pyramid configurator ``conf``.
+    """Initialize i18n support for the pyramid configurator *conf*.
     The request passed to view callables will include an attribute
-    called ``_`` used for translation"""
+    called *_* used for translation
+    
+    :param conf: the instance of *pyramid.conf.Configurator* to be configured
+    """
     
     from pyramid.request import Request
     class _Request(Request):

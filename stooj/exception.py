@@ -1,5 +1,5 @@
 # $File: exception.py
-# $Date: Sun Jan 15 00:11:08 2012 +0800
+# $Date: Sun Jan 29 22:42:19 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -16,8 +16,6 @@
 # You should have received a copy of the GNU General Public License
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
-
-"""common exception classes for stooj"""
 
 class StoojError(Exception):
     pass
