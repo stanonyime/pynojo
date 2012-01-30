@@ -14,7 +14,7 @@ def _add_global(event):
     event['_'] = translators
 
 
-from ..func import *
+from ..lib import *
 from pyramid.view import view_config
 
 class View:

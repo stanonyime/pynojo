@@ -1,2 +1,4 @@
-sphinx-apidoc -f -o source ../stooj
+rm -rf source/autogen/*
+sphinx-apidoc -o source/autogen ../stooj
+rm -f source/autogen/modules.rst
 make html

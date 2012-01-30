@@ -1,5 +1,5 @@
-# $File: func.py
-# $Date: Mon Jan 30 00:03:43 2012 +0800
+# $File: __init__.py
+# $Date: Mon Jan 30 11:00:53 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -16,8 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
+"""miscellaneous convenience classes and functions"""
 
-from exception import StoojInnerError
+from ..exception import StoojInnerError
 
 class Const(object):
     """A class implementing constants in Python.
@@ -64,9 +65,27 @@ def setup_pyramid_route(conf):
     for i in _route_list:
         conf.add_route(**i)
 
+
 def gen_random_binary(len):
     """Return a random string containing *len* bytes,
     which may include non-ASCII characters"""
     from random import randint
     return ''.join([chr(randint(1, 255)) for i in range(len)])
+
+
+def stooj_assert(val, msg = None):
+    """Raise :exc:`stooj.exception.StoojInnerError` if *val* evaluates to false.
+
+    :param msg: additional message to be added to the exception
+    :type msg: str or None
+    """
+
+    if val:
+        return False
+    from traceback import extract_stack, format_list
+    exc_msg = u"Assertion failed."
+    if msg is not None:
+        exc_msg += " Additional message: " + msg
+    raise StoojInnerError(exc_msg + '\nTraceback (most recent call last):\n' + '' . join(
+        format_list(extract_stack()[:-1])))
 

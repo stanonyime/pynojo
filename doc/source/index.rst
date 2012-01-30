@@ -9,7 +9,9 @@ Welcome to stooj's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
+
+   Development Reference <autogen/stooj>
 
 
 
@@ -17,6 +19,5 @@ Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
 

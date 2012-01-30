@@ -1,5 +1,5 @@
-# $File: _base.py
-# $Date: Mon Jan 30 14:32:22 2012 +0800
+# $File: sys.py
+# $Date: Mon Jan 30 14:29:58 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -17,13 +17,6 @@
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from sqlalchemy import Column
-from sqlalchemy.types import *
-from sqlalchemy.types import BINARY
-from sqlalchemy.schema import *
-from sqlalchemy.sql.expression import text
-from sqlalchemy.orm import relationship, backref
-
-from sqlalchemy.ext.declarative import declarative_base as _base
-Base = _base()
+def set_config(conf):
+    conf.PREFIX = '/' # prefix of the website, must end with a slash
 

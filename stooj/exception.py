@@ -1,5 +1,5 @@
 # $File: exception.py
-# $Date: Sun Jan 29 22:42:19 2012 +0800
+# $Date: Mon Jan 30 11:04:20 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -21,8 +21,12 @@ class StoojError(Exception):
     pass
 
 class StoojInnerError(StoojError):
+    """Internal errors, usually caused by uncareful development.
+    If this exception is caught, a page containing error message
+    and bug reporting information should be presented to the user."""
     pass
 
 class StoojRuntimeError(StoojError):
+    """Runtime errors, usually caused by incorrect user operations."""
     pass
 

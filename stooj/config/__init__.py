@@ -1,5 +1,5 @@
-# $File: _base.py
-# $Date: Mon Jan 30 14:32:22 2012 +0800
+# $File: __init__.py
+# $Date: Mon Jan 30 14:29:24 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -16,14 +16,14 @@
 # You should have received a copy of the GNU General Public License
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
+"""stooj static configurations. See the sources for details."""
 
-from sqlalchemy import Column
-from sqlalchemy.types import *
-from sqlalchemy.types import BINARY
-from sqlalchemy.schema import *
-from sqlalchemy.sql.expression import text
-from sqlalchemy.orm import relationship, backref
+from ..lib import Const
 
-from sqlalchemy.ext.declarative import declarative_base as _base
-Base = _base()
+config = Const()
+import sys
+sys.set_config(config)
 
+config.user = Const()
+import user
+user.set_config(config.user)

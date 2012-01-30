@@ -1,5 +1,5 @@
 # $File: index.py
-# $Date: Fri Jan 20 10:56:39 2012 +0800
+# $Date: Mon Jan 30 10:41:59 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -18,7 +18,7 @@
 #
 
 from pyramid.view import view_config
-from ..func import mkroute
+from ..lib import mkroute
 
 @view_config(route_name = mkroute(pattern = ''), renderer = 'template/index.pt')
 def _index(request):

@@ -1,5 +1,5 @@
-# $File: config.py
-# $Date: Sun Jan 29 22:31:12 2012 +0800
+# $File: user.py
+# $Date: Mon Jan 30 14:13:51 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -16,15 +16,6 @@
 # You should have received a copy of the GNU General Public License
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
-"""stooj static configurations. See the source file for details"""
 
-from func import Const
-
-config = Const()
-
-config.PREFIX = '/' # prefix of the website, must end with a slash
-
-config.user = Const()
-config.user.USERNAME_LEN_MAX = 20    # maximal length of user name
-config.user.DISPNAME_LEN_MAX = 20    # maximal length of display name
-
+def check_username(name):
+    pass

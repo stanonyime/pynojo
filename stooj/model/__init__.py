@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Sat Jan 14 20:39:00 2012 +0800
+# $Date: Mon Jan 30 23:56:57 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -17,5 +17,14 @@
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-"""database models for stooj"""
+"""Database models for stooj. See the source files for details."""
+
+def install_db(engine):
+    """Create all the tables in sqlalchemy engine *engine*."""
+    from pkgutil import walk_packages
+    for loader, module_name, is_pkg in  walk_packages(__path__):
+        __import__(module_name, globals(), locals(), [], -1)
+
+    from _base import Base
+    Base.metadata.create_all(engine)
 

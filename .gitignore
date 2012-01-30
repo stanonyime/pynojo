@@ -1,4 +1,5 @@
 *.pyc
 *.swp
 init.sh
-doc/build/
+doc/build/*
+doc/source/autogen/*
