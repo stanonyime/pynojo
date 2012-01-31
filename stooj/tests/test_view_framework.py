@@ -5,16 +5,16 @@ from pyramid.events import (subscriber, BeforeRender)
 _layout_macro = None
 @subscriber(BeforeRender)
 def _add_global(event):
-    from ..i18n import translators    # XXX
-    from pyramid.renderers import get_renderer
+    from stooj.nls import get_translator
     global _layout_macro
     if _layout_macro is None:
+        from pyramid.renderers import get_renderer
         _layout_macro = get_renderer('template/layout.pt').implementation()
     event['layout'] = _layout_macro
-    event['_'] = translators
+    event['_'] = get_translator(event['request'])
 
 
-from ..lib import *
+from stooj.lib import *
 from pyramid.view import view_config
 
 class View:
@@ -29,12 +29,18 @@ class ViewUnitTests(unittest.TestCase):
 
     def setUp(self):
         from webtest import TestApp
+        from pyramid.request import Request as OrigRequest
         from pyramid.config import Configurator
-        from ..i18n import init
-        config = Configurator()
-        setup_pyramid_route(config)
+        from stooj.lib import setup_pyramid_route
+        from stooj import nls
+
+        class Request(OrigRequest):
+            pass
+
+        nls.init(Request)
+        config = Configurator(request_factory = Request)
         config.scan()
-        init(config)
+        setup_pyramid_route(config)
         self.app = TestApp(config.make_wsgi_app())
 
     def check_occur(self, path, val):

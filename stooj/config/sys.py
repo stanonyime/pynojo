@@ -1,5 +1,5 @@
 # $File: sys.py
-# $Date: Mon Jan 30 14:29:58 2012 +0800
+# $Date: Tue Jan 31 23:20:36 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -16,7 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
+"""system configurations"""
 
-def set_config(conf):
-    conf.PREFIX = '/' # prefix of the website, must end with a slash
+def _set_config(conf):
+    # prefix of the website, must end with a slash
+    conf.PREFIX = '/'
 

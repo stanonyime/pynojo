@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Mon Jan 30 11:00:53 2012 +0800
+# $Date: Tue Jan 31 23:37:59 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -18,7 +18,7 @@
 #
 """miscellaneous convenience classes and functions"""
 
-from ..exception import StoojInnerError
+from stooj.exception import StoojInnerError
 
 class Const(object):
     """A class implementing constants in Python.
@@ -32,7 +32,8 @@ class Const(object):
     def __setattr__(self, name, value):
         try:
             object.__getattribute__(self, name)
-            raise self.ConstError('can not rebind const {name}' . format(name = name))
+            raise self.ConstError('can not rebind const {name}' .
+                    format(name = name))
         except AttributeError:
             object.__setattr__(self, name, value)
 
@@ -66,11 +67,12 @@ def setup_pyramid_route(conf):
         conf.add_route(**i)
 
 
-def gen_random_binary(len):
+def gen_random_binary(length):
     """Return a random string containing *len* bytes,
     which may include non-ASCII characters"""
+    # pylint: disable=W0612
     from random import randint
-    return ''.join([chr(randint(1, 255)) for i in range(len)])
+    return ''.join([chr(randint(1, 255)) for i in range(length)])
 
 
 def stooj_assert(val, msg = None):
@@ -86,6 +88,6 @@ def stooj_assert(val, msg = None):
     exc_msg = u"Assertion failed."
     if msg is not None:
         exc_msg += " Additional message: " + msg
-    raise StoojInnerError(exc_msg + '\nTraceback (most recent call last):\n' + '' . join(
-        format_list(extract_stack()[:-1])))
+    raise StoojInnerError(exc_msg + '\nTraceback (most recent call last):\n' +\
+            '' . join(format_list(extract_stack()[:-1])))
 

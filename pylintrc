@@ -1,0 +1,27 @@
+[MASTER]
+ignore=tests
+
+[MESSAGES CONTROL]
+disable=I0011,W0105,W0142,W0232,W0401,W0602,W0603,W0611,W0614,R0903,R0904,E0611
+
+# I0011: Locally disabling %s
+# W0105: String statement has no effect
+# W0142: Used * or ** magic
+# W0232: Class has no __init__ method
+# W0401: *Wildcard import %s*
+# W0602: Using global for %r but no assignment is done
+# W0603: Using the global statement
+# W0611: Unused import %s
+# W0614: Unused import %s from wildcard import
+# R0903: Too few public methods (%s/%s)
+# R0904: Too many public methods (%s/%s)
+# E0611: No name %r in module %r
+
+
+
+
+[BASIC]
+const-rgx=(([A-Z_][A-Z0-9_]*)|(_.*))$
+no-docstring-rgx=_.*
+
+# vim: ft=dosini

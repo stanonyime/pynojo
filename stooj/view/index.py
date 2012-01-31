@@ -1,5 +1,5 @@
 # $File: index.py
-# $Date: Mon Jan 30 10:41:59 2012 +0800
+# $Date: Tue Jan 31 23:38:17 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -16,9 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
+"""index page"""
 
 from pyramid.view import view_config
-from ..lib import mkroute
+from stooj.lib import mkroute
 
 @view_config(route_name = mkroute(pattern = ''), renderer = 'template/index.pt')
 def _index(request):

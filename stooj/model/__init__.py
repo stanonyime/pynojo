@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Mon Jan 30 23:56:57 2012 +0800
+# $Date: Wed Feb 01 00:14:23 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -21,10 +21,11 @@
 
 def install_db(engine):
     """Create all the tables in sqlalchemy engine *engine*."""
+    # pylint: disable=W0612
     from pkgutil import walk_packages
     for loader, module_name, is_pkg in  walk_packages(__path__):
         __import__(module_name, globals(), locals(), [], -1)
 
-    from _base import Base
+    from stooj.model._base import Base
     Base.metadata.create_all(engine)
 

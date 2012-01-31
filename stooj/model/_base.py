@@ -1,5 +1,5 @@
 # $File: _base.py
-# $Date: Mon Jan 30 14:32:22 2012 +0800
+# $Date: Wed Feb 01 00:16:00 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -16,6 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
+"""Provide base class for SQLAlchemy ORM and import some commonly used
+SQLAlchemy functions."""
+
+# pylint: disable=C0103
 
 from sqlalchemy import Column
 from sqlalchemy.types import *

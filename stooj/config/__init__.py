@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Mon Jan 30 14:29:24 2012 +0800
+# $Date: Wed Feb 01 00:19:19 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -18,12 +18,14 @@
 #
 """stooj static configurations. See the sources for details."""
 
-from ..lib import Const
+# pylint: disable=C0103,W0212
+
+from stooj.lib import Const
 
 config = Const()
-import sys
-sys.set_config(config)
+from stooj.config import sys
+sys._set_config(config)
 
 config.user = Const()
-import user
-user.set_config(config.user)
+from stooj.config import user
+user._set_config(config.user)

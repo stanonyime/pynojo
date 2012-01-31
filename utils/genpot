@@ -1,0 +1,11 @@
+# $File: genpot
+# $Date: Tue Jan 31 14:10:32 2012 +0800
+# $Author: jiakai <jia.kai66@gmail.com>
+
+find ../stooj -name "*.pt" | python xgettext-pt.py > ptmsg.py
+
+(cd ..; find . -name "*.py" | xgettext -f - --from-code=UTF-8 --keyword=_ -o -) > stooj/i18n/stooj.pot
+
+rm -f ptmsg.py
+
+# vim: ft=sh

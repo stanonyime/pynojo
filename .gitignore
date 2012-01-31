@@ -3,3 +3,5 @@
 init.sh
 doc/build/*
 doc/source/autogen/*
+*.pot
+*.mo

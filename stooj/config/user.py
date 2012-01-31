@@ -1,5 +1,5 @@
 # $File: user.py
-# $Date: Mon Jan 30 14:17:47 2012 +0800
+# $Date: Tue Jan 31 23:20:44 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -16,9 +16,15 @@
 # You should have received a copy of the GNU General Public License
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
+"""user configurations"""
 
-def set_config(conf):
-    conf.USERNAME_LEN_MAX = 20		# maximal length of user name
-    conf.DISPNAME_LEN_MAX = 20		# maximal length of display name
-    conf.GRPNAME_LEN_MAX = 20		# maximal length of user group name
+def _set_config(conf):
+    # maximal length of username
+    conf.USERNAME_LEN_MAX = 20
+
+    # maximal length of display name
+    conf.DISPNAME_LEN_MAX = 20
+
+    # maximal length of user group name
+    conf.GRPNAME_LEN_MAX = 20
 
