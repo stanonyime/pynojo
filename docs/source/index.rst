@@ -1,5 +1,6 @@
-.. $File: index.rst
-   $Date: Tue Jan 31 14:16:34 2012 +0800
+..  stooj docs
+    $File: index.rst
+    $Date: Wed Feb 01 10:46:09 2012 +0800
 
 Welcome to stooj's documentation!
 =================================

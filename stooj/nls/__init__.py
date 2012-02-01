@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Wed Feb 01 00:22:41 2012 +0800
+# $Date: Wed Feb 01 11:15:02 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -27,7 +27,7 @@ class StrTranslator:
         """
         pass
 
-    def get_translate(self, string, *args, **kargs):
+    def get_translation(self, string, *args, **kargs):
         """Return the translation of *string*, with *args* and *kargs* passed
         to *str.format*."""
         # XXX: not implemented
@@ -37,9 +37,9 @@ class StrTranslator:
 def get_translator(request): # XXX
     """Return a translation function according to the
     language implied by pyramid request *request*.
-    See :func:`StrTranslator.get_translate` for usage of
+    See :meth:`StrTranslator.get_translation` for usage of
     the returned function."""
-    return StrTranslator('x').get_translate
+    return StrTranslator('x').get_translation
 
 def init(request_factory):
     """Initialize NLS. *request_factory* is 
@@ -48,12 +48,12 @@ def init(request_factory):
     can be used for translation.
     """
 
-    def _tr(self):
+    def _tr(self, *args, **kargs):
         # pylint: disable=W0212
         if self._translator_cache is None:
             self._translator_cache = get_translator(self)
-        return self._translator_cache
+        return self._translator_cache(*args, **kargs)
 
     request_factory._translator_cache = None
-    request_factory._ = property(_tr)
+    request_factory._ = _tr
 

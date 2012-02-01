@@ -1,5 +1,5 @@
 # $File: sys.py
-# $Date: Tue Jan 31 23:20:36 2012 +0800
+# $Date: Wed Feb 01 00:32:46 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -19,6 +19,6 @@
 """system configurations"""
 
 def _set_config(conf):
-    # prefix of the website, must end with a slash
+    # prefix of all the URLs, which must end with a slash
     conf.PREFIX = '/'
 

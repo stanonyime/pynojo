@@ -1,7 +1,7 @@
 *.pyc
 *.swp
 init.sh
-doc/build/*
-doc/source/autogen/*
+docs/build/*
+docs/source/autogen/*
 *.pot
 *.mo

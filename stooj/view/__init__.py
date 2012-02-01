@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Tue Jan 31 23:59:25 2012 +0800
+# $Date: Wed Feb 01 10:54:33 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -25,7 +25,6 @@ The following globals will be added to Chameleon templates:
 """
 
 from pyramid.events import subscriber, BeforeRender
-from stooj.nls import get_translator
 
 _layout_macro = None
 @subscriber(BeforeRender)
@@ -35,5 +34,5 @@ def _add_global(event):
         from pyramid.renderers import get_renderer
         _layout_macro = get_renderer('template/layout.pt').implementation()
     event['layout'] = _layout_macro
-    event['_'] = get_translator(event['request'])
+    event['_'] = event['request']._
 
