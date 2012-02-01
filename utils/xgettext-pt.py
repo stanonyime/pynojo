@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # $File: xgettext-pt.py
-# $Date: Tue Jan 31 13:16:34 2012 +0800
+# $Date: Thu Feb 02 00:30:51 2012 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
 KEY = '_'
+KEY_PL = '_pl'
 
 from chameleon.zpt.template import PageTemplateFile
 from chameleon.tales import PythonExpr
@@ -12,12 +13,18 @@ import ast
 def extract_msg(source):
     for node in ast.walk(ast.parse(source)):
         if isinstance(node, ast.Call) and \
-                isinstance(node.func, ast.Name) and \
-                node.func.id == KEY:
-            arg = node.args[0]
-            assert isinstance(arg, ast.Str)
-            arg = arg.s
-            print "{0}({1!r})" . format(KEY, arg)
+                isinstance(node.func, ast.Name):
+            if node.func.id == KEY:
+                arg = node.args[0]
+                assert isinstance(arg, ast.Str)
+                arg = arg.s
+                print "{0}({1!r})" . format(KEY, arg)
+            elif node.func.id == KEY_PL:
+                args = node.args[:2]
+                for i in args:
+                    assert isinstance(i, ast.Str)
+                print "{0}({1!r}, {2!r})" . format(KEY_PL,
+                        args[0].s, args[1].s)
 
 class XgettextPythonExpr(PythonExpr):
     def parse(self, string):

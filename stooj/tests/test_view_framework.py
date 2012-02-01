@@ -5,13 +5,13 @@ from pyramid.events import (subscriber, BeforeRender)
 _layout_macro = None
 @subscriber(BeforeRender)
 def _add_global(event):
-    from stooj.nls import get_translator
     global _layout_macro
     if _layout_macro is None:
         from pyramid.renderers import get_renderer
         _layout_macro = get_renderer('template/layout.pt').implementation()
     event['layout'] = _layout_macro
-    event['_'] = get_translator(event['request'])
+    event['_'] = event['request']._
+    event['_pl'] = event['request']._pl
 
 
 from stooj.lib import *
@@ -50,5 +50,6 @@ class ViewUnitTests(unittest.TestCase):
 
     def test_it(self):
         self.check_occur('/index', ['msgfrom' + i for i in (
-            'layout0', 'layout1', 'template', 'python')])
+            'layout0', 'layout1', 'template', 'python')] + ['singular',
+                'plural'])
 

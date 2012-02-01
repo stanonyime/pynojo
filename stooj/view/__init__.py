@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Wed Feb 01 10:54:33 2012 +0800
+# $Date: Thu Feb 02 00:43:29 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -17,11 +17,15 @@
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
 """
-This module define the views for stooj.
+This module define the views for stooj. When initializing the application,
+:meth:`pyramid.config.Configurator.scan` should be called on this module.
 
 The following globals will be added to Chameleon templates:
     * *layout*: global layout macro
-    * *_*: translation function for l10n
+    * *_*: normal translation function (see
+      :meth:`stooj.nls.Translator.get_translation`)
+    * *_pl*: plural translation function (see
+      :meth:`stooj.nls.Translator.get_plural_translation`)
 """
 
 from pyramid.events import subscriber, BeforeRender
@@ -29,10 +33,13 @@ from pyramid.events import subscriber, BeforeRender
 _layout_macro = None
 @subscriber(BeforeRender)
 def _add_global(event):
+    # pylint: disable=W0212
     global _layout_macro
     if _layout_macro is None:
         from pyramid.renderers import get_renderer
-        _layout_macro = get_renderer('template/layout.pt').implementation()
+        _layout_macro = get_renderer('stooj.view:template/layout.pt') . \
+                implementation()
     event['layout'] = _layout_macro
     event['_'] = event['request']._
+    event['_pl'] = event['request']._pl
 

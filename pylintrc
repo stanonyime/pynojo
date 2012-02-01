@@ -23,5 +23,9 @@ disable=I0011,W0105,W0142,W0232,W0401,W0602,W0603,W0611,W0614,R0903,R0904,E0611
 [BASIC]
 const-rgx=(([A-Z_][A-Z0-9_]*)|(_.*))$
 no-docstring-rgx=_.*
+argument-rgx=[a-z_][a-z0-9_]{,30}$
+attr-rgx=[a-z_][a-z0-9_]{,30}$
+variable-rgx=[a-z_][a-z0-9_]{,30}$
+good-names=i,j,k,_,_pl
 
 # vim: ft=dosini
