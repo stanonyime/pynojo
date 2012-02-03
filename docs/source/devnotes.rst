@@ -1,33 +1,67 @@
 ..  stooj docs
     $File: devnotes.rst
-    $Date: Thu Feb 02 00:24:12 2012 +0800
+    $Date: Fri Feb 03 14:41:22 2012 +0800
 
 Notes for Developers
 ====================
 
+.. sectionauthor:: Kai Jia <jia.kai66@gmail.com>
+
 .. contents::
 
 
-Preparations
-------------
+Getting Started
+---------------
 
-Install `virtualenv <http://pypi.python.org/pypi/virtualenv>`_,
-and setup a virtualenv directory.  Then write your own init.sh
-to initialize virtualenv environment. Note that init.sh has
-already been added to *.gitignore*.
-One possible version of init.sh:
 
-.. code-block:: sh
+Environment Setup
+^^^^^^^^^^^^^^^^^
 
-    export PYTHONDONTWRITEBYTECODE=1
-    export PATH=~/programming/python2-virtualenv/bin:$PATH
+#.  Install SQLite3 and its development packages if you don't already
+    have them installed.  Usually this is via your system's package
+    manager.  For example, on a Debian Linux system, do ``sudo apt-get
+    install libsqlite3-dev``.
 
-And install the following packages required by stooj
-(recommend using pip or easy_install):
+#.  Install virtualenv:
 
-    * pyramid
-    * SQLAlchemy
-    * WebTest
+    .. code-block:: sh
+
+        $ sudo pip install virtualenv
+
+#.  Setup a workplace using virtualenv. Note that you may need to sepcify **-p
+    python2** option to tell virtualenv to use Python 2. Replace
+    <path-to-your-workplace> with something you like:
+
+    .. code-block:: sh
+        
+        $ virtualenv <path-to-your-workplace>
+
+#.  Write your own init.sh (note that it has already been added to
+    *.gitignore*):
+
+    .. code-block:: sh
+
+        $ cd <path-to-stooj-source-root>
+        $ echo "export PATH=<path-to-your-workplace>/bin:$PATH" > init.sh
+        $ . ./init.sh
+
+#.  Use pip to get the dependencies installed:
+
+    .. code-block:: sh
+
+        $ pip install pyramid sqlalchemy webtest sphinx
+
+
+.. _devnotes-sysconf:
+
+Configuration
+^^^^^^^^^^^^^
+
+TODO
+
+
+Document Generation
+^^^^^^^^^^^^^^^^^^^
 
 These documents are generated from
 `reStructuredText <http://docutils.sf.net/rst.html>`_
@@ -36,9 +70,8 @@ Issue the following command to generate all the documents:
 
 .. code-block:: sh
 
-    cd docs
-    ./gendoc
-
+    $ cd <path-to-stooj-source-root>/docs
+    $ ./gendoc
 
 
 Miscellaneous Specifications and Instructions
@@ -73,21 +106,28 @@ your vimrc:
     autocmd filetype python set expandtab
     autocmd filetype python set textwidth=79
 
+And please keep in mind that all the code should be **thread-safe**, so be
+careful when modifying global variables.
+
+
 
 .. _devnotes-nls:
 
 Native Language Support (NLS)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-All the human-readable messages in stooj source code should be written in
-English. 
+All the human-readable messages in stooj python source code and templates should
+be written in English. There should NOT be any non-ASCII characters in the
+source, except in nls/config.py, where TRANS_LIST describes the available
+translations.
 
 stooj dose not use the NLS mechanism provided by Pyramid and Chameleon.
 Instead, stooj has its own :mod:`stooj.nls` package, which is based on
 `GNU gettext <http://www.gnu.org/software/gettext/>`_.  To generate the pot
 file, cd to *utils* and execute *./genpot*.  The pot file will be written
 to stooj/nls/stooj.pot. The locale directory is stooj/nls/locale. To update the
-po files, cd to *utils* and execute *./update-po*.
+po files or regenerate the mo files, cd to *utils* and execute *./update-po* or
+*./genmo* respectively.
 
 To localize:
 
@@ -100,7 +140,13 @@ To localize:
     * See :func:`stooj.nls.init` and :mod:`stooj.view` for some further
       explanations.
     
-Here are two examples about how to use the translator:
+To add a new translation, use *msginit* to generate the po file from the pot
+file. Move the output po file to stooj/nls/locale/*<lang>*/LC_MESSAGES/stooj.po
+and **append** corresponding :class:`stooj.nls.config.TransInfo` instance to
+*TRANS_LIST* defined in stooj/nls/config.py. DO NOT change the order of the
+translations already listed there.
+
+Here are two examples:
 
 In a pyramid view callable::
 
@@ -122,9 +168,11 @@ In a page template:
     </div>
 
 
-To add a new translation, **append** it to *_trans_list* defined in
-stooj/nls/__init__.py. DO NOT touch any other translations already defined
-there.
+Locale Detection Details:
+
+    * If the user does not login, detect the locale via Accept-Language field in
+      the HTTP request header.
+    * TODO
 
 Tests
 ^^^^^

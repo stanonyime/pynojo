@@ -1,5 +1,5 @@
 # $File: user.py
-# $Date: Tue Jan 31 23:20:44 2012 +0800
+# $Date: Fri Feb 03 10:58:00 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -16,15 +16,20 @@
 # You should have received a copy of the GNU General Public License
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
-"""user configurations"""
 
-def _set_config(conf):
-    # maximal length of username
-    conf.USERNAME_LEN_MAX = 20
+# pylint: disable=C0111
 
-    # maximal length of display name
-    conf.DISPNAME_LEN_MAX = 20
+from stooj.config._base import ConfigBase
 
-    # maximal length of user group name
-    conf.GRPNAME_LEN_MAX = 20
+class UserConfig(ConfigBase):
+    """configuration for user maintenance"""
+
+    USERNAME_LEN_MAX = 20
+    """maximal length of username"""
+
+    DISPNAME_LEN_MAX = 20
+    """maximal length of display name"""
+
+    GRPNAME_LEN_MAX = 20
+    """maximal length of user group name"""
 

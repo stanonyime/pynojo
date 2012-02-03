@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 # $File: xgettext-pt.py
-# $Date: Thu Feb 02 00:30:51 2012 +0800
+# $Date: Fri Feb 03 13:41:50 2012 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
 KEY = '_'
@@ -37,7 +36,9 @@ PageTemplateFile.expression_types['python'] = XgettextPythonExpr
 if __name__ == '__main__':
     try:
         while True:
-            template = PageTemplateFile(raw_input())
+            fname = raw_input()
+            print '#', fname
+            template = PageTemplateFile(fname)
             template.cook_check()
     except EOFError:
         pass

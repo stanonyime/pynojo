@@ -1,0 +1,33 @@
+# Chinese translations for stooj package
+# stooj 软件包的简体中文翻译.
+# Copyright (C) 2012 stooj development team
+# This file is distributed under the same license as the stooj package.
+#  <jia.kai66@gmail.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: stooj\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-03 13:31+0800\n"
+"PO-Revision-Date: 2012-02-03 13:31+0800\n"
+"Last-Translator:  <jia.kai66@gmail.com>\n"
+"Language-Team: Chinese (simplified)\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: utils/ptmsg.py:1 utils/ptmsg.py:5
+msgid "msgfromlayout1"
+msgstr "来自模板1的消息"
+
+#: utils/ptmsg.py:2 utils/ptmsg.py:6
+msgid "{0}from{t}"
+msgstr "{0}来自{t}"
+
+#: utils/ptmsg.py:3 utils/ptmsg.py:4 utils/ptmsg.py:7 utils/ptmsg.py:8
+msgid "singular"
+msgid_plural "plural"
+msgstr[0] "哈哈，汉语不考虑名词的数！！！"
+

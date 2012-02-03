@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Thu Feb 02 00:35:39 2012 +0800
+# $Date: Fri Feb 03 14:43:18 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -19,37 +19,8 @@
 """Nativ Language Support for stooj. See also :ref:`devnotes-nls`."""
 
 from stooj.exception import StoojInnerError
+from stooj.nls.config import TRANS_LIST
 
-class TransInfo:
-    """class that provides information about a translation"""
-
-    name = None
-    """Name of the translation, displayed on the web page."""
-
-    locale_dir = None
-    """Locale directory. The .mo file should be stored in
-    locale_dir/LC_MESSAGES/stooj.mo"""
-
-    def __init__(self, name, locale_dir):
-        self.name = name
-        self.locale_dir = locale_dir
-
-
-# add translations here
-_trans_list = []
-
-
-
-
-
-def get_translation_list():
-    """Return a list of :class:`TransInfo` instances, indicating the installed
-    translations. The indices can be used as translation identifiers. The
-    returned list should not be modified."""
-    return _trans_list
-
-
-_tr_cache = dict()
 
 class Translator:
     """the class which actually implements the translation of message
@@ -65,27 +36,18 @@ class Translator:
                      :exc:`stooj.exception.StoojInnerError` would be raised.
         :type lang: str or None
         """
-        global _tr_cache
-        try:
-            self._tr = _tr_cache[lang]
-            return
-        except KeyError:
-            pass
         import gettext
         if lang is None:
             self._tr = gettext.NullTranslations()
-            return
-
-        from os.path import dirname, join
-        locale_dir = join(dirname(__file__), 'locale')
-        try:
-            self._tr = gettext.translation('stooj', locale_dir, [lang])
-        except IOError:
-            raise StoojInnerError(
-                    'attempt to load unimplmented translation: {0}' .
-                    format(lang))
-
-        _tr_cache[lang] = self._tr
+        else:
+            from os.path import dirname, join
+            locale_dir = join(dirname(__file__), 'locale')
+            try:
+                self._tr = gettext.translation('stooj', locale_dir, [lang])
+            except IOError:
+                raise StoojInnerError(
+                        'attempt to load unimplmented translation: {0}' .
+                        format(lang))
 
     def get_translation(self, msgid, *args, **kargs):
         """Return a Unicode string translation of message identifier *msgid*,
@@ -102,15 +64,36 @@ class Translator:
 
 
 def get_translator(request):
-    """Return an instance of :class:`Translator` according to the language
+    """Return an instance of :class:`Translator` according to the locale
     implied by pyramid request *request*."""
     # pylint: disable=W0212
     if request._stooj_translator_cache is None:
         request._stooj_translator_cache = _get_translator(request)
     return request._stooj_translator_cache
 
+
+
+_trans_list_tag2translator = dict()
+_trans_list_offers = list()
+_trans_list_default_translator = Translator(None)
+def _init_trans_list_vars():
+    global _trans_list_tag2translator, _trans_list_offers
+    for i in TRANS_LIST:
+        tr = Translator(i.locale_dir)
+        _trans_list_offers.extend(i.lang_tag)
+        for j in i.lang_tag:
+            _trans_list_tag2translator[j] = tr
+
+
+# initialize here, rather than on the first access in _get_translator, to avoid
+# dealing with thread safety stuff
+_init_trans_list_vars()
+
 def _get_translator(req):
-    return Translator(None) # XXX
+    tag = req.accept_language.best_match(_trans_list_offers)
+    if tag is None:
+        return _trans_list_default_translator
+    return _trans_list_tag2translator[tag]
 
 
 def init(request_factory):

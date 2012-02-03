@@ -1,5 +1,5 @@
-# $File: sys.py
-# $Date: Wed Feb 01 00:32:46 2012 +0800
+# $File: all.py
+# $Date: Fri Feb 03 14:17:01 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -16,9 +16,24 @@
 # You should have received a copy of the GNU General Public License
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
-"""system configurations"""
 
-def _set_config(conf):
-    # prefix of all the URLs, which must end with a slash
-    conf.PREFIX = '/'
+# pylint: disable=C0111
+
+from stooj.config._base import ConfigBase
+from stooj.config import user, pkg
+
+class AllConfig(ConfigBase):
+    """configuration of stooj"""
+
+    DOMAIN = 'www.example.com'
+    """domain of this website"""
+
+    PREFIX = '/'
+    """prefix of stooj in the domain, which must begin and end with a slash"""
+
+    user = user.UserConfig()
+    """user configuration. See :class:`stooj.config.user.UserConfig`."""
+
+    pkg = pkg.PkgInfo()
+    """package information. See :class:`stooj.config.pkg.PkgInfo`."""
 

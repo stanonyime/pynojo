@@ -1,5 +1,12 @@
 # $File: update-po
-# $Date: Wed Feb 01 14:34:04 2012 +0800
+# $Date: Fri Feb 03 14:31:56 2012 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
+
+./genpot
+for i in stooj/nls/locale/*/LC_MESSAGES/stooj.po
+do
+	echo "Updating $i ..."
+	msgmerge -Uv "$i" stooj/nls/stooj.pot
+done
 
 # vim: ft=sh

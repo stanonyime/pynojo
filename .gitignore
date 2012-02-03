@@ -1,7 +1,8 @@
 *.pyc
 *.swp
+*.pot
+*.mo
 init.sh
 docs/build/*
 docs/source/autogen/*
-*.pot
-*.mo
+utils/ptmsg.py

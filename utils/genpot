@@ -1,12 +1,19 @@
 # $File: genpot
-# $Date: Thu Feb 02 00:39:56 2012 +0800
+# $Date: Fri Feb 03 14:30:43 2012 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
+. ../init.sh
+
+echo -n "Generating pot file ..."
 find ../stooj -name "*.pt" | python xgettext-pt.py > ptmsg.py
 
-(cd ..; find . -name "*.py" | \
-	xgettext -f - --from-code=UTF-8 --keyword=_  --keyword=_pl:1,2 -o -) > stooj/nls/stooj.pot
+eval $(grep 'RELEASE =' stooj/config/pkg.py | sed -e 's/ //g')
 
-rm -f ptmsg.py
+(cd ..; find . -name "*.py" | \
+	xgettext --copyright-holder 'stooj development team' --package-name stooj \
+	--package-version "$RELEASE" --from-code=UTF-8 --keyword=_  \
+	--keyword=_pl:1,2 -f - -o -) > stooj/nls/stooj.pot
+
+echo ' done'
 
 # vim: ft=sh

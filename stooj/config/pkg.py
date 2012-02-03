@@ -1,5 +1,5 @@
-# $File: __init__.py
-# $Date: Thu Feb 02 22:10:06 2012 +0800
+# $File: pkg.py
+# $Date: Fri Feb 03 14:17:53 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -17,22 +17,18 @@
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-"""stooj package. Use stooj.get_app() to get the WSGI application."""
+# pylint: disable=C0111
+from stooj.config._base import ConfigBase
 
-def get_app():
-    """get the WSGI application for stooj"""
-    from pyramid.request import Request as OrigRequest
-    from pyramid.config import Configurator
-    from stooj.view import setup_pyramid_route
-    from stooj import nls
+class PkgInfo(ConfigBase):
+    """package information"""
 
-    class _Request(OrigRequest):
-        charset = 'utf-8'
+    NAME = 'stooj'
 
-    nls.init(_Request)
-    config = Configurator(request_factory = _Request)
-    config.scan('stooj.view')
-    setup_pyramid_route(config)
-    
-    return config.make_wsgi_app()
+    COPYRIGHT = '2012, stooj development team'
 
+    VERSION = '0.1'
+    """the short X.Y version"""
+
+    RELEASE = '0.1-alpha'
+    """the full version, including alpha/beta/rc tags"""

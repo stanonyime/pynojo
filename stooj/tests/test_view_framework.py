@@ -14,8 +14,9 @@ def _add_global(event):
     event['_pl'] = event['request']._pl
 
 
-from stooj.lib import *
 from pyramid.view import view_config
+from stooj.lib import *
+from stooj.view import mkroute
 
 class View:
     @view_config(route_name = mkroute(pattern = '/index'), renderer = 'template/index.pt')
@@ -31,7 +32,7 @@ class ViewUnitTests(unittest.TestCase):
         from webtest import TestApp
         from pyramid.request import Request as OrigRequest
         from pyramid.config import Configurator
-        from stooj.lib import setup_pyramid_route
+        from stooj.view import setup_pyramid_route
         from stooj import nls
 
         class Request(OrigRequest):

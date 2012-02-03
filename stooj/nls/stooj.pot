@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) YEAR stooj development team
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: stooj 0.1-alpha\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-02 00:39+0800\n"
+"POT-Creation-Date: 2012-02-03 14:31+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,20 +18,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: utils/ptmsg.py:1 utils/ptmsg.py:5
+#: utils/ptmsg.py:2 utils/ptmsg.py:8
 msgid "msgfromlayout1"
 msgstr ""
 
-#: utils/ptmsg.py:2 utils/ptmsg.py:6
+#: utils/ptmsg.py:4 utils/ptmsg.py:10
 msgid "{0}from{t}"
 msgstr ""
 
-#: utils/ptmsg.py:3 utils/ptmsg.py:4 utils/ptmsg.py:7 utils/ptmsg.py:8
+#: utils/ptmsg.py:5 utils/ptmsg.py:6 utils/ptmsg.py:11 utils/ptmsg.py:12
 msgid "singular"
 msgid_plural "plural"
 msgstr[0] ""
 msgstr[1] ""
 
-#: stooj/view/index.py:26 stooj/tests/test_view_framework.py:23
+#: stooj/view/index.py:26 stooj/tests/test_view_framework.py:24
 msgid "msgfrompython"
 msgstr ""
