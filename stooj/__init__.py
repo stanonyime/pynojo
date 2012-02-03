@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Thu Feb 02 22:10:06 2012 +0800
+# $Date: Fri Feb 03 23:54:01 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -19,20 +19,48 @@
 
 """stooj package. Use stooj.get_app() to get the WSGI application."""
 
+from pyramid.request import Request as OrigRequest
+from stooj.config import config as config
+
+class Request(OrigRequest):
+    # pylint: disable=C0301
+    """request factory class for stooj. This class also includes two methods
+    *_* and *_pl*, see :ref:`devnotes-nls` for details."""
+
+    charset = 'utf-8'
+    """see http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/webob.html#unicode ."""
+
+    def set_cookie(self, key, value, max_age = None, **kargs):
+        """A convenient function for setting cookies, with *path*, *domain* and
+        other options set properly (see the source for details).
+        
+        :param kargs: other arguments passed to
+                      :meth:`pyramid.response.Response.set_cookie` to overwrite
+                      the stooj defaults."""
+        self.response.set_cookie(key, value, max_age,
+            kargs.get('path', config.PREFIX),
+            kargs.get('domain', config.DOMAIN),
+            kargs.get('secure', config.USE_HTTPS),
+            kargs.get('httponly', False),
+            kargs.get('comment', None),
+            kargs.get('expires', None),
+            kargs.get('overwrite', True))
+
+    def del_cookie(self, key):
+        """Delete a cookie from the client."""
+        from stooj.lib import time
+        self.set_cookie(key, '', 0, expires = time() - 3600)
+
 def get_app():
     """get the WSGI application for stooj"""
-    from pyramid.request import Request as OrigRequest
     from pyramid.config import Configurator
     from stooj.view import setup_pyramid_route
     from stooj import nls
 
-    class _Request(OrigRequest):
-        charset = 'utf-8'
-
-    nls.init(_Request)
-    config = Configurator(request_factory = _Request)
-    config.scan('stooj.view')
-    setup_pyramid_route(config)
+    nls.init(Request)
+    conf = Configurator(request_factory = Request)
+    conf.scan('stooj.view')
+    setup_pyramid_route(conf)
     
-    return config.make_wsgi_app()
+    return conf.make_wsgi_app()
 

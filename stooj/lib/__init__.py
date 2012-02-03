@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Fri Feb 03 10:15:51 2012 +0800
+# $Date: Fri Feb 03 23:04:43 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -42,4 +42,11 @@ def stooj_assert(val, msg = None):
         exc_msg += " Additional message: " + msg
     raise StoojInnerError(exc_msg + '\nTraceback (most recent call last):\n' +\
             '' . join(format_list(extract_stack()[:-1])))
+
+
+def time():
+    """Return the time as an integer number expressed in seconds since the
+    epoch, in UTC"""
+    from time import time as t
+    return int(t())
 

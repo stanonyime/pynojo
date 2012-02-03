@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Thu Feb 02 22:31:06 2012 +0800
+# $Date: Fri Feb 03 22:33:08 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -30,7 +30,7 @@ The following globals will be added to Chameleon templates:
 
 from os.path import dirname as _dirname, join as _join
 
-from pyramid.events import subscriber, BeforeRender, NewResponse
+from pyramid.events import subscriber, BeforeRender
 from chameleon import PageTemplateFile as _PtFile
 
 _layout_macro = _PtFile(_join(_dirname(__file__), 'template', 'layout.pt'))
@@ -42,23 +42,26 @@ def _add_global(event):
     event['_pl'] = event['request']._pl
 
 
-@subscriber(NewResponse)
-def _chg_charset(event):
-    event.response.charset = 'utf-8'
 
 _route_list = list()    # list(kargs:dict)
 _route_cnt = 0
 
 def mkroute(**kargs):
-    """Return a route name that can be passed to *pyramid.config.add_view*.
-    :func:`setup_pyramid_route` should be called to add these routes to a config
+    """Return a route name that can be passed to
+    :meth:`pyramid.config.add_view`. :func:`setup_pyramid_route` should be
+    called to add these routes to a config.
     
-    :param kargs: keyword arguments to be passed to *pyramid.config.add_route*.
-        Note that it might be modified.  """
-    global _route_list, _route_cnt
-    name = 'mkrt-' + str(_route_cnt)
-    _route_cnt += 1
-    kargs['name'] = name
+    :param kargs: keyword arguments to be passed to
+                  :meth:`pyramid.config.add_route`.  Note that it might be
+                  modified.  If *name* not in *kargs*, a unique name will be
+                  assigned."""
+    try:
+        name = kargs['name']
+    except KeyError:
+        global _route_list, _route_cnt
+        name = 'mkrt-' + str(_route_cnt)
+        _route_cnt += 1
+        kargs['name'] = name
     _route_list.append(kargs)
     return name
 
@@ -66,7 +69,7 @@ def mkroute(**kargs):
 def setup_pyramid_route(conf):
     """Setup pyramid routes used by :func:`mkroute`
     
-    :param conf: the instance of *pyramid.conf.Configurator* to be configured
+    :param conf: the instance of :class:`pyramid.conf.Configurator` to be configured
     """
 
     global _route_list

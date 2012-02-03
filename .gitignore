@@ -6,3 +6,4 @@ init.sh
 docs/build/*
 docs/source/autogen/*
 utils/ptmsg.py
+stooj/config/overwrite.py

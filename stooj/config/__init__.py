@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Fri Feb 03 11:10:00 2012 +0800
+# $Date: Fri Feb 03 23:31:03 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
+
+# pylint: disable=C0103
 """This package provides stooj static configurations. To access the config,
 import *config* from *stooj.config*. See also :ref:`devnotes-sysconf`."""
 
@@ -23,6 +25,13 @@ from stooj.config._base import set_init_finished
 from stooj.config.all import AllConfig
 
 config = AllConfig()
+
+try:
+    from stooj.config.overwrite import overwrite
+except ImportError:
+    pass
+else:
+    overwrite(config)
 
 set_init_finished()
 

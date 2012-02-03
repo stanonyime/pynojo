@@ -1,5 +1,5 @@
 # $File: all.py
-# $Date: Fri Feb 03 14:17:01 2012 +0800
+# $Date: Fri Feb 03 23:20:51 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -30,6 +30,10 @@ class AllConfig(ConfigBase):
 
     PREFIX = '/'
     """prefix of stooj in the domain, which must begin and end with a slash"""
+
+    USE_HTTPS = False
+    """whether HTTPS is enabled (affect the behaviour of some functions, such
+    as :meth:`stooj.__init__.Request.set_cookie`)"""
 
     user = user.UserConfig()
     """user configuration. See :class:`stooj.config.user.UserConfig`."""

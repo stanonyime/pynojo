@@ -1,3 +1,4 @@
+. ../init.sh
 rm -rf source/autogen/* build/*
 sphinx-apidoc -o source/autogen ../stooj
 rm -f source/autogen/modules.rst

@@ -1,9 +1,12 @@
 ..  stooj docs
     $File: index.rst
-    $Date: Wed Feb 01 10:46:09 2012 +0800
+    $Date: Fri Feb 03 23:50:43 2012 +0800
 
 Welcome to stooj's documentation!
 =================================
+
+Welcome! This documentation is generated on |today| for stooj |release|.
+
 
 Contents:
 

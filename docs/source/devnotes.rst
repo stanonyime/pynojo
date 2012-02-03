@@ -1,6 +1,6 @@
 ..  stooj docs
     $File: devnotes.rst
-    $Date: Fri Feb 03 14:41:22 2012 +0800
+    $Date: Fri Feb 03 23:45:06 2012 +0800
 
 Notes for Developers
 ====================
@@ -51,13 +51,31 @@ Environment Setup
 
         $ pip install pyramid sqlalchemy webtest sphinx
 
+#.  Generate the .mo files and documents (they are not tracked by the version
+    control system):
+
+    .. code-block:: sh
+
+        $ cd <path-to-stooj-source-root>/utils
+        $ ./genmo
+        $ cd ../docs
+        $ ./gendoc
 
 .. _devnotes-sysconf:
 
 Configuration
 ^^^^^^^^^^^^^
 
-TODO
+The static system configuration package is :mod:`stooj.config`. To allow the
+developers applying their local settings without having to change the system
+defaults, *stooj/config/overwrite.py* has been added to *.gitignore*. Define a
+funtion named *overwrite* in that file and change the configuration there.
+
+An example file::
+
+    # pylint: disable=C0111
+    def overwrite(conf):
+        conf.DOMAIN = '127.0.0.1'
 
 
 Document Generation
@@ -82,7 +100,8 @@ Framework
 
 `Pyramid <http://pylonsproject.org/>`_ is used as the web
 framework, and `SQLAlchemy <http://www.sqlalchemy.org/>`_
-as the ORM.
+as the ORM. Note that stooj uses a subclass of :class:`pyramid.request.Request`
+as the request factory; see :class:`stooj.__init__.Request`.
 
 
 Code Style
