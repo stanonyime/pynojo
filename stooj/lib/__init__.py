@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Fri Feb 03 23:04:43 2012 +0800
+# $Date: Sat Feb 04 22:33:36 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -17,6 +17,8 @@
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
 """miscellaneous convenience functions"""
+
+import threading
 
 def gen_random_binary(length):
     """Return a random string containing *len* bytes,
@@ -49,4 +51,18 @@ def time():
     epoch, in UTC"""
     from time import time as t
     return int(t())
+
+
+_thread_request_data = threading.local()
+def register_thread_request(request):
+    """Add the *request* object to threading.local(). Note that on processing a
+    new request, :mod:`stooj.view` package should automatically call this
+    function, so unless in a child thread spawned by a function in the thread
+    where the view callable lives, this function does not need to be called
+    explicitly."""
+    _thread_request_data.request = request
+
+def get_thread_request():
+    """Return the request object related to current thread."""
+    return _thread_request_data.request
 

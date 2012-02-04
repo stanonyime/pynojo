@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stooj\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-03 13:31+0800\n"
+"POT-Creation-Date: 2012-02-03 14:31+0800\n"
 "PO-Revision-Date: 2012-02-03 13:31+0800\n"
 "Last-Translator:  <jia.kai66@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
@@ -18,16 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: utils/ptmsg.py:1 utils/ptmsg.py:5
+#: utils/ptmsg.py:2 utils/ptmsg.py:8
 msgid "msgfromlayout1"
 msgstr "来自模板1的消息"
 
-#: utils/ptmsg.py:2 utils/ptmsg.py:6
+#: utils/ptmsg.py:4 utils/ptmsg.py:10
 msgid "{0}from{t}"
 msgstr "{0}来自{t}"
 
-#: utils/ptmsg.py:3 utils/ptmsg.py:4 utils/ptmsg.py:7 utils/ptmsg.py:8
+#: utils/ptmsg.py:5 utils/ptmsg.py:6 utils/ptmsg.py:11 utils/ptmsg.py:12
 msgid "singular"
 msgid_plural "plural"
 msgstr[0] "哈哈，汉语不考虑名词的数！！！"
 
+#: stooj/view/index.py:26 stooj/tests/test_view_framework.py:24
+msgid "msgfrompython"
+msgstr "来自python的消息"

@@ -1,5 +1,5 @@
 # $File: index.py
-# $Date: Thu Feb 02 09:39:09 2012 +0800
+# $Date: Sat Feb 04 22:31:25 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -23,5 +23,5 @@ from stooj.view import mkroute
 
 @view_config(route_name = mkroute(pattern = ''), renderer = 'template/index.pt')
 def _index(request):
-    return {'msg': request._('msgfrompython')}
+    return {'msg': request._('msgfrompython') + _('builtin-trans')}
 

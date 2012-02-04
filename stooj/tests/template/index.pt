@@ -1,8 +1,0 @@
-<div metal:use-macro="layout">
-	<div metal:fill-slot="content">
-		${_('{0}from{t}', 'msg', t = 'template')} <br />
-		${msg} <br />
-		${_pl('singular', 'plural', 1)} <br />
-		${_pl('singular', 'plural', 2)} <br />
-	</div>
-</div>

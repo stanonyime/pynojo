@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Fri Feb 03 14:43:18 2012 +0800
+# $Date: Sat Feb 04 22:45:57 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -73,23 +73,21 @@ def get_translator(request):
 
 
 
-_trans_list_tag2translator = dict()
-_trans_list_offers = list()
+_trans_list_tag2translator = None
+_trans_list_offers = None
 _trans_list_default_translator = Translator(None)
 def _init_trans_list_vars():
     global _trans_list_tag2translator, _trans_list_offers
+    _trans_list_tag2translator = dict()
+    _trans_list_offers = list()
     for i in TRANS_LIST:
         tr = Translator(i.locale_dir)
         _trans_list_offers.extend(i.lang_tag)
         for j in i.lang_tag:
             _trans_list_tag2translator[j] = tr
 
-
-# initialize here, rather than on the first access in _get_translator, to avoid
-# dealing with thread safety stuff
-_init_trans_list_vars()
-
 def _get_translator(req):
+    # XXX: detect by cookie
     tag = req.accept_language.best_match(_trans_list_offers)
     if tag is None:
         return _trans_list_default_translator
@@ -97,12 +95,25 @@ def _get_translator(req):
 
 
 def init(request_factory):
-    """Initialize NLS. *request_factory* is a pyramid request factory class to
-    be configured.  Two methods named *_* and *_pl* will be added to it, which
-    can be used for translation and plural translation, respectively. See
-    :meth:`Translator.get_translation` and
-    :meth:`Translator.get_plural_translation`.
-    """
+    """Initialize NLS and configure pyramid request factory class
+    *request_factory*.  Two methods named *_* and *_pl* will be added to it,
+    which can be used for translation and plural translation, respectively.
+    Functions with the same names will also be added to the builtin namespace.
+    See :meth:`Translator.get_translation` and
+    :meth:`Translator.get_plural_translation` for the usage. """
+
+    # pylint: disable=W0108
+    # this lambda is really necessary ...
+    import __builtin__
+    from stooj.lib import get_thread_request
+    __builtin__._ = lambda *args, **kargs: \
+            get_translator(get_thread_request()).get_translation(
+                    *args, **kargs)
+    __builtin__._pl = lambda *args, **kargs: \
+            get_translator(get_thread_request()).get_plural_translation(
+                    *args, **kargs)
+
+    _init_trans_list_vars()
 
     request_factory._stooj_translator_cache = None
 

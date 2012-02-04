@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Fri Feb 03 22:33:08 2012 +0800
+# $Date: Sat Feb 04 22:31:35 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -30,16 +30,25 @@ The following globals will be added to Chameleon templates:
 
 from os.path import dirname as _dirname, join as _join
 
-from pyramid.events import subscriber, BeforeRender
+from pyramid.events import subscriber, BeforeRender, NewRequest
 from chameleon import PageTemplateFile as _PtFile
+
+from stooj.lib import register_thread_request
+from stooj.config import config
 
 _layout_macro = _PtFile(_join(_dirname(__file__), 'template', 'layout.pt'))
 @subscriber(BeforeRender)
 def _add_global(event):
     # pylint: disable=W0212
     event['layout'] = _layout_macro
-    event['_'] = event['request']._
-    event['_pl'] = event['request']._pl
+    req = event['request']
+    event['_'] = req._
+    event['_pl'] = req._pl
+
+
+@subscriber(NewRequest)
+def _new_request(event):
+    register_thread_request(event.request)
 
 
 
@@ -53,8 +62,9 @@ def mkroute(**kargs):
     
     :param kargs: keyword arguments to be passed to
                   :meth:`pyramid.config.add_route`.  Note that it might be
-                  modified.  If *name* not in *kargs*, a unique name will be
-                  assigned."""
+                  modified. If *name* not in *kargs*, a unique name will be
+                  assigned. If *pattern* in *kargs*, config.PREFIX will be
+                  added to it."""
     try:
         name = kargs['name']
     except KeyError:
@@ -62,6 +72,11 @@ def mkroute(**kargs):
         name = 'mkrt-' + str(_route_cnt)
         _route_cnt += 1
         kargs['name'] = name
+
+    try:
+        kargs['pattern'] += config.PREFIX
+    except KeyError:
+        pass
     _route_list.append(kargs)
     return name
 

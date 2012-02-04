@@ -1,6 +1,6 @@
 ..  stooj docs
     $File: devnotes.rst
-    $Date: Fri Feb 03 23:45:06 2012 +0800
+    $Date: Sat Feb 04 22:45:29 2012 +0800
 
 Notes for Developers
 ====================
@@ -125,8 +125,20 @@ your vimrc:
     autocmd filetype python set expandtab
     autocmd filetype python set textwidth=79
 
-And please keep in mind that all the code should be **thread-safe**, so be
-careful when modifying global variables.
+
+Threading
+^^^^^^^^^
+
+Keep in mind that all the code should be **thread-safe**, so be careful when
+modifying global variables. 
+
+To avoid confusion, unexpected behaviour and overuse of resource (exceeding the
+thread limit in the server configuration), do not use multi-thread unless
+absolutely necessary.
+
+If it is really necessary to spawn a child thread, remember to call
+:func:`stooj.lib.register_thread_request` in the child thread to ensure that
+functions depending on :func:`stooj.lib.get_thread_request` work correctly.
 
 
 
@@ -154,6 +166,12 @@ To localize:
       include the translation functions as methods named *_* and *_pl*. They are
       appropriate for the locale of the client, which is already determined
       according to the information provided by *request*.
+    * *_* and *_pl* are also added to the builtin namespace, so they can be
+      invoked directly. This method is slightly slower than the one above, for
+      it has to access thread local variable. It is assumed that the caller
+      resides in the same thread as that of the pyramid view callable, otherwise
+      :func:`stooj.lib.register_thread_request` has to be called explicitly
+      before calling *_* or *_pl*.
     * In a page template, the appropriate translation functions are the global
       functions named *_* and *_pl*.
     * See :func:`stooj.nls.init` and :mod:`stooj.view` for some further
@@ -171,7 +189,7 @@ In a pyramid view callable::
 
     @view_config(route_name = mkroute(pattern = ''), renderer = 'template/index.pt')
     def _index(request):
-        return {'msg': request._('msgfrompython')}
+        return {'msg': request._('msgfrompython') + _('builtin-trans')}
 
 In a page template:
 
@@ -187,15 +205,9 @@ In a page template:
     </div>
 
 
-Locale Detection Details:
+Locale detection details:
 
     * If the user does not login, detect the locale via Accept-Language field in
       the HTTP request header.
-    * TODO
+    * Cookie: TODO
 
-Tests
-^^^^^
-
-It is recommended to write test suite for some basic functions.
-Place the test scripts in stooj/tests, and execute *run-tests* to
-run the test suit.
