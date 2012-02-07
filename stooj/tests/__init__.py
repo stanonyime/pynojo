@@ -1,5 +1,5 @@
-# $File: user.py
-# $Date: Sun Feb 05 13:40:57 2012 +0800
+# $File: __init__.py
+# $Date: Tue Feb 07 10:28:03 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -17,22 +17,4 @@
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# pylint: disable=C0111
-
-from stooj.config._base import ConfigBase
-
-class UserConfig(ConfigBase):
-    """configuration for user maintenance"""
-
-    USERNAME_LEN_MAX = 20
-    """maximal length of username"""
-
-    DISPNAME_LEN_MAX = 20
-    """maximal length of display name"""
-
-    GRPNAME_LEN_MAX = 20
-    """maximal length of user group name"""
-
-    ALLOW_REGISTER = True
-    """allow new user to register"""
-
+"""stooj test suits"""

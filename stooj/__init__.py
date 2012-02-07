@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Sat Feb 04 21:42:23 2012 +0800
+# $Date: Tue Feb 07 14:55:49 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -31,20 +31,15 @@ class Request(OrigRequest):
     """see http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/webob.html#unicode ."""
 
     def set_cookie(self, key, value, max_age = None, **kargs):
-        """A convenient function for setting cookies, with *path*, *domain* and
-        other options set properly (see the source for details).
+        """A convenient function for setting cookies, with *path*, *secure* set
+        properly.
         
         :param kargs: other arguments passed to
                       :meth:`pyramid.response.Response.set_cookie` to overwrite
-                      the stooj defaults."""
-        self.response.set_cookie(key, value, max_age,
-            kargs.get('path', config.PREFIX),
-            kargs.get('domain', config.DOMAIN),
-            kargs.get('secure', config.USE_HTTPS),
-            kargs.get('httponly', False),
-            kargs.get('comment', None),
-            kargs.get('expires', None),
-            kargs.get('overwrite', True))
+                      the stooj defaults. Note that it might be modified."""
+        kargs.setdefault('path', config.PREFIX)
+        kargs.setdefault('secure', config.USE_HTTPS)
+        self.response.set_cookie(key, value, max_age, **kargs)
 
     def del_cookie(self, key):
         """Delete a cookie from the client."""

@@ -1,6 +1,6 @@
 ..  stooj docs
     $File: devnotes.rst
-    $Date: Sat Feb 04 22:45:29 2012 +0800
+    $Date: Sun Feb 05 13:53:26 2012 +0800
 
 Notes for Developers
 ====================
@@ -75,7 +75,8 @@ An example file::
 
     # pylint: disable=C0111
     def overwrite(conf):
-        conf.DOMAIN = '127.0.0.1'
+        conf.PREFIX = '/stooj-dev/'
+        conf.ROUTE_PREFIX = conf.PREFIX
 
 
 Document Generation

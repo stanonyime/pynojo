@@ -1,5 +1,5 @@
 # $File: _base.py
-# $Date: Fri Feb 03 11:16:50 2012 +0800
+# $Date: Mon Feb 06 14:41:53 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -33,10 +33,9 @@ class ConfigBase(object):
         object.__setattr__(self, name, value)
 
     def __repr__(self):
-        return 'stooj {0} object' . format(self.__class__.__name__)
+        return '<stooj {0} object>' . format(self.__class__.__name__)
 
-    def __str__(self):
-        return repr(self)
+    __str__ = __repr__
 
 
 def set_init_finished():

@@ -1,5 +1,5 @@
 # $File: all.py
-# $Date: Fri Feb 03 23:20:51 2012 +0800
+# $Date: Sun Feb 05 13:52:42 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -24,12 +24,11 @@ from stooj.config import user, pkg
 
 class AllConfig(ConfigBase):
     """configuration of stooj"""
-
-    DOMAIN = 'www.example.com'
-    """domain of this website"""
-
     PREFIX = '/'
     """prefix of stooj in the domain, which must begin and end with a slash"""
+
+    ROUTE_PREFIX = PREFIX
+    """prefix to be added to all the routes (see :func:`stooj.view.mkroute`)"""
 
     USE_HTTPS = False
     """whether HTTPS is enabled (affect the behaviour of some functions, such

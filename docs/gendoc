@@ -1,5 +1,13 @@
+#!/bin/bash -e
+# $File: gendoc
+# $Date: Tue Feb 07 14:31:01 2012 +0800
+# $Author: jiakai <jia.kai66@gmail.com>
+
 . ../init.sh
 rm -rf source/autogen/* build/*
 sphinx-apidoc -o source/autogen ../stooj
 rm -f source/autogen/modules.rst
+make doctest
 make html
+
+# vim: ft=sh

@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Sat Feb 04 22:31:35 2012 +0800
+# $Date: Sun Feb 05 13:49:10 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -58,13 +58,15 @@ _route_cnt = 0
 def mkroute(**kargs):
     """Return a route name that can be passed to
     :meth:`pyramid.config.add_view`. :func:`setup_pyramid_route` should be
-    called to add these routes to a config.
+    called during initialization to add these routes to a config.
     
     :param kargs: keyword arguments to be passed to
                   :meth:`pyramid.config.add_route`.  Note that it might be
                   modified. If *name* not in *kargs*, a unique name will be
-                  assigned. If *pattern* in *kargs*, config.PREFIX will be
-                  added to it."""
+                  assigned. If *pattern* in *kargs*,
+                  :attr:`config.ROUTE_PREFIX
+                  <stooj.config.all.AllConfig.ROUTE_PREFIX>` will be added to
+                  it."""
     try:
         name = kargs['name']
     except KeyError:
@@ -74,7 +76,7 @@ def mkroute(**kargs):
         kargs['name'] = name
 
     try:
-        kargs['pattern'] += config.PREFIX
+        kargs['pattern'] += config.ROUTE_PREFIX
     except KeyError:
         pass
     _route_list.append(kargs)

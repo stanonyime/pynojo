@@ -1,1 +1,1 @@
-pylint --include-ids=y "$@" stooj
+pylint stooj

@@ -1,5 +1,5 @@
 # $File: user.py
-# $Date: Wed Feb 01 00:17:44 2012 +0800
+# $Date: Tue Feb 07 14:51:00 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -17,8 +17,9 @@
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-"""models for users and user groups"""
 # pylint: disable=C0111
+"""models for users and user groups"""
+
 
 from hashlib import sha256 
 
@@ -44,24 +45,15 @@ def _pwd_enc_v0(user, passwd):
 
 _pwd_enc_funcs = [_pwd_enc_v0]
 
-
-
-class UserGroup(Base):
-    __tablename__ = 'usergrp'
-
-    id = Column(Integer, primary_key = True)
-
-    name = Column(String(config.user.GRPNAME_LEN_MAX))
-    """name of the group"""
-
-    users = None
-    """users belonging to this group; defined in User.group"""
-
+class _Tablename:
+    User = 'user'
+    UserGroup = 'ugrp'
+    MapUserGrpAndGrpPerm = 'ugrpperm'
 
 
 
 class User(Base):
-    __tablename__ = 'user'
+    __tablename__ = _Tablename.User
 
     id = Column(Integer, primary_key = True)
 
@@ -72,13 +64,14 @@ class User(Base):
     dispname = Column(String(config.user.DISPNAME_LEN_MAX))
     """display name"""
 
-    group_id = Column(Integer, ForeignKey(UserGroup.id))
+    grp_id = Column(Integer, ForeignKey(_Tablename.UserGroup + '.id'))
     """id of the group that the user belongs to"""
 
-    group = relationship(UserGroup, uselist = False,
-            backref = backref('users', lazy = 'dynamic'))
-    """the group that the user belongs to; a relationship to UserGroup"""
-    
+    group = relationship('UserGroup', uselist = False,
+                backref = backref('users', lazy = 'dynamic',
+                    cascade = "all, delete-orphan"))
+    """the group that the user belongs to; a relationship to
+    :class:`UserGroup`"""
 
 
     # following are used for authentication
@@ -111,4 +104,43 @@ class User(Base):
         self._salt = grb(_SALT_LEN)
         self._pwd = _pwd_enc_funcs[-1](self, passwd)
         self._pwd_enc_v = len(_pwd_enc_funcs) - 1
+
+
+
+
+class UserGroup(Base):
+    __tablename__ = _Tablename.UserGroup
+
+    id = Column(Integer, primary_key = True)
+
+    name = Column(String(config.user.GRPNAME_LEN_MAX), index = True)
+    """name of the group"""
+
+    users = None
+    """users belonging to this group; defined by backref in :attr:`User.group`.
+    Note that dynamic loading is used."""
+
+    _perms = relationship('MapUserGrpAndGrpPerm', collection_class = set,
+            cascade = "all, delete-orphan")
+
+    perms = association_proxy('_perms', 'perm')
+    """permissions of this group. It just behaves like a Python *set*.
+    Available permissions are defined in :class:`stooj.permdef.UserGroup`."""
+
+
+
+
+class MapUserGrpAndGrpPerm(Base):
+    """Many-to-many map between user groups and user group permissions. Usually
+    this model is not directly used, use :attr:`UserGroup.perms` instead."""
+    __tablename__ = _Tablename.MapUserGrpAndGrpPerm
+
+    def __init__(self, perm):
+        self.perm = perm
+
+    grp_id = Column(Integer, ForeignKey(_Tablename.UserGroup + '.id'), 
+            index = True, primary_key = True)
+
+    perm = Column(SmallInteger, index = True, primary_key = True)
+
 

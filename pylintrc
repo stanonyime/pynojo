@@ -1,4 +1,7 @@
 [MASTER]
+init-hook=from pylint.checkers.utils import builtins as b; b['_']= None; b['_pl'] = b['_']
+# so that pylint do not recognize _ and _pl as undefined variables
+
 ignore=tests
 
 [MESSAGES CONTROL]
@@ -18,6 +21,9 @@ disable=I0011,W0105,W0142,W0232,W0401,W0602,W0603,W0611,W0614,R0903,R0904,E0611
 # E0611: No name %r in module %r
 
 
+[REPORTS]
+include-ids=yes
+reports=no
 
 
 [BASIC]

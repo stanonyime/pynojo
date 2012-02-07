@@ -1,5 +1,5 @@
 # $File: _base.py
-# $Date: Wed Feb 01 00:16:00 2012 +0800
+# $Date: Tue Feb 07 11:51:17 2012 +0800
 #
 # This file is part of stooj
 # 
@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
 #
-"""Provide base class for SQLAlchemy ORM and import some commonly used
+"""Provides base class for SQLAlchemy ORM and import some commonly used
 SQLAlchemy functions."""
 
 # pylint: disable=C0103
@@ -27,6 +27,7 @@ from sqlalchemy.types import BINARY
 from sqlalchemy.schema import *
 from sqlalchemy.sql.expression import text
 from sqlalchemy.orm import relationship, backref
+from sqlalchemy.ext.associationproxy import association_proxy
 
 from sqlalchemy.ext.declarative import declarative_base as _base
 Base = _base()
