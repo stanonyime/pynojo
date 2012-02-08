@@ -5,14 +5,14 @@
 . ../init.sh
 
 echo -n "Generating pot file ..."
-find ../stooj -name "*.pt" | python xgettext-pt.py > ptmsg.py
+find ../pynojo -name "*.pt" | python xgettext-pt.py > ptmsg.py
 
-eval $(grep 'RELEASE =' stooj/config/pkg.py | sed -e 's/ //g')
+eval $(grep 'RELEASE =' pynojo/config/pkg.py | sed -e 's/ //g')
 
 (cd ..; find . -name "*.py" | \
-	xgettext --copyright-holder 'stooj development team' --package-name stooj \
+	xgettext --copyright-holder 'pynojo development team' --package-name pynojo \
 	--package-version "$RELEASE" --from-code=UTF-8 --keyword=_  \
-	--keyword=_pl:1,2 -f - -o -) > stooj/nls/stooj.pot
+	--keyword=_pl:1,2 -f - -o -) > pynojo/nls/pynojo.pot
 
 echo ' done'
 

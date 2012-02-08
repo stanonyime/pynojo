@@ -1,6 +1,10 @@
-# $File: min-server.py
-# $Author: Jiakai <jia.kai66@gmail.com>
-# $Date: Sun Jan 29 11:22:52 2012 +0800
+# $File: __init__.py
+# $Date: Fri Feb 03 23:31:03 2012 +0800
+#
+# Copyright (C) 2012 the pynojo development team <see AUTHORS file>
+# 
+# Contributors to this file:
+#    Kai Jia <jia.kai66@gmail.com>
 #
 # This file is part of pynojo
 # 
@@ -18,15 +22,22 @@
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import pynojo
+# pylint: disable=C0103
+"""This package provides pynojo static configurations. To access the config,
+import *config* from *pynojo.config*. See also :ref:`devnotes-sysconf`."""
 
-from wsgiref.simple_server import make_server
+from pynojo.config._base import set_init_finished
+from pynojo.config.all import AllConfig
 
-if __name__ == '__main__':
-    print 'initializing...'
-    app = pynojo.get_app()
-    server = make_server('0.0.0.0', 8080, app)
-    print 'server initialized, listening on 8080'
-    server.serve_forever()
+config = AllConfig()
+
+try:
+    from pynojo.config.overwrite import overwrite
+except ImportError:
+    pass
+else:
+    overwrite(config)
+
+set_init_finished()
 
 

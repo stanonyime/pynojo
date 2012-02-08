@@ -1,5 +1,5 @@
-from stooj.model import install_db
-from stooj.model.user import *
+from pynojo.model import install_db
+from pynojo.model.user import *
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 

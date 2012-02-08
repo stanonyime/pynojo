@@ -3,10 +3,10 @@
 # $Author: jiakai <jia.kai66@gmail.com>
 
 ./genpot
-for i in stooj/nls/locale/*/LC_MESSAGES/stooj.po
+for i in pynojo/nls/locale/*/LC_MESSAGES/pynojo.po
 do
 	echo "Updating $i ..."
-	msgmerge -Uv "$i" stooj/nls/stooj.pot
+	msgmerge -Uv "$i" pynojo/nls/pynojo.pot
 done
 
 # vim: ft=sh

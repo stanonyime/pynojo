@@ -1,1 +1,1 @@
-python -m unittest discover -s 'stooj.tests'
+python -m unittest discover -s 'pynojo.tests'

@@ -1,4 +1,4 @@
-..  stooj docs
+..  pynojo docs
     $File: devnotes.rst
     $Date: Wed Feb 08 11:21:24 2012 +0800
 
@@ -41,7 +41,7 @@ Environment Setup
 
     .. code-block:: sh
 
-        $ cd <path-to-stooj-source-root>
+        $ cd <path-to-pynojo-source-root>
         $ echo "export PATH=<path-to-your-workplace>/bin:$PATH" > init.sh
         $ . ./init.sh
 
@@ -56,7 +56,7 @@ Environment Setup
 
     .. code-block:: sh
 
-        $ cd <path-to-stooj-source-root>/utils
+        $ cd <path-to-pynojo-source-root>/utils
         $ ./genmo
         $ cd ../docs
         $ ./gendoc
@@ -66,16 +66,16 @@ Environment Setup
 Configuration
 ^^^^^^^^^^^^^
 
-The static system configuration package is :mod:`stooj.config`. To allow the
+The static system configuration package is :mod:`pynojo.config`. To allow the
 developers applying their local settings without having to change the system
-defaults, *stooj/config/overwrite.py* has been added to *.gitignore*. Define a
+defaults, *pynojo/config/overwrite.py* has been added to *.gitignore*. Define a
 funtion named *overwrite* in that file and change the configuration there.
 
 An example file::
 
     # pylint: disable=C0111
     def overwrite(conf):
-        conf.PREFIX = '/stooj-dev/'
+        conf.PREFIX = '/pynojo-dev/'
         conf.ROUTE_PREFIX = conf.PREFIX
 
 
@@ -89,7 +89,7 @@ Issue the following command to generate all the documents:
 
 .. code-block:: sh
 
-    $ cd <path-to-stooj-source-root>/docs
+    $ cd <path-to-pynojo-source-root>/docs
     $ ./gendoc
 
 
@@ -101,8 +101,8 @@ Framework
 
 `Pyramid <http://pylonsproject.org/>`_ is used as the web
 framework, and `SQLAlchemy <http://www.sqlalchemy.org/>`_
-as the ORM. Note that stooj uses a subclass of :class:`pyramid.request.Request`
-as the request factory; see :class:`stooj.__init__.Request`.
+as the ORM. Note that pynojo uses a subclass of :class:`pyramid.request.Request`
+as the request factory; see :class:`pynojo.__init__.Request`.
 
 
 Code Style
@@ -118,25 +118,25 @@ The following lines should be included in every Python source file::
     # $File: <file name>
     # $Date: <last modification time>
     #
-    # Copyright (C) 2012 the stooj development team <see AUTHORS file>
+    # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     # 
     # Contributors to this file:
     #    <you name and email here>
     #
-    # This file is part of stooj
+    # This file is part of pynojo
     # 
-    # stooj is free software: you can redistribute it and/or modify
+    # pynojo is free software: you can redistribute it and/or modify
     # it under the terms of the GNU General Public License as published by
     # the Free Software Foundation, either version 3 of the License, or
     # (at your option) any later version.
     # 
-    # stooj is distributed in the hope that it will be useful,
+    # pynojo is distributed in the hope that it will be useful,
     # but WITHOUT ANY WARRANTY; without even the implied warranty of
     # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     # GNU General Public License for more details.
     # 
     # You should have received a copy of the GNU General Public License
-    # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
+    # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
     #
 
 Configure your editor to update the *$File* and *$Date* fields automatically.
@@ -166,8 +166,8 @@ thread limit in the server configuration), do not use multithreading unless
 absolutely necessary.
 
 If it is really necessary to spawn a child thread, remember to call
-:func:`stooj.lib.register_thread_request` in the child thread to ensure that
-functions depending on :func:`stooj.lib.get_thread_request` work correctly.
+:func:`pynojo.lib.register_thread_request` in the child thread to ensure that
+functions depending on :func:`pynojo.lib.get_thread_request` work correctly.
 
 
 
@@ -176,16 +176,16 @@ functions depending on :func:`stooj.lib.get_thread_request` work correctly.
 Native Language Support (NLS)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-All the human-readable messages in stooj python source code and templates should
+All the human-readable messages in pynojo python source code and templates should
 be written in English. There should NOT be any non-ASCII characters in the
 source, except in nls/config.py, where TRANS_LIST describes the available
 translations.
 
-stooj dose not use the NLS mechanism provided by Pyramid and Chameleon.
-Instead, stooj has its own :mod:`stooj.nls` package, which is based on
+pynojo dose not use the NLS mechanism provided by Pyramid and Chameleon.
+Instead, pynojo has its own :mod:`pynojo.nls` package, which is based on
 `GNU gettext <http://www.gnu.org/software/gettext/>`_.  To generate the pot
 file, cd to *utils* and execute *./genpot*.  The pot file will be written
-to stooj/nls/stooj.pot. The locale directory is stooj/nls/locale. To update the
+to pynojo/nls/pynojo.pot. The locale directory is pynojo/nls/locale. To update the
 po files or regenerate the mo files, cd to *utils* and execute *./update-po* or
 *./genmo* respectively.
 
@@ -199,17 +199,17 @@ To localize:
       invoked directly. This method is slightly slower than the one above, for
       it has to access thread local variable. It is assumed that the caller
       resides in the same thread as that of the pyramid view callable, otherwise
-      :func:`stooj.lib.register_thread_request` has to be called explicitly
+      :func:`pynojo.lib.register_thread_request` has to be called explicitly
       before calling *_* or *_pl*.
     * In a page template, the appropriate translation functions are the global
       functions named *_* and *_pl*.
-    * See :func:`stooj.nls.init` and :mod:`stooj.view` for some further
+    * See :func:`pynojo.nls.init` and :mod:`pynojo.view` for some further
       explanations.
     
 To add a new translation, use *msginit* to generate the po file from the pot
-file. Move the output po file to stooj/nls/locale/*<lang>*/LC_MESSAGES/stooj.po
-and **append** corresponding :class:`stooj.nls.config.TransInfo` instance to
-*TRANS_LIST* defined in stooj/nls/config.py. DO NOT change the order of the
+file. Move the output po file to pynojo/nls/locale/*<lang>*/LC_MESSAGES/pynojo.po
+and **append** corresponding :class:`pynojo.nls.config.TransInfo` instance to
+*TRANS_LIST* defined in pynojo/nls/config.py. DO NOT change the order of the
 translations already listed there.
 
 Here are two examples:

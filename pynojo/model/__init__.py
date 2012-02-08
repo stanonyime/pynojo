@@ -1,6 +1,10 @@
-# $File: min-server.py
-# $Author: Jiakai <jia.kai66@gmail.com>
-# $Date: Sun Jan 29 11:22:52 2012 +0800
+# $File: __init__.py
+# $Date: Wed Feb 01 00:14:23 2012 +0800
+#
+# Copyright (C) 2012 the pynojo development team <see AUTHORS file>
+# 
+# Contributors to this file:
+#    Kai Jia <jia.kai66@gmail.com>
 #
 # This file is part of pynojo
 # 
@@ -18,15 +22,15 @@
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import pynojo
+"""Database models for pynojo. See the source files for details."""
 
-from wsgiref.simple_server import make_server
+def install_db(engine):
+    """Create all the tables in sqlalchemy engine *engine*."""
+    # pylint: disable=W0612
+    from pkgutil import walk_packages
+    for loader, module_name, is_pkg in  walk_packages(__path__):
+        __import__(module_name, globals(), locals(), [], -1)
 
-if __name__ == '__main__':
-    print 'initializing...'
-    app = pynojo.get_app()
-    server = make_server('0.0.0.0', 8080, app)
-    print 'server initialized, listening on 8080'
-    server.serve_forever()
-
+    from pynojo.model._base import Base
+    Base.metadata.create_all(engine)
 

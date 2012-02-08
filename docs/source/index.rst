@@ -1,11 +1,11 @@
-..  stooj docs
+..  pynojo docs
     $File: index.rst
     $Date: Fri Feb 03 23:50:43 2012 +0800
 
-Welcome to stooj's documentation!
+Welcome to pynojo's documentation!
 =================================
 
-Welcome! This documentation is generated on |today| for stooj |release|.
+Welcome! This documentation is generated on |today| for pynojo |release|.
 
 
 Contents:
@@ -14,7 +14,7 @@ Contents:
     :maxdepth: 4
 
     devnotes
-    Development Reference <autogen/stooj>
+    Development Reference <autogen/pynojo>
 
 
 

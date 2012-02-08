@@ -1,6 +1,10 @@
-# $File: min-server.py
-# $Author: Jiakai <jia.kai66@gmail.com>
-# $Date: Sun Jan 29 11:22:52 2012 +0800
+# $File: pkg.py
+# $Date: Fri Feb 03 14:17:53 2012 +0800
+#
+# Copyright (C) 2012 the pynojo development team <see AUTHORS file>
+# 
+# Contributors to this file:
+#    Kai Jia <jia.kai66@gmail.com>
 #
 # This file is part of pynojo
 # 
@@ -18,15 +22,18 @@
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import pynojo
+# pylint: disable=C0111
+from pynojo.config._base import ConfigBase
 
-from wsgiref.simple_server import make_server
+class PkgInfo(ConfigBase):
+    """package information"""
 
-if __name__ == '__main__':
-    print 'initializing...'
-    app = pynojo.get_app()
-    server = make_server('0.0.0.0', 8080, app)
-    print 'server initialized, listening on 8080'
-    server.serve_forever()
+    NAME = 'pynojo'
 
+    COPYRIGHT = '2012, pynojo development team'
 
+    VERSION = '0.1'
+    """the short X.Y version"""
+
+    RELEASE = '0.1-alpha'
+    """the full version, including alpha/beta/rc tags"""

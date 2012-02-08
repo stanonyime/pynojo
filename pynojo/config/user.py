@@ -1,6 +1,10 @@
-# $File: min-server.py
-# $Author: Jiakai <jia.kai66@gmail.com>
-# $Date: Sun Jan 29 11:22:52 2012 +0800
+# $File: user.py
+# $Date: Sun Feb 05 13:40:57 2012 +0800
+#
+# Copyright (C) 2012 the pynojo development team <see AUTHORS file>
+# 
+# Contributors to this file:
+#    Kai Jia <jia.kai66@gmail.com>
 #
 # This file is part of pynojo
 # 
@@ -18,15 +22,22 @@
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import pynojo
+# pylint: disable=C0111
 
-from wsgiref.simple_server import make_server
+from pynojo.config._base import ConfigBase
 
-if __name__ == '__main__':
-    print 'initializing...'
-    app = pynojo.get_app()
-    server = make_server('0.0.0.0', 8080, app)
-    print 'server initialized, listening on 8080'
-    server.serve_forever()
+class UserConfig(ConfigBase):
+    """configuration for user maintenance"""
 
+    USERNAME_LEN_MAX = 20
+    """maximal length of username"""
+
+    DISPNAME_LEN_MAX = 20
+    """maximal length of display name"""
+
+    GRPNAME_LEN_MAX = 20
+    """maximal length of user group name"""
+
+    ALLOW_REGISTER = True
+    """allow new user to register"""
 
