@@ -1,5 +1,10 @@
 # $File: permdef.py
-# $Date: Tue Feb 07 14:52:21 2012 +0800
+# $Date: Tue Feb 07 22:31:36 2012 +0800
+#
+# Copyright (C) 2012 the stooj development team <see AUTHORS file>
+# 
+# Contributors to this file:
+#    Kai Jia <jia.kai66@gmail.com>
 #
 # This file is part of stooj
 # 
@@ -35,7 +40,8 @@ class PermDesciption(object):
     def __init__(self, title, desc):
         """*title* and *desc* are callables, which, when get invoked,
         should return the translated description message in the current
-        locale. """
+        locale. Instances of this class will be associated to permission
+        enumeration items defined in this module."""
         self._title = title
         self._desc = desc
 

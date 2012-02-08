@@ -1,6 +1,6 @@
 ..  stooj docs
     $File: devnotes.rst
-    $Date: Sun Feb 05 13:53:26 2012 +0800
+    $Date: Wed Feb 08 11:21:24 2012 +0800
 
 Notes for Developers
 ====================
@@ -111,12 +111,39 @@ Code Style
 Follow the
 `Style Guide for Python Code <http://www.python.org/dev/peps/pep-0008>`_.
 Use `pylint <http://pypi.python.org/pypi/pylint>`_ to check the style
-and find potential bugs. Execute *run-pylint* (possibly with *-r n* options) to
-execute pylint.
+and find potential bugs. Execute the *run-pylint* script to invoke pylint.
 
-Write docstrings for every package, module, public
-class, public method, public function, etc. The documents are written in
-English. 
+The following lines should be included in every Python source file::
+
+    # $File: <file name>
+    # $Date: <last modification time>
+    #
+    # Copyright (C) 2012 the stooj development team <see AUTHORS file>
+    # 
+    # Contributors to this file:
+    #    <you name and email here>
+    #
+    # This file is part of stooj
+    # 
+    # stooj is free software: you can redistribute it and/or modify
+    # it under the terms of the GNU General Public License as published by
+    # the Free Software Foundation, either version 3 of the License, or
+    # (at your option) any later version.
+    # 
+    # stooj is distributed in the hope that it will be useful,
+    # but WITHOUT ANY WARRANTY; without even the implied warranty of
+    # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    # GNU General Public License for more details.
+    # 
+    # You should have received a copy of the GNU General Public License
+    # along with stooj.  If not, see <http://www.gnu.org/licenses/>.
+    #
+
+Configure your editor to update the *$File* and *$Date* fields automatically.
+Add your name to the contributors field and the AUTHORS file.
+
+Write docstrings for every package, module, public class, public method, public
+function, etc. The documents should be written in English. 
 
 By the way, if vim is your favorite, you can add the following lines to
 your vimrc:
@@ -130,11 +157,12 @@ your vimrc:
 Threading
 ^^^^^^^^^
 
-Keep in mind that all the code should be **thread-safe**, so be careful when
+Although current CPython implementation does not fully support multithreading,
+keep in mind that all the code should be **thread-safe**, so be careful when
 modifying global variables. 
 
-To avoid confusion, unexpected behaviour and overuse of resource (exceeding the
-thread limit in the server configuration), do not use multi-thread unless
+To avoid confusion, unexpected behaviour or overuse of resource (exceeding the
+thread limit in the server configuration), do not use multithreading unless
 absolutely necessary.
 
 If it is really necessary to spawn a child thread, remember to call

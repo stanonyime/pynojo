@@ -1,5 +1,10 @@
 # $File: enum.py
-# $Date: Tue Feb 07 14:47:13 2012 +0800
+# $Date: Tue Feb 07 22:35:24 2012 +0800
+#
+# Copyright (C) 2012 the stooj development team <see AUTHORS file>
+# 
+# Contributors to this file:
+#    Kai Jia <jia.kai66@gmail.com>
 #
 # This file is part of stooj
 # 
@@ -19,10 +24,13 @@
 
 """Implements enumerations in Python"""
 
+import threading
+
 from stooj.exception import StoojInnerError
 
 # count of all enumeration items
 _enum_cnt = 0
+_enum_cnt_lock = threading.Lock()
 
 
 class _EnumItem:
@@ -83,9 +91,11 @@ class _EnumMetaClass(type):
 
     def __getattribute__(mcs, name):
         if name == 'enum':
-            global _enum_cnt
-            _enum_cnt += 1
-            return _EnumItem(_enum_cnt)
+            global _enum_cnt, _enum_cnt_lock
+            with _enum_cnt_lock:
+                ret = _enum_cnt
+                _enum_cnt += 1
+            return _EnumItem(ret)
         return super(_EnumMetaClass, mcs).__getattribute__(name)
 
     def __setattr__(mcs, name, value):

@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 # $File: config.py
 # $Date: Fri Feb 03 14:28:35 2012 +0800
+# Copyright (C) 2012 the stooj development team <see AUTHORS file>
+# 
+# Contributors to this file:
+#    Kai Jia <jia.kai66@gmail.com>
+# $Date: Fri Feb 03 14:28:35 2012 +0800
 #
 # This file is part of stooj
 # 

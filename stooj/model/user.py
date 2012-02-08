@@ -1,5 +1,10 @@
 # $File: user.py
-# $Date: Tue Feb 07 14:51:00 2012 +0800
+# $Date: Wed Feb 08 21:59:13 2012 +0800
+#
+# Copyright (C) 2012 the stooj development team <see AUTHORS file>
+# 
+# Contributors to this file:
+#    Kai Jia <jia.kai66@gmail.com>
 #
 # This file is part of stooj
 # 
@@ -100,10 +105,17 @@ class User(Base):
 
     def set_passwd(self, passwd):
         """Set the password of the user to *passwd*."""
-        from stooj.lib import gen_random_binary as grb
-        self._salt = grb(_SALT_LEN)
+        from stooj.lib import gen_random_str as grs
+        self._salt = grs(_SALT_LEN)
         self._pwd = _pwd_enc_funcs[-1](self, passwd)
         self._pwd_enc_v = len(_pwd_enc_funcs) - 1
+
+
+    def gen_auth_code(self):
+        """Generate an ascii authentication code string, which can be set to
+        cookie and later used for authentication by calling
+        :meth:`check_auth_code`."""
+        pass # XXX TODO: and to seperate authentication
 
 
 

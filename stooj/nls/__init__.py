@@ -1,5 +1,10 @@
 # $File: __init__.py
-# $Date: Sat Feb 04 22:45:57 2012 +0800
+# $Date: Wed Feb 08 13:51:51 2012 +0800
+#
+# Copyright (C) 2012 the stooj development team <see AUTHORS file>
+# 
+# Contributors to this file:
+#    Kai Jia <jia.kai66@gmail.com>
 #
 # This file is part of stooj
 # 
@@ -67,9 +72,13 @@ def get_translator(request):
     """Return an instance of :class:`Translator` according to the locale
     implied by pyramid request *request*."""
     # pylint: disable=W0212
-    if request._stooj_translator_cache is None:
-        request._stooj_translator_cache = _get_translator(request)
-    return request._stooj_translator_cache
+    k = 'translator'
+    if k not in request.stooj_cache:
+        tr = _get_translator(request)
+        request.stooj_cache[k] = tr
+    else:
+        tr = request.stooj_cache[k]
+    return tr
 
 
 
@@ -114,8 +123,6 @@ def init(request_factory):
                     *args, **kargs)
 
     _init_trans_list_vars()
-
-    request_factory._stooj_translator_cache = None
 
     request_factory._ = lambda self, *args, **kargs: \
             get_translator(self).get_translation(*args, **kargs)

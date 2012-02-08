@@ -1,6 +1,11 @@
 # $File: __init__.py
 # $Date: Fri Feb 03 23:31:03 2012 +0800
 #
+# Copyright (C) 2012 the stooj development team <see AUTHORS file>
+# 
+# Contributors to this file:
+#    Kai Jia <jia.kai66@gmail.com>
+#
 # This file is part of stooj
 # 
 # stooj is free software: you can redistribute it and/or modify

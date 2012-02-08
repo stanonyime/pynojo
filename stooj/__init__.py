@@ -1,5 +1,10 @@
 # $File: __init__.py
-# $Date: Tue Feb 07 14:55:49 2012 +0800
+# $Date: Wed Feb 08 22:05:30 2012 +0800
+#
+# Copyright (C) 2012 the stooj development team <see AUTHORS file>
+# 
+# Contributors to this file:
+#    Kai Jia <jia.kai66@gmail.com>
 #
 # This file is part of stooj
 # 
@@ -29,6 +34,14 @@ class Request(OrigRequest):
 
     charset = 'utf-8'
     """see http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/webob.html#unicode ."""
+
+    stooj_cache = None
+    """a *dict*, various cache related to this request"""
+
+    def __init__(self, *args, **kargs):
+        # pylint: disable=E1003
+        self.stooj_cache = dict()
+        super(self.__class__, self).__init__(*args, **kargs)
 
     def set_cookie(self, key, value, max_age = None, **kargs):
         """A convenient function for setting cookies, with *path*, *secure* set

@@ -1,5 +1,10 @@
 # $File: __init__.py
-# $Date: Sat Feb 04 22:33:36 2012 +0800
+# $Date: Tue Feb 07 23:22:40 2012 +0800
+#
+# Copyright (C) 2012 the stooj development team <see AUTHORS file>
+# 
+# Contributors to this file:
+#    Kai Jia <jia.kai66@gmail.com>
 #
 # This file is part of stooj
 # 
@@ -20,12 +25,16 @@
 
 import threading
 
-def gen_random_binary(length):
+def gen_random_str(length, low = 1, high = 255):
     """Return a random string containing *len* bytes,
-    which may include non-ASCII characters"""
+    which may include non-ASCII characters
+    
+    :param low: the minimal value of the characters
+    
+    :param high: the maximal value of the characters"""
     # pylint: disable=W0612
     from random import randint
-    return ''.join([chr(randint(1, 255)) for i in range(length)])
+    return ''.join([chr(randint(low, high)) for i in range(length)])
 
 
 def stooj_assert(val, msg = None):
