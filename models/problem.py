@@ -5,7 +5,7 @@ import hashlib
 import pymongo
 
 class Problem:
-    def __init__(self, uid, title, code, desc, input_format, output_format, sample_input, sample_output, sources):
+    def __init__(self, uid, title, code, desc, input_format, output_format, sample_input, sample_output, sources, time):
         self.pid = pid
         self.title = title
         self.code = code
@@ -15,6 +15,7 @@ class Problem:
         self.sample_input = sample_input
         self.sample_output = sample_output
         self.sources = sources
+        self.time = time
     def update_option(self, **kwargs):
         for key in kwargs:
             if hasattr(self, key):
@@ -31,7 +32,8 @@ class Problem:
                             'output_format' : self.output_format,
                             'sample_input' : self.sample_input,
                             'sample_output' : self.sample_output,
-                            'sources' : self.sources
+                            'sources' : self.sources,
+                            'time' : self.time
                         }, safe = True)
             except pymongo.errors.DuplicateKeyError:
                 return 2
@@ -49,7 +51,8 @@ class Problem:
                             'output_format' : self.output_format,
                             'sample_input' : self.sample_input,
                             'sample_output' : self.sample_output,
-                            'sources' : self.sources
+                            'sources' : self.sources,
+                            'time' : self.time
                         }, safe = True)
             except Exception:
                 return 1
@@ -62,5 +65,9 @@ class Problem:
             return Problem(
                     k['_id'], k['title'], k['code'], k['desc'],
                     k['input_format'], k['output_format'],
-                    k['sample_input'], k['sample_output'], k['sources']
+                    k['sample_input'], k['sample_output'], k['sources'], k['time']
                     )
+    def Problem_Get_List(db, startpoint, n):
+        return db.problems.find(skip = startpoint, limit = n)
+    def Problem_Get_Latest(db, n):
+        return db.problems.find(sort = [('time', -1)], limit = n)
