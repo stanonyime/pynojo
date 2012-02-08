@@ -60,7 +60,7 @@ class Problem:
             return None
         else:
             return Problem(
-                    k['id'], k['title'], k['code'], k['desc'],
+                    k['_id'], k['title'], k['code'], k['desc'],
                     k['input_format'], k['output_format'],
                     k['sample_input'], k['sample_output'], k['sources']
                     )

@@ -34,7 +34,7 @@ class User:
             return 0
         else:
             try:
-                db.users.update({'username' : username},
+                db.users.update({'username' : self.username},
                         {
                             'username' : self.username,
                             'password' : self.password,
@@ -44,15 +44,15 @@ class User:
                 return 2
             return 0
     def User_from_uid(uid, db):
-        k = db.users.find_one({'id' : uid})
+        k = db.users.find_one({'_id' : uid})
         if k != None:
-            return User(k['id'], k['username'], k['password'], k['email'])
+            return User(k['_id'], k['username'], k['password'], k['email'])
         else:
             return None
     def User_from_username(username, db):
         k = db.users.find_one({'username' : username})
         if k != None:
-            return User(k['id'], k['username'], k['password'], k['email'])
+            return User(k['_id'], k['username'], k['password'], k['email'])
         else:
             return None
 
