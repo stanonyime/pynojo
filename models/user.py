@@ -5,11 +5,13 @@ import hashlib
 import pymongo
 
 class User:
-    def __init__(self, uid, username, password, email):
+    def __init__(self, uid, username, password, email, regtime, regip):
         self.uid = uid
         self.username = username
         self.password = password
         self.email = email
+        self.regtime = regtime
+        self.regip = regip
     def verify(self, password):
         return self.password == hashlib.sha1(password).hexdigest()
     def change_password(self, password):
@@ -24,7 +26,9 @@ class User:
                         {
                             'username' : self.username,
                             'password' : self.password,
-                            'email' : self.email
+                            'email' : self.email,
+                            'regtime' : self.regtime,
+                            'regip' : self.regip
                         }, safe = True)
             except pymongo.errors.DuplicateKeyError:
                 return 1
@@ -38,7 +42,9 @@ class User:
                         {
                             'username' : self.username,
                             'password' : self.password,
-                            'email' : self.email
+                            'email' : self.email,
+                            'regtime' : self.regtime,
+                            'regip' : self.regip
                         }, safe = True)
             except Exception:
                 return 2
@@ -46,13 +52,13 @@ class User:
     def User_from_uid(uid, db):
         k = db.users.find_one({'_id' : uid})
         if k != None:
-            return User(k['_id'], k['username'], k['password'], k['email'])
+            return User(k['_id'], k['username'], k['password'], k['email'], k['regtime'], k['regip'])
         else:
             return None
     def User_from_username(username, db):
         k = db.users.find_one({'username' : username})
         if k != None:
-            return User(k['_id'], k['username'], k['password'], k['email'])
+            return User(k['_id'], k['username'], k['password'], k['email'], k['regtime'], k['regip'])
         else:
             return None
 
