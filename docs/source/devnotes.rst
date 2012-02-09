@@ -1,6 +1,6 @@
 ..  pynojo docs
     $File: devnotes.rst
-    $Date: Wed Feb 08 11:21:24 2012 +0800
+    $Date: Thu Feb 09 20:16:35 2012 +0800
 
 Notes for Developers
 ====================
@@ -28,7 +28,7 @@ Environment Setup
 
         $ sudo pip install virtualenv
 
-#.  Setup a workplace using virtualenv. Note that you may need to sepcify **-p
+#.  Setup a workplace using virtualenv. Note that you may need to specify **-p
     python2** option to tell virtualenv to use Python 2. Replace
     <path-to-your-workplace> with something you like:
 
@@ -49,7 +49,7 @@ Environment Setup
 
     .. code-block:: sh
 
-        $ pip install pyramid sqlalchemy webtest sphinx
+        $ pip install pyramid sqlalchemy webtest sphinx pyenchant sphinxcontrib-spelling
 
 #.  Generate the .mo files and documents (they are not tracked by the version
     control system):
@@ -69,7 +69,7 @@ Configuration
 The static system configuration package is :mod:`pynojo.config`. To allow the
 developers applying their local settings without having to change the system
 defaults, *pynojo/config/overwrite.py* has been added to *.gitignore*. Define a
-funtion named *overwrite* in that file and change the configuration there.
+function named *overwrite* in that file and change the configuration there.
 
 An example file::
 
@@ -79,8 +79,8 @@ An example file::
         conf.ROUTE_PREFIX = conf.PREFIX
 
 
-Document Generation
-^^^^^^^^^^^^^^^^^^^
+Documenting
+^^^^^^^^^^^
 
 These documents are generated from
 `reStructuredText <http://docutils.sf.net/rst.html>`_
@@ -91,6 +91,10 @@ Issue the following command to generate all the documents:
 
     $ cd <path-to-pynojo-source-root>/docs
     $ ./gendoc
+
+
+*sphinxcontrib.spelling.* is used for spell-checking of all the documents. The
+extra word list file is located at docs/wordlist.txt.
 
 
 Miscellaneous Specifications and Instructions
@@ -161,7 +165,7 @@ Although current CPython implementation does not fully support multithreading,
 keep in mind that all the code should be **thread-safe**, so be careful when
 modifying global variables. 
 
-To avoid confusion, unexpected behaviour or overuse of resource (exceeding the
+To avoid confusion, unexpected behavior or overuse of resource (exceeding the
 thread limit in the server configuration), do not use multithreading unless
 absolutely necessary.
 
@@ -195,9 +199,9 @@ To localize:
       include the translation functions as methods named *_* and *_pl*. They are
       appropriate for the locale of the client, which is already determined
       according to the information provided by *request*.
-    * *_* and *_pl* are also added to the builtin namespace, so they can be
-      invoked directly. This method is slightly slower than the one above, for
-      it has to access thread local variable. It is assumed that the caller
+    * *_* and *_pl* are also added to the *__builtin__* namespace, so they can
+      be invoked directly. This method is slightly slower than the one above,
+      for it has to access thread local variable. It is assumed that the caller
       resides in the same thread as that of the pyramid view callable, otherwise
       :func:`pynojo.lib.register_thread_request` has to be called explicitly
       before calling *_* or *_pl*.

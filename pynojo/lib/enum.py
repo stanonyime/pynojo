@@ -1,5 +1,5 @@
 # $File: enum.py
-# $Date: Thu Feb 09 11:13:37 2012 +0800
+# $Date: Thu Feb 09 20:10:12 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -114,7 +114,7 @@ def get_base(start = 0, step = 1):
     and can later be retrieved by calling the class method :meth:`get_data` on
     the derived class. Enumeration classes can also be derived to construct
     subclasses. The order of enumeration items is preserved and used to
-    determin the corresponding enumeration value, so it is safe to append new
+    determine the corresponding enumeration value, so it is safe to append new
     items to the attribute list while staying backward compatible.  But adding
     new items will affect all subclasses derived from it. Trying to modify an
     attribute or deriving from multiple bases will cause an error.  See the

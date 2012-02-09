@@ -25,7 +25,8 @@ sys.path.insert(0, os.path.abspath('../..'))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', 'sphinx.ext.doctest']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode',
+    'sphinx.ext.doctest', 'sphinxcontrib.spelling']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -254,5 +255,9 @@ texinfo_documents = [
 
 
 autoclass_content = 'both'
+
+# set default language for sphinxcontrib.spelling
+spelling_lang = 'en_US'
+spelling_word_list_filename = os.path.abspath('../wordlist.txt')
 
 show_authors = True

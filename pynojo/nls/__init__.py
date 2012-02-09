@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Wed Feb 08 13:51:51 2012 +0800
+# $Date: Thu Feb 09 20:12:32 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,7 +21,7 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
-"""Nativ Language Support for pynojo. See also :ref:`devnotes-nls`."""
+"""Native Language Support for pynojo. See also :ref:`devnotes-nls`."""
 
 from pynojo.exception import PynojoInternalError
 from pynojo.nls.config import TRANS_LIST
@@ -29,7 +29,7 @@ from pynojo.nls.config import TRANS_LIST
 
 class Translator:
     """the class which actually implements the translation of message
-    identifiers to translatied message strings"""
+    identifiers to translated message strings"""
 
     _tr = None	# gettext.GNUTranslations class
 
@@ -107,7 +107,7 @@ def init(request_factory):
     """Initialize NLS and configure pyramid request factory class
     *request_factory*.  Two methods named *_* and *_pl* will be added to it,
     which can be used for translation and plural translation, respectively.
-    Functions with the same names will also be added to the builtin namespace.
+    Functions with the same names will also be added to the built-in namespace.
     See :meth:`Translator.get_translation` and
     :meth:`Translator.get_plural_translation` for the usage. """
 

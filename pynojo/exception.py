@@ -1,5 +1,5 @@
 # $File: exception.py
-# $Date: Tue Jan 31 23:01:14 2012 +0800
+# $Date: Thu Feb 09 20:13:00 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -28,7 +28,7 @@ class PynojoError(Exception):
     pass
 
 class PynojoInternalError(PynojoError):
-    """Internal errors, usually caused by uncareful development.
+    """Internal errors, usually caused by careless development.
     If this exception is caught, a page containing error message
     and bug reporting information should be presented to the user."""
     pass

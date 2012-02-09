@@ -1,5 +1,5 @@
 # $File: all.py
-# $Date: Sun Feb 05 13:52:42 2012 +0800
+# $Date: Thu Feb 09 20:09:13 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -36,7 +36,7 @@ class AllConfig(ConfigBase):
     """prefix to be added to all the routes (see :func:`pynojo.view.mkroute`)"""
 
     USE_HTTPS = False
-    """whether HTTPS is enabled (affect the behaviour of some functions, such
+    """whether HTTPS is enabled (affect the behavior of some functions, such
     as :meth:`pynojo.__init__.Request.set_cookie`)"""
 
     user = user.UserConfig()
