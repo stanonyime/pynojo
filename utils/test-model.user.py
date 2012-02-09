@@ -1,5 +1,7 @@
 from pynojo.model import install_db
 from pynojo.model.user import *
+from pynojo.model.user_auth_pw import *
+
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 

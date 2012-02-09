@@ -1,5 +1,5 @@
 # $File: _base.py
-# $Date: Tue Feb 07 11:51:17 2012 +0800
+# $Date: Thu Feb 09 15:01:29 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -22,7 +22,7 @@
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
 """Provides base class for SQLAlchemy ORM and import some commonly used
-SQLAlchemy functions."""
+SQLAlchemy functions. """
 
 # pylint: disable=C0103
 
@@ -35,5 +35,17 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.associationproxy import association_proxy
 
 from sqlalchemy.ext.declarative import declarative_base as _base
-Base = _base()
+
+class DeclarativeBase(object):
+    """Base class for pynojo ORM."""
+    @classmethod
+    def get_table_name(cls):
+        """Return the table name."""
+        # pylint: disable=E1101
+        return cls.__tablename__
+
+Base = _base(cls = DeclarativeBase)
+
+# to avoid global namespace pollution
+del DeclarativeBase
 
