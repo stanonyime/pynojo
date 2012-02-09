@@ -1,5 +1,5 @@
 # $File: enum.py
-# $Date: Tue Feb 07 22:35:24 2012 +0800
+# $Date: Thu Feb 09 11:13:37 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -55,14 +55,14 @@ class _EnumMetaClass(type):
             return super(_EnumMetaClass, mcs).__new__(mcs, name, base, attr)
 
         if len(base) != 1:
-            raise PynojoInternalError('enumeration class derived from multiple ' +
-                    'bases')
+            raise PynojoInternalError('enumeration class derived from ' \
+                    'multiple bases')
         try:
             cur_enum = base[0]._enum_start
             step = base[0]._enum_step
         except AttributeError:
-            raise PynojoInternalError('_enum_start or _enum_step not found in ' +
-                    'enumeration base class')
+            raise PynojoInternalError('_enum_start or _enum_step not found ' \
+                    'in enumeration base class')
 
         enum_items = list()	# (key, val)
         enumed_attr = dict()

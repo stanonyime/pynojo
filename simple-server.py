@@ -1,6 +1,6 @@
-# $File: min-server.py
+# $File: simple-server.py
 # $Author: Jiakai <jia.kai66@gmail.com>
-# $Date: Sun Jan 29 11:22:52 2012 +0800
+# $Date: Thu Feb 09 11:15:43 2012 +0800
 #
 # This file is part of pynojo
 # 
@@ -18,12 +18,12 @@
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import pynojo
-
-from wsgiref.simple_server import make_server
-
 if __name__ == '__main__':
     print 'initializing...'
+
+    import pynojo
+    from wsgiref.simple_server import make_server
+
     app = pynojo.get_app()
     server = make_server('0.0.0.0', 8080, app)
     print 'server initialized, listening on 8080'

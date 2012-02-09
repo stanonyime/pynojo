@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Tue Feb 07 23:22:40 2012 +0800
+# $Date: Thu Feb 09 11:14:33 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -38,7 +38,8 @@ def gen_random_str(length, low = 1, high = 255):
 
 
 def pynojo_assert(val, msg = None):
-    """Raise :exc:`pynojo.exception.PynojoInternalError` if *val* evaluates to false.
+    """Raise :exc:`pynojo.exception.PynojoInternalError` if *val* evaluates to
+    false.
 
     :param msg: additional message to be added to the exception
     :type msg: str or None
@@ -51,7 +52,8 @@ def pynojo_assert(val, msg = None):
     exc_msg = u"Assertion failed."
     if msg is not None:
         exc_msg += " Additional message: " + msg
-    raise PynojoInternalError(exc_msg + '\nTraceback (most recent call last):\n' +\
+    raise PynojoInternalError(exc_msg +
+            '\nTraceback (most recent call last):\n' +
             '' . join(format_list(extract_stack()[:-1])))
 
 
