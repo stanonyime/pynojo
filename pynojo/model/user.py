@@ -90,9 +90,9 @@ class User(Base):
 
     def chk_passwd(self, passwd):
         """Return whether *passwd* matches the password set by this user."""
-        from pynojo.lib import stooj_assert
-        stooj_assert(self.id is not None)
-        stooj_assert(self._pwd_enc_v >= 0 and 
+        from pynojo.lib import pynojo_assert
+        pynojo_assert(self.id is not None)
+        pynojo_assert(self._pwd_enc_v >= 0 and 
                 self._pwd_enc_v < len(_pwd_enc_funcs))
         enc_func = _pwd_enc_funcs[self._pwd_enc_v]
         if enc_func(self, passwd) != self._pwd:

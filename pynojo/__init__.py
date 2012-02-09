@@ -35,12 +35,12 @@ class Request(OrigRequest):
     charset = 'utf-8'
     """see http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/webob.html#unicode ."""
 
-    stooj_cache = None
+    pynojo_cache = None
     """a *dict*, various cache related to this request"""
 
     def __init__(self, *args, **kargs):
         # pylint: disable=E1003
-        self.stooj_cache = dict()
+        self.pynojo_cache = dict()
         super(self.__class__, self).__init__(*args, **kargs)
 
     def set_cookie(self, key, value, max_age = None, **kargs):

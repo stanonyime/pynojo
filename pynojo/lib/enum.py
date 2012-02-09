@@ -26,7 +26,7 @@
 
 import threading
 
-from pynojo.exception import StoojInnerError
+from pynojo.exception import PynojoInternalError
 
 # count of all enumeration items
 _enum_cnt = 0
@@ -55,13 +55,13 @@ class _EnumMetaClass(type):
             return super(_EnumMetaClass, mcs).__new__(mcs, name, base, attr)
 
         if len(base) != 1:
-            raise StoojInnerError('enumeration class derived from multiple ' +
+            raise PynojoInternalError('enumeration class derived from multiple ' +
                     'bases')
         try:
             cur_enum = base[0]._enum_start
             step = base[0]._enum_step
         except AttributeError:
-            raise StoojInnerError('_enum_start or _enum_step not found in ' +
+            raise PynojoInternalError('_enum_start or _enum_step not found in ' +
                     'enumeration base class')
 
         enum_items = list()	# (key, val)
@@ -99,7 +99,7 @@ class _EnumMetaClass(type):
         return super(_EnumMetaClass, mcs).__getattribute__(name)
 
     def __setattr__(mcs, name, value):
-        raise StoojInnerError('trying to modify an enumeration class')
+        raise PynojoInternalError('trying to modify an enumeration class')
 
 
 
@@ -179,7 +179,7 @@ def get_base(start = 0, step = 1):
                 try:
                     data = cls.__dict__['_enum_data']
                 except KeyError:
-                    raise StoojInnerError('no associated data for the'
+                    raise PynojoInternalError('no associated data for the'
                         ' enumeration item')
 
                 try:
@@ -188,7 +188,7 @@ def get_base(start = 0, step = 1):
                     cls = cls.__bases__[0]
 
         def __setattr__(self, name, value):
-            raise StoojInnerError('trying to modify an enumeration class')
+            raise PynojoInternalError('trying to modify an enumeration class')
 
 
     return _Base

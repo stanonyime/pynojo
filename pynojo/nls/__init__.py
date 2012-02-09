@@ -23,7 +23,7 @@
 #
 """Nativ Language Support for pynojo. See also :ref:`devnotes-nls`."""
 
-from pynojo.exception import StoojInnerError
+from pynojo.exception import PynojoInternalError
 from pynojo.nls.config import TRANS_LIST
 
 
@@ -38,7 +38,7 @@ class Translator:
         :param lang: name of the language. If it is None,
                      :class:`gettext.NullTranslations` is used. Otherwise, if
                      no corresponding .mo file found,
-                     :exc:`pynojo.exception.StoojInnerError` would be raised.
+                     :exc:`pynojo.exception.PynojoInternalError` would be raised.
         :type lang: str or None
         """
         import gettext
@@ -50,7 +50,7 @@ class Translator:
             try:
                 self._tr = gettext.translation('pynojo', locale_dir, [lang])
             except IOError:
-                raise StoojInnerError(
+                raise PynojoInternalError(
                         'attempt to load unimplmented translation: {0}' .
                         format(lang))
 
@@ -73,11 +73,11 @@ def get_translator(request):
     implied by pyramid request *request*."""
     # pylint: disable=W0212
     k = 'translator'
-    if k not in request.stooj_cache:
+    if k not in request.pynojo_cache:
         tr = _get_translator(request)
-        request.stooj_cache[k] = tr
+        request.pynojo_cache[k] = tr
     else:
-        tr = request.stooj_cache[k]
+        tr = request.pynojo_cache[k]
     return tr
 
 

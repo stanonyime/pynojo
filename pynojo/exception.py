@@ -23,17 +23,17 @@
 #
 """pynojo exception classes"""
 
-class StoojError(Exception):
+class PynojoError(Exception):
     """Base class for pynojo exceptions."""
     pass
 
-class StoojInnerError(StoojError):
+class PynojoInternalError(PynojoError):
     """Internal errors, usually caused by uncareful development.
     If this exception is caught, a page containing error message
     and bug reporting information should be presented to the user."""
     pass
 
-class StoojRuntimeError(StoojError):
+class PynojoRuntimeError(PynojoError):
     """Runtime errors, usually caused by incorrect user operations."""
     pass
 

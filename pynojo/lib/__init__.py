@@ -37,8 +37,8 @@ def gen_random_str(length, low = 1, high = 255):
     return ''.join([chr(randint(low, high)) for i in range(length)])
 
 
-def stooj_assert(val, msg = None):
-    """Raise :exc:`pynojo.exception.StoojInnerError` if *val* evaluates to false.
+def pynojo_assert(val, msg = None):
+    """Raise :exc:`pynojo.exception.PynojoInternalError` if *val* evaluates to false.
 
     :param msg: additional message to be added to the exception
     :type msg: str or None
@@ -47,11 +47,11 @@ def stooj_assert(val, msg = None):
     if val:
         return False
     from traceback import extract_stack, format_list
-    from pynojo.exception import StoojInnerError
+    from pynojo.exception import PynojoInternalError
     exc_msg = u"Assertion failed."
     if msg is not None:
         exc_msg += " Additional message: " + msg
-    raise StoojInnerError(exc_msg + '\nTraceback (most recent call last):\n' +\
+    raise PynojoInternalError(exc_msg + '\nTraceback (most recent call last):\n' +\
             '' . join(format_list(extract_stack()[:-1])))
 
 

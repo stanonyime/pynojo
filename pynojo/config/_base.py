@@ -24,17 +24,17 @@
 
 # pylint: disable=C0111
 
-from pynojo.exception import StoojInnerError
+from pynojo.exception import PynojoInternalError
 
 _init_done = False
 class ConfigBase(object):
     """configuration base class. If any attribute of an instance of this class
     is modified after :func:`set_init_finished` called,
-    :exc:`pynojo.exception.StoojInnerError` whould be raised."""
+    :exc:`pynojo.exception.PynojoInternalError` whould be raised."""
 
     def __setattr__(self, name, value):
         if _init_done:
-            raise StoojInnerError('attempt to change static configuration')
+            raise PynojoInternalError('attempt to change static configuration')
         object.__setattr__(self, name, value)
 
     def __repr__(self):

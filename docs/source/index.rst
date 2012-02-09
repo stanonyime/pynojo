@@ -1,9 +1,9 @@
 ..  pynojo docs
     $File: index.rst
-    $Date: Fri Feb 03 23:50:43 2012 +0800
+    $Date: Thu Feb 09 11:06:50 2012 +0800
 
 Welcome to pynojo's documentation!
-=================================
+==================================
 
 Welcome! This documentation is generated on |today| for pynojo |release|.
 

@@ -25,19 +25,19 @@ import unittest
 
 class LibUnitTests(unittest.TestCase):
 
-    def test_stooj_assert(self):
-        """test :func:`pynojo.lib.stooj_assert`"""
-        from pynojo.lib import stooj_assert
-        from pynojo.exception import StoojInnerError
-        stooj_assert(True)
-        with self.assertRaises(StoojInnerError) as exc:
-            stooj_assert(False)
+    def test_pynojo_assert(self):
+        """test :func:`pynojo.lib.pynojo_assert`"""
+        from pynojo.lib import pynojo_assert
+        from pynojo.exception import PynojoInternalError
+        pynojo_assert(True)
+        with self.assertRaises(PynojoInternalError) as exc:
+            pynojo_assert(False)
 
 
     def test_enum(self):
         """test :mod:`pynojo.lib.enum`"""
         from pynojo.lib.enum import get_base
-        from pynojo.exception import StoojInnerError
+        from pynojo.exception import PynojoInternalError
 
         Base = get_base(start = 42, step = 8)
 
@@ -54,7 +54,7 @@ class LibUnitTests(unittest.TestCase):
         class Enum2(Base):
             VAL4 = Base.enum
 
-        with self.assertRaises(StoojInnerError):
+        with self.assertRaises(PynojoInternalError):
             class MultipleBase(Enum1, Enum2):
                 pass
 
@@ -69,9 +69,9 @@ class LibUnitTests(unittest.TestCase):
 
             self.assertEqual(e2.VAL4, 42)
 
-            with self.assertRaises(StoojInnerError):
+            with self.assertRaises(PynojoInternalError):
                 e0.VAL0 = 0
-            with self.assertRaises(StoojInnerError):
+            with self.assertRaises(PynojoInternalError):
                 e0.vnew = 0
 
             self.assertEqual(e0.get_data(e0.DATA0), 'd0')
@@ -79,7 +79,7 @@ class LibUnitTests(unittest.TestCase):
             self.assertEqual(e1.get_data(e1.DATA0), 'd0')
             self.assertEqual(e1.get_data(e1.DATA1), 'd1')
 
-            with self.assertRaises(StoojInnerError):
+            with self.assertRaises(PynojoInternalError):
                 e0.get_data(e1.DATA1)
 
         check(Enum0, Enum1, Enum2)
