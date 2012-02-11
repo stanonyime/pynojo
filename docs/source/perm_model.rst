@@ -1,5 +1,5 @@
-..  $File: index.rst
-    $Date: Thu Feb 09 22:59:25 2012 +0800
+..  $File: perm_model.rst
+    $Date: Thu Feb 09 23:50:27 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     Contributors to this file:
@@ -17,27 +17,23 @@
     You should have received a copy of the GNU General Public License
     along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 
+The Permission Model
+====================
 
-Welcome to pynojo's documentation!
-==================================
+.. contents::
 
-Welcome! This documentation is generated on |today| for pynojo |release|.
-
-
-Contents:
-
-.. toctree::
-    :maxdepth: 4
-
-    devnotes
-    perm_model
-    Development Reference <autogen/pynojo>
+Contact Kai Jia <jia.kai66@gmail.com> if you have any question about this page.
 
 
+Users and User Groups
+---------------------
 
-Indices and tables
-==================
+Each user can be assigned to multiple user groups, and each user group can be
+given multiple permissions, which are used for authorization of system
+management tasks.  The permissions are defined in
+:class:`pynojo.permdef.UserGrp`.
 
-* :ref:`genindex`
-* :ref:`search`
+For a user, the permissions that it has is the union of the permissions of
+groups that it belongs to.
+
 

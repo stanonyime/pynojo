@@ -1,5 +1,5 @@
 # $File: _base.py
-# $Date: Thu Feb 09 15:01:29 2012 +0800
+# $Date: Fri Feb 10 14:49:47 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -26,12 +26,13 @@ SQLAlchemy functions. """
 
 # pylint: disable=C0103
 
-from sqlalchemy import Column
+from sqlalchemy import Table, Column, event
 from sqlalchemy.types import *
 from sqlalchemy.types import BINARY
 from sqlalchemy.schema import *
 from sqlalchemy.sql.expression import text
 from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm.session import object_session
 from sqlalchemy.ext.associationproxy import association_proxy
 
 from sqlalchemy.ext.declarative import declarative_base as _base

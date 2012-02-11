@@ -260,4 +260,3 @@ autoclass_content = 'both'
 spelling_lang = 'en_US'
 spelling_word_list_filename = os.path.abspath('../wordlist.txt')
 
-show_authors = True

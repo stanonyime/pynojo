@@ -1,5 +1,5 @@
 # $File: permdef.py
-# $Date: Tue Feb 07 22:31:36 2012 +0800
+# $Date: Sat Feb 11 09:52:04 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -23,7 +23,6 @@
 #
 
 # pylint: disable=W0622,C0103,E1101,W0212
-
 
 """Definitions of various permission enumerations"""
 
@@ -59,7 +58,7 @@ _ = lambda *args, **kargs: lambda: __builtin__._(*args, **kargs)
 _pl = lambda *args, **kargs: lambda: __builtin__._pl(*args, **kargs)
 
 
-class UserGroup(Base):
+class UserGrp(Base):
     """User group permissions. See the source for detailed descriptions."""
 
     ADD_PROB = Base.enum(PermDesciption(_('Adding Problem'), _(

@@ -1,14 +1,29 @@
-..  pynojo docs
-    $File: devnotes.rst
-    $Date: Thu Feb 09 20:16:35 2012 +0800
+..  $File: devnotes.rst
+    $Date: Fri Feb 10 11:16:07 2012 +0800
+    -----------------------------------------------------------------
+    Copyright (C) 2012 the pynojo development team <see AUTHORS file>
+    Contributors to this file:
+       Kai Jia <jia.kai66@gmail.com>
+    -----------------------------------------------------------------
+    This file is part of pynojo
+    pynojo is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    pynojo is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
+
 
 Notes for Developers
 ====================
 
-.. sectionauthor:: Kai Jia <jia.kai66@gmail.com>
-
 .. contents::
 
+Contact Kai Jia <jia.kai66@gmail.com> if you have any question about this page.
 
 Getting Started
 ---------------
@@ -49,7 +64,7 @@ Environment Setup
 
     .. code-block:: sh
 
-        $ pip install pyramid sqlalchemy webtest sphinx pyenchant sphinxcontrib-spelling
+        $ pip install pyramid sqlalchemy cjson sphinx pyenchant sphinxcontrib-spelling
 
 #.  Generate the .mo files and documents (they are not tracked by the version
     control system):
@@ -78,23 +93,6 @@ An example file::
         conf.PREFIX = '/pynojo-dev/'
         conf.ROUTE_PREFIX = conf.PREFIX
 
-
-Documenting
-^^^^^^^^^^^
-
-These documents are generated from
-`reStructuredText <http://docutils.sf.net/rst.html>`_
-sources and docstrings by `Sphinx <http://sphinx.pocoo.org/>`_.
-Issue the following command to generate all the documents:
-
-.. code-block:: sh
-
-    $ cd <path-to-pynojo-source-root>/docs
-    $ ./gendoc
-
-
-*sphinxcontrib.spelling.* is used for spell-checking of all the documents. The
-extra word list file is located at docs/wordlist.txt.
 
 
 Miscellaneous Specifications and Instructions
@@ -156,6 +154,24 @@ your vimrc:
 
     autocmd filetype python set expandtab
     autocmd filetype python set textwidth=79
+
+
+Documenting
+^^^^^^^^^^^
+
+These documents are generated from
+`reStructuredText <http://docutils.sf.net/rst.html>`_
+sources and docstrings by `Sphinx <http://sphinx.pocoo.org/>`_.
+Issue the following command to generate all the documents:
+
+.. code-block:: sh
+
+    $ cd <path-to-pynojo-source-root>/docs
+    $ ./gendoc
+
+
+*sphinxcontrib.spelling.* is used for spell-checking of all the documents. The
+extra word list file is located at docs/wordlist.txt.
 
 
 Threading
