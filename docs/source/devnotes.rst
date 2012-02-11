@@ -1,5 +1,5 @@
 ..  $File: devnotes.rst
-    $Date: Fri Feb 10 11:16:07 2012 +0800
+    $Date: Sat Feb 11 21:21:31 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     Contributors to this file:
@@ -64,7 +64,7 @@ Environment Setup
 
     .. code-block:: sh
 
-        $ pip install pyramid sqlalchemy cjson sphinx pyenchant sphinxcontrib-spelling
+        $ pip install pyramid sqlalchemy sphinx pyenchant sphinxcontrib-spelling
 
 #.  Generate the .mo files and documents (they are not tracked by the version
     control system):

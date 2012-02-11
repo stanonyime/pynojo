@@ -1,5 +1,5 @@
 ..  $File: perm_model.rst
-    $Date: Thu Feb 09 23:50:27 2012 +0800
+    $Date: Sat Feb 11 21:21:09 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     Contributors to this file:
@@ -31,7 +31,7 @@ Users and User Groups
 Each user can be assigned to multiple user groups, and each user group can be
 given multiple permissions, which are used for authorization of system
 management tasks.  The permissions are defined in
-:class:`pynojo.permdef.UserGrp`.
+:class:`pynojo.model.permdef.UserGrp`.
 
 For a user, the permissions that it has is the union of the permissions of
 groups that it belongs to.
