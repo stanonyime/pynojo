@@ -1,5 +1,5 @@
-# $File: __init__.py
-# $Date: Fri Feb 03 23:31:03 2012 +0800
+# $File: exc.py
+# $Date: Sun Feb 12 14:40:55 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,23 +21,19 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
+"""pynojo exception classes"""
 
-# pylint: disable=C0103
-"""This package provides pynojo static configurations. To access the config,
-import *config* from *pynojo.config*. See also :ref:`devnotes-sysconf`."""
-
-from pynojo.config._base import set_init_finished
-from pynojo.config.all import AllConfig
-
-config = AllConfig()
-
-try:
-    from pynojo.config.overwrite import overwrite
-except ImportError:
+class PynojoError(Exception):
+    """Base class for pynojo exceptions."""
     pass
-else:
-    overwrite(config)
 
-set_init_finished()
+class PynojoInternalError(PynojoError):
+    """Internal errors, usually caused by careless development.
+    If this exception is caught, a page containing error message
+    and bug reporting information should be presented to the user."""
+    pass
 
+class PynojoRuntimeError(PynojoError):
+    """Runtime errors, usually caused by incorrect user operations."""
+    pass
 

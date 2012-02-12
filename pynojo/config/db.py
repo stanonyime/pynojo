@@ -1,10 +1,10 @@
-# $File: exception.py
-# $Date: Thu Feb 09 20:13:00 2012 +0800
+# $File: db.py
+# $Date: Sun Feb 12 23:18:13 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
 # Contributors to this file:
-#    Kai Jia <jia.kai66@gmail.com>
+#    Kai Jia	<jia.kai66@gmail.com>
 #
 # This file is part of pynojo
 # 
@@ -21,19 +21,19 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
-"""pynojo exception classes"""
 
-class PynojoError(Exception):
-    """Base class for pynojo exceptions."""
-    pass
+# pylint: disable=C0111
+from pynojo.config._base import ConfigBase
 
-class PynojoInternalError(PynojoError):
-    """Internal errors, usually caused by careless development.
-    If this exception is caught, a page containing error message
-    and bug reporting information should be presented to the user."""
-    pass
+class DBConfig(ConfigBase):
+    """database configuration"""
 
-class PynojoRuntimeError(PynojoError):
-    """Runtime errors, usually caused by incorrect user operations."""
-    pass
+    @staticmethod
+    def make_session():
+        """create a configured contextual Session class"""
+        from sqlalchemy import create_engine
+        from sqlalchemy.orm import sessionmaker, scoped_session
+        engine = create_engine('sqlite:///:memory:')
+        ses = scoped_session(sessionmaker(bind = engine))
+        return ses
 

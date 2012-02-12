@@ -1,10 +1,10 @@
 # $File: _base.py
-# $Date: Thu Feb 09 20:13:36 2012 +0800
+# $Date: Sun Feb 12 14:42:01 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
 # Contributors to this file:
-#    Kai Jia <jia.kai66@gmail.com>
+#    Kai Jia	<jia.kai66@gmail.com>
 #
 # This file is part of pynojo
 # 
@@ -24,13 +24,13 @@
 
 # pylint: disable=C0111
 
-from pynojo.exception import PynojoInternalError
+from pynojo.exc import PynojoInternalError
 
 _init_done = False
 class ConfigBase(object):
     """configuration base class. If any attribute of an instance of this class
     is modified after :func:`set_init_finished` called,
-    :exc:`pynojo.exception.PynojoInternalError` would be raised."""
+    :exc:`pynojo.exc.PynojoInternalError` would be raised."""
 
     def __setattr__(self, name, value):
         if _init_done:

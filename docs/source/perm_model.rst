@@ -1,9 +1,9 @@
 ..  $File: perm_model.rst
-    $Date: Sat Feb 11 21:21:09 2012 +0800
+    $Date: Sun Feb 12 12:47:03 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     Contributors to this file:
-       Kai Jia <jia.kai66@gmail.com>
+       Kai Jia	<jia.kai66@gmail.com>
     -----------------------------------------------------------------
     This file is part of pynojo
     pynojo is free software: you can redistribute it and/or modify

@@ -1,10 +1,10 @@
 # $File: __init__.py
-# $Date: Thu Feb 09 20:12:32 2012 +0800
+# $Date: Sun Feb 12 14:41:51 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
 # Contributors to this file:
-#    Kai Jia <jia.kai66@gmail.com>
+#    Kai Jia	<jia.kai66@gmail.com>
 #
 # This file is part of pynojo
 # 
@@ -23,7 +23,7 @@
 #
 """Native Language Support for pynojo. See also :ref:`devnotes-nls`."""
 
-from pynojo.exception import PynojoInternalError
+from pynojo.exc import PynojoInternalError
 from pynojo.nls.config import TRANS_LIST
 
 
@@ -38,7 +38,7 @@ class Translator:
         :param lang: name of the language. If it is None,
                      :class:`gettext.NullTranslations` is used. Otherwise, if
                      no corresponding .mo file found,
-                     :exc:`pynojo.exception.PynojoInternalError` would be raised.
+                     :exc:`pynojo.exc.PynojoInternalError` would be raised.
         :type lang: str or None
         """
         import gettext
@@ -72,7 +72,7 @@ def get_translator(request):
     """Return an instance of :class:`Translator` according to the locale
     implied by pyramid request *request*."""
     # pylint: disable=W0212
-    k = 'translator'
+    k = get_translator
     if k not in request.pynojo_cache:
         tr = _get_translator(request)
         request.pynojo_cache[k] = tr

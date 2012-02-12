@@ -1,10 +1,10 @@
 # $File: __init__.py
-# $Date: Wed Feb 08 22:05:30 2012 +0800
+# $Date: Sun Feb 12 23:27:57 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
 # Contributors to this file:
-#    Kai Jia <jia.kai66@gmail.com>
+#    Kai Jia	<jia.kai66@gmail.com>
 #
 # This file is part of pynojo
 # 
@@ -28,15 +28,17 @@ from pyramid.request import Request as OrigRequest
 from pynojo.config import config as config
 
 class Request(OrigRequest):
-    # pylint: disable=C0301
     """request factory class for pynojo. This class also includes two methods
     *_* and *_pl*, see :ref:`devnotes-nls` for details."""
 
+    # pylint: disable=C0301
     charset = 'utf-8'
     """see http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/webob.html#unicode ."""
 
     pynojo_cache = None
-    """a *dict*, various cache related to this request"""
+    """a *dict*, various cache related to this request. It is recommended to
+    use the function object itself as the key. See the source of
+    :func:`pynojo.nls.get_translator` for example."""
 
     def __init__(self, *args, **kargs):
         # pylint: disable=E1003
@@ -60,14 +62,14 @@ class Request(OrigRequest):
         self.set_cookie(key, '', 0, expires = time() - 3600)
 
 def get_app():
-    """get the WSGI application for pynojo"""
+    """Return the WSGI application for pynojo"""
     from pyramid.config import Configurator
     from pynojo.view import setup_pyramid_route
     from pynojo import nls
 
     nls.init(Request)
     conf = Configurator(request_factory = Request)
-    conf.scan('pynojo.view')
+    conf.scan('pynojo')
     setup_pyramid_route(conf)
     
     return conf.make_wsgi_app()

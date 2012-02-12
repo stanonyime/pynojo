@@ -1,6 +1,10 @@
 # $File: simple-server.py
-# $Author: Jiakai <jia.kai66@gmail.com>
-# $Date: Thu Feb 09 11:15:43 2012 +0800
+# $Date: Sun Feb 12 12:15:43 2012 +0800
+#
+# Copyright (C) 2012 the pynojo development team <see AUTHORS file>
+# 
+# Contributors to this file:
+#    Kai Jia	<jia.kai66@gmail.com>
 #
 # This file is part of pynojo
 # 

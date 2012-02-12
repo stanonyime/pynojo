@@ -1,10 +1,10 @@
 # $File: test_lib.py
-# $Date: Tue Feb 07 11:29:20 2012 +0800
+# $Date: Sun Feb 12 14:41:31 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
 # Contributors to this file:
-#    Kai Jia <jia.kai66@gmail.com>
+#    Kai Jia	<jia.kai66@gmail.com>
 #
 # This file is part of pynojo
 # 
@@ -28,7 +28,7 @@ class LibUnitTests(unittest.TestCase):
     def test_pynojo_assert(self):
         """test :func:`pynojo.lib.pynojo_assert`"""
         from pynojo.lib import pynojo_assert
-        from pynojo.exception import PynojoInternalError
+        from pynojo.exc import PynojoInternalError
         pynojo_assert(True)
         with self.assertRaises(PynojoInternalError) as exc:
             pynojo_assert(False)
@@ -37,7 +37,7 @@ class LibUnitTests(unittest.TestCase):
     def test_enum(self):
         """test :mod:`pynojo.lib.enum`"""
         from pynojo.lib.enum import get_base
-        from pynojo.exception import PynojoInternalError
+        from pynojo.exc import PynojoInternalError
 
         Base = get_base(start = 42, step = 8)
 

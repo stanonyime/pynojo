@@ -1,10 +1,10 @@
 # $File: enum.py
-# $Date: Thu Feb 09 20:10:12 2012 +0800
+# $Date: Sun Feb 12 14:41:09 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
 # Contributors to this file:
-#    Kai Jia <jia.kai66@gmail.com>
+#    Kai Jia	<jia.kai66@gmail.com>
 #
 # This file is part of pynojo
 # 
@@ -26,7 +26,7 @@
 
 import threading
 
-from pynojo.exception import PynojoInternalError
+from pynojo.exc import PynojoInternalError
 
 # count of all enumeration items
 _enum_cnt = 0

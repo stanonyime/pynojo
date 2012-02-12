@@ -24,6 +24,7 @@ sqlalchemy
 subclasses
 subpackages
 txt
+uid
 username
 vimrc
 virtualenv

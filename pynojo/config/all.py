@@ -1,10 +1,10 @@
 # $File: all.py
-# $Date: Thu Feb 09 20:09:13 2012 +0800
+# $Date: Sun Feb 12 12:01:35 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
 # Contributors to this file:
-#    Kai Jia <jia.kai66@gmail.com>
+#    Kai Jia	<jia.kai66@gmail.com>
 #
 # This file is part of pynojo
 # 
@@ -25,7 +25,7 @@
 # pylint: disable=C0111
 
 from pynojo.config._base import ConfigBase
-from pynojo.config import user, pkg
+from pynojo.config import user, pkg, db
 
 class AllConfig(ConfigBase):
     """configuration of pynojo"""
@@ -44,4 +44,7 @@ class AllConfig(ConfigBase):
 
     pkg = pkg.PkgInfo()
     """package information. See :class:`pynojo.config.pkg.PkgInfo`."""
+
+    db = db.DBConfig()
+    """database configuration. See :class:`pynojo.config.db.DBConfig`."""
 

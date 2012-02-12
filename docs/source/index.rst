@@ -1,9 +1,7 @@
 ..  $File: index.rst
-    $Date: Thu Feb 09 22:59:25 2012 +0800
+    $Date: Sun Feb 12 14:32:17 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
-    Contributors to this file:
-       Kai Jia <jia.kai66@gmail.com>
     -----------------------------------------------------------------
     This file is part of pynojo
     pynojo is free software: you can redistribute it and/or modify
@@ -27,11 +25,12 @@ Welcome! This documentation is generated on |today| for pynojo |release|.
 Contents:
 
 .. toctree::
-    :maxdepth: 4
+    :maxdepth: 2
 
     devnotes
     perm_model
-    Development Reference <autogen/pynojo>
+    global_name_list
+    API Reference <autogen/pynojo>
 
 
 

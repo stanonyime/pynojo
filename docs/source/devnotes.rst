@@ -1,9 +1,9 @@
 ..  $File: devnotes.rst
-    $Date: Sat Feb 11 21:21:31 2012 +0800
+    $Date: Sun Feb 12 14:37:35 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     Contributors to this file:
-       Kai Jia <jia.kai66@gmail.com>
+       Kai Jia	<jia.kai66@gmail.com>
     -----------------------------------------------------------------
     This file is part of pynojo
     pynojo is free software: you can redistribute it and/or modify
@@ -24,6 +24,7 @@ Notes for Developers
 .. contents::
 
 Contact Kai Jia <jia.kai66@gmail.com> if you have any question about this page.
+
 
 Getting Started
 ---------------
@@ -88,7 +89,6 @@ function named *overwrite* in that file and change the configuration there.
 
 An example file::
 
-    # pylint: disable=C0111
     def overwrite(conf):
         conf.PREFIX = '/pynojo-dev/'
         conf.ROUTE_PREFIX = conf.PREFIX
@@ -144,9 +144,6 @@ The following lines should be included in every Python source file::
 Configure your editor to update the *$File* and *$Date* fields automatically.
 Add your name to the contributors field and the AUTHORS file.
 
-Write docstrings for every package, module, public class, public method, public
-function, etc. The documents should be written in English. 
-
 By the way, if vim is your favorite, you can add the following lines to
 your vimrc:
 
@@ -158,6 +155,11 @@ your vimrc:
 
 Documenting
 ^^^^^^^^^^^
+
+Write docstrings for every package, module, public class, public method, public
+function, etc. The documents should be written in English. 
+
+Register all the global names in :ref:`global-name-list`.
 
 These documents are generated from
 `reStructuredText <http://docutils.sf.net/rst.html>`_
