@@ -1,5 +1,5 @@
-# $File: user.py
-# $Date: Sat Feb 11 21:08:40 2012 +0800
+# $File: __init__.py
+# $Date: Sun Feb 12 23:55:13 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -90,9 +90,9 @@ class User(Base):
     # I do not know why pylint thinks it is an operator...
     auth_pw = None
     """User authentication via password. This attribute is a relationship to
-    :class:`UserAuthPW <pynojo.model.user_auth_pw.UserAuthPW>`; defined by
+    :class:`UserAuthPW <pynojo.model.user.auth_pw.UserAuthPW>`; defined by
     backref in :attr:`UserAuthPW.user
-    <pynojo.model.user_auth_pw.UserAuthPW.user>`."""
+    <pynojo.model.user.auth_pw.UserAuthPW.user>`."""
 
 
 

@@ -1,5 +1,5 @@
 # $File: test_model_user.py
-# $Date: Sat Feb 11 21:14:22 2012 +0800
+# $Date: Sun Feb 12 23:56:57 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -28,7 +28,7 @@ from sqlalchemy import create_engine
 
 from pynojo.model import install_db
 from pynojo.model.user import *
-from pynojo.model.user_auth_pw import *
+from pynojo.model.user.auth_pw import *
 
 class UserUnitTests(unittest.TestCase):
 

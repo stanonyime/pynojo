@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Sun Feb 12 23:35:51 2012 +0800
+# $Date: Sun Feb 12 23:52:10 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -42,7 +42,7 @@ def install_db(engine):
     """Create all the tables using sqlalchemy engine *engine*."""
     # pylint: disable=W0612
     from pkgutil import walk_packages
-    for loader, module_name, is_pkg in  walk_packages(__path__):
+    for loader, module_name, is_pkg in  walk_packages(__path__, __name__ + '.'):
         __import__(module_name, globals(), locals(), [], -1)
 
     from pynojo.model._base import Base

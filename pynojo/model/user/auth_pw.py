@@ -1,5 +1,5 @@
-# $File: user_auth_pw.py
-# $Date: Sat Feb 11 21:04:39 2012 +0800
+# $File: auth_pw.py
+# $Date: Sun Feb 12 23:54:38 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
