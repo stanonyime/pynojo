@@ -1,5 +1,5 @@
 # $File: _base.py
-# $Date: Sun Feb 12 14:42:01 2012 +0800
+# $Date: Mon Feb 13 12:07:53 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -35,6 +35,12 @@ class ConfigBase(object):
     def __setattr__(self, name, value):
         if _init_done:
             raise PynojoInternalError('attempt to change static configuration')
+
+        try:
+            self.__getattribute__(name)
+        except AttributeError:
+            raise PynojoInternalError('attempt to add new configuration' \
+                    ' option: {0}' .  format(name))
         object.__setattr__(self, name, value)
 
     def __repr__(self):

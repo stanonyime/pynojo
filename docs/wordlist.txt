@@ -18,6 +18,7 @@ nls
 po
 py
 pynojo
+pylint
 rc
 runtime
 sqlalchemy

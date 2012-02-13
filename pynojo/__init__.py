@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Sun Feb 12 23:27:57 2012 +0800
+# $Date: Mon Feb 13 12:01:11 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -71,6 +71,8 @@ def get_app():
     conf = Configurator(request_factory = Request)
     conf.scan('pynojo')
     setup_pyramid_route(conf)
+    if config.DEBUG_TOOLBAR:
+        conf.include('pyramid_debugtoolbar')
     
     return conf.make_wsgi_app()
 

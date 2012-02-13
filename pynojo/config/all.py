@@ -1,5 +1,5 @@
 # $File: all.py
-# $Date: Sun Feb 12 12:01:35 2012 +0800
+# $Date: Mon Feb 13 12:01:52 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -38,6 +38,9 @@ class AllConfig(ConfigBase):
     USE_HTTPS = False
     """whether HTTPS is enabled (affect the behavior of some functions, such
     as :meth:`pynojo.__init__.Request.set_cookie`)"""
+
+    DEBUG_TOOLBAR = False
+    """whether to enable pyramid-debugtoolbar"""
 
     user = user.UserConfig()
     """user configuration. See :class:`pynojo.config.user.UserConfig`."""
