@@ -1,5 +1,5 @@
 # $File: all.py
-# $Date: Tue Feb 14 17:08:24 2012 +0800
+# $Date: Tue Feb 14 19:47:24 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -25,16 +25,10 @@
 # pylint: disable=C0111
 
 from pynojo.config._base import ConfigBase
-from pynojo.config import user, pkg, db, pyramid
+from pynojo.config import user, pkg, db, pyramid, path
 
 class AllConfig(ConfigBase):
     """configuration of pynojo"""
-    PREFIX = '/'
-    """prefix of pynojo in the domain, which must begin and end with a slash"""
-
-    ROUTE_PREFIX = PREFIX
-    """prefix to be added to all the routes (see :func:`pynojo.view.mkroute`)"""
-
     USE_HTTPS = False
     """whether HTTPS is enabled (affect the behavior of some functions, such
     as :meth:`pynojo.__init__.Request.set_cookie`)"""
@@ -54,4 +48,8 @@ class AllConfig(ConfigBase):
     pyramid = pyramid.PyramidConfig()
     """pyramid configuration.
     See :class:`pynojo.config.pyramid.PyramidConfig`."""
+
+    path = path.PathConfig()
+    """path configuration.
+    See :class:`pynojo.config.path.PathConfig`."""
 

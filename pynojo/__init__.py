@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Tue Feb 14 18:40:48 2012 +0800
+# $Date: Tue Feb 14 22:04:44 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -52,7 +52,7 @@ class Request(OrigRequest):
         :param kargs: other arguments passed to
                       :meth:`pyramid.response.Response.set_cookie` to overwrite
                       the pynojo defaults. Note that it might be modified."""
-        kargs.setdefault('path', config.PREFIX)
+        kargs.setdefault('path', config.path.COOKIE_PATH)
         kargs.setdefault('secure', config.USE_HTTPS)
         self.response.set_cookie(key, value, max_age, **kargs)
 
@@ -61,17 +61,23 @@ class Request(OrigRequest):
         from pynojo.lib import time
         self.set_cookie(key, '', 0, expires = time() - 3600)
 
+    def static_path(self, path):
+        """Return a path for a static assert."""
+        return config.path.STATIC_PREFIX + path
+
 def get_app():
     """Return the WSGI application for pynojo"""
     from pyramid.config import Configurator
-    from pynojo.view import setup_pyramid_route
+    from pynojo.view import setup_pyramid_conf
     from pynojo import nls
 
     nls.init(Request)
     conf = Configurator(request_factory = Request,
             settings = config.pyramid.SETTINGS)
     conf.scan('pynojo')
-    setup_pyramid_route(conf)
+    if config.path.STATIC_NAME:
+        conf.add_static_view(config.path.STATIC_NAME, 'pynojo.view:static')
+    setup_pyramid_conf(conf)
     
     return conf.make_wsgi_app()
 

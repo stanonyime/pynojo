@@ -1,12 +1,18 @@
 #!/bin/bash -e
 # $File: gendoc
-# $Date: Thu Feb 09 19:01:07 2012 +0800
+# $Date: Tue Feb 14 21:15:37 2012 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
 . ../init.sh
 rm -rf source/autogen/* build/*
+
 sphinx-apidoc -o source/autogen ../pynojo
 rm -f source/autogen/modules.rst
+
+echo -n 'Extracting view_config docs ...'
+python ./extract-view-config-doc.py > source/autogen/viewdoc.rst
+echo 'done'
+
 make spelling
 make doctest
 make html

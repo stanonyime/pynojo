@@ -1,5 +1,5 @@
-# $File: __init__.py
-# $Date: Tue Feb 14 20:39:29 2012 +0800
+# $File: path.py
+# $Date: Tue Feb 14 20:09:27 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -22,30 +22,25 @@
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-"""Database models for pynojo. See the source files for details. """
+# pylint: disable=C0111
+from pynojo.config._base import ConfigBase
 
-from pyramid.events import subscriber, BeforeRender
+class PathConfig(ConfigBase):
+    """Configuration for various paths. All the paths should begin and end with
+    a slash, unless """
 
-from pynojo.config import config
+    COOKIE_PATH = '/'
+    """*path* value of the cookies"""
 
-# pylint: disable=C0103
-Session = config.db.make_session()
+    ROUTE_PREFIX = '/'
+    """prefix to be added to all the routes, see also
+    :func:`pynojo.view.mkroute`"""
 
+    STATIC_PREFIX = ROUTE_PREFIX + 'static/'
+    """prefix of static assets, see also
+    :meth:`pynojo.__init__.Request.static_path`"""
 
-@subscriber(BeforeRender)
-def _commit_session(event):
-    # pylint: disable=W0613,E1101
-    Session.commit()
-
-
-def install_db(engine):
-    """Create all the tables using sqlalchemy engine *engine*."""
-    # pylint: disable=W0612
-    from pkgutil import walk_packages
-    for loader, module_name, is_pkg in walk_packages(__path__, __name__ + '.'):
-        __import__(module_name, globals(), locals(), [], -1)
-
-    from pynojo.model._base import Base
-    Base.metadata.create_all(engine)
-
-
+    STATIC_NAME = STATIC_PREFIX
+    """*name* argument passed to
+    :meth:`pyramid.config.Configurator.add_static_view`; static view will not
+    be added if this attribute is *None*."""

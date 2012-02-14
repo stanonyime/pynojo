@@ -1,5 +1,5 @@
 ..  $File: global_name_list.rst
-    $Date: Sun Feb 12 23:33:37 2012 +0800
+    $Date: Tue Feb 14 21:39:19 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     -----------------------------------------------------------------
@@ -46,6 +46,16 @@ those operations. The committing is performed in a subscriber defined in
 :mod:`pynojo.model`.
 
 
+Renderers
+---------
+
+The following renderers are provided by pynojo (see the source of
+:mod:`pynojo.view`):
+
+    * cjson: replace the json renderer, to gain some efficiency.
+
+
+
 Cookies
 -------
 
@@ -57,3 +67,9 @@ Cookies
 +-------------+--------------------------------+------------------------+
 | token       | the authentication code of the | :mod:`pynojo.lib.user` |
 +-------------+--------------------------------+------------------------+
+
+
+Views
+-----
+
+.. include:: autogen/viewdoc.rst

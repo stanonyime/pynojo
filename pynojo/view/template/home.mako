@@ -1,5 +1,5 @@
-## $File: index.mako
-## $Date: Tue Feb 14 18:48:04 2012 +0800
+## $File: home.mako
+## $Date: Tue Feb 14 19:26:17 2012 +0800
 ##
 ## Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 ## 

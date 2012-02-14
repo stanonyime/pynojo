@@ -2,6 +2,7 @@ ascii
 backref
 callables
 cd
+cjson
 config
 CPython
 docstrings
@@ -12,14 +13,18 @@ kai
 kwargs
 login
 lookup
+mako
+mkrt
 multithreading
 namespace
 nls
 po
 py
-pynojo
 pylint
+pynojo
 rc
+renderer
+renderers
 runtime
 sqlalchemy
 subclasses

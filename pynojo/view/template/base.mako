@@ -1,5 +1,5 @@
 ## $File: base.mako
-## $Date: Tue Feb 14 17:29:45 2012 +0800
+## $Date: Tue Feb 14 20:07:23 2012 +0800
 ##
 ## Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 ## 
@@ -21,13 +21,15 @@
 ## You should have received a copy of the GNU General Public License
 ## along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 ##
-## 
-## remeber to define page_name block in the inheriting template
+## blocks:
+##		page_name, page_content, additional_header
 <!DOCTYPE HTML>
 <html>
 	<head>
 		<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+		<link rel="shortcut icon" href="${request.static_path('favicon.ico')}" />
 		<title><%block name="page_name"/> - ${config.WEBSITE_NAME}</title>
+		<%block name='additional_header' />
 	</head>
 	<body>
 		msgfromlayout0 <br />

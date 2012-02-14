@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Tue Feb 14 17:01:08 2012 +0800
+# $Date: Tue Feb 14 21:57:50 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -52,43 +52,51 @@ def _new_request(event):
 
 
 _route_list = list()    # list(kargs:dict)
-_route_cnt = 0
 
 def mkroute(**kargs):
     """Return a route name that can be passed to
-    :meth:`pyramid.config.add_view`. :func:`setup_pyramid_route` should be
+    :meth:`pyramid.config.add_view`. :func:`setup_pyramid_conf` should be
     called during initialization to add these routes to a config.
     
     :param kargs: keyword arguments to be passed to
                   :meth:`pyramid.config.add_route`.  Note that it might be
                   modified. If *name* not in *kargs*, a unique name will be
                   assigned. If *pattern* in *kargs*,
-                  :attr:`config.ROUTE_PREFIX
-                  <pynojo.config.all.AllConfig.ROUTE_PREFIX>` will be added to
+                  :attr:`config.path.ROUTE_PREFIX
+                  <pynojo.config.path.PathConfig.ROUTE_PREFIX>` will be added to
                   it."""
-    try:
-        name = kargs['name']
-    except KeyError:
-        global _route_list, _route_cnt
-        name = 'mkrt-' + str(_route_cnt)
-        _route_cnt += 1
+    name = kargs.get('name')
+    if name is None:
+        global _route_list
+        name = 'mkrt-' + str(len(_route_list))
         kargs['name'] = name
 
-    try:
-        kargs['pattern'] += config.ROUTE_PREFIX
-    except KeyError:
-        pass
+    pattern = kargs.get('pattern')
+    if pattern is not None:
+        kargs['pattern'] = config.path.ROUTE_PREFIX + pattern
     _route_list.append(kargs)
     return name
 
 
-def setup_pyramid_route(conf):
-    """Setup pyramid routes used by :func:`mkroute`
-    
-    :param conf: the instance of :class:`pyramid.conf.Configurator` to be configured
-    """
+def _cjson_renderer_factory(info):
+    import cjson
+    def _render(value, system):
+        request = system.get('request')
+        if request is not None:
+            response = request.response
+            ct = response.content_type
+            if ct == response.default_content_type:
+                response.content_type = 'application/json'
+        return cjson.encode(value)
+    return _render
 
+
+
+def setup_pyramid_conf(conf):
+    """Setup pyramid configuration *conf*"""
     global _route_list
     for i in _route_list:
         conf.add_route(**i)
+
+    conf.add_renderer('cjson', _cjson_renderer_factory)
 

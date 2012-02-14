@@ -1,5 +1,5 @@
-# $File: index.py
-# $Date: Tue Feb 14 17:32:44 2012 +0800
+# $File: home.py
+# $Date: Tue Feb 14 22:00:30 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,13 +21,20 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
-"""index page"""
-
+# pylint: disable=C0111
 from pyramid.view import view_config
 from pynojo.view import mkroute
 
-@view_config(route_name = mkroute(pattern = ''),
-        renderer = 'index.mako')
-def _index(request):
+@view_config(route_name = mkroute(pattern = '', name = 'home'),
+        renderer = 'home.mako')
+def home(request):
     return {'msg': request._('msgfrompython') + _('builtin-trans')}
 
+
+class CJsonTest(object):
+    def __init__(self, request):
+        pass
+
+    @view_config(route_name = mkroute(pattern = 'cjson'), renderer = 'cjson')
+    def cjson(self):
+        return {'msg': 'hello, world!'}
