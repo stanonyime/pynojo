@@ -1,5 +1,5 @@
 ..  $File: devnotes.rst
-    $Date: Mon Feb 13 12:00:50 2012 +0800
+    $Date: Tue Feb 14 18:48:27 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     Contributors to this file:
@@ -66,7 +66,7 @@ Environment Setup
     .. code-block:: sh
 
         $ pip install pyramid sqlalchemy sphinx pyenchant  \
-            pyramid-debugtoolbar sphinxcontrib-spelling pylint
+            babel sphinxcontrib-spelling pylint
 
 #.  Generate the .mo files and documents (they are not tracked by the version
     control system):
@@ -90,9 +90,10 @@ function named *overwrite* in that file and change the configuration there.
 
 An example file::
 
+    # pylint: disable=C0111
     def overwrite(conf):
-        conf.PREFIX = '/pynojo-dev/'
-        conf.ROUTE_PREFIX = conf.PREFIX
+        conf.WEBSITE_NAME = u'PYnojo(dev)'
+        conf.pyramid.SETTINGS['reload_templates'] = True
 
 
 

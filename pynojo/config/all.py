@@ -1,5 +1,5 @@
 # $File: all.py
-# $Date: Mon Feb 13 12:01:52 2012 +0800
+# $Date: Tue Feb 14 17:08:24 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -25,7 +25,7 @@
 # pylint: disable=C0111
 
 from pynojo.config._base import ConfigBase
-from pynojo.config import user, pkg, db
+from pynojo.config import user, pkg, db, pyramid
 
 class AllConfig(ConfigBase):
     """configuration of pynojo"""
@@ -39,8 +39,8 @@ class AllConfig(ConfigBase):
     """whether HTTPS is enabled (affect the behavior of some functions, such
     as :meth:`pynojo.__init__.Request.set_cookie`)"""
 
-    DEBUG_TOOLBAR = False
-    """whether to enable pyramid-debugtoolbar"""
+    WEBSITE_NAME = u'PYnojo'
+    """name of the website"""
 
     user = user.UserConfig()
     """user configuration. See :class:`pynojo.config.user.UserConfig`."""
@@ -50,4 +50,8 @@ class AllConfig(ConfigBase):
 
     db = db.DBConfig()
     """database configuration. See :class:`pynojo.config.db.DBConfig`."""
+
+    pyramid = pyramid.PyramidConfig()
+    """pyramid configuration.
+    See :class:`pynojo.config.pyramid.PyramidConfig`."""
 

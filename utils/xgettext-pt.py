@@ -1,6 +1,8 @@
 # $File: xgettext-pt.py
-# $Date: Fri Feb 03 13:41:50 2012 +0800
+# $Date: Tue Feb 14 15:48:54 2012 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
+
+# extract message identifiers from chameleon page templates
 
 KEY = '_'
 KEY_PL = '_pl'

@@ -1,5 +1,5 @@
-# $File: index.py
-# $Date: Tue Feb 14 17:32:44 2012 +0800
+# $File: pyramid.py
+# $Date: Tue Feb 14 18:43:37 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,13 +21,23 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
-"""index page"""
 
-from pyramid.view import view_config
-from pynojo.view import mkroute
+# pylint: disable=C0111
 
-@view_config(route_name = mkroute(pattern = ''),
-        renderer = 'index.mako')
-def _index(request):
-    return {'msg': request._('msgfrompython') + _('builtin-trans')}
+from pynojo.config._base import ConfigBase
+
+class PyramidConfig(ConfigBase):
+    """pyramid configuration settings"""
+
+    INCLUDES = []
+    """additional pyramid.includes"""
+
+    SETTINGS = {
+        'mako.strict_undefined': True,
+        'mako.default_filters': [],
+        'mako.imports': 'from pynojo.config import config',
+        'mako.directories': ['pynojo.view:template'],
+        'pyramid.includes': INCLUDES
+    }
+    """additional settings passed to :class:`pyramid.config.Configurator`."""
 

@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Sun Feb 05 13:49:10 2012 +0800
+# $Date: Tue Feb 14 17:01:08 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -26,26 +26,20 @@ This module define the views for pynojo. When initializing the application,
 :meth:`pyramid.config.Configurator.scan` should be called on this module.
 
 The following globals will be added to Chameleon templates:
-    * *layout*: global layout macro
     * *_*: normal translation function (see
       :meth:`pynojo.nls.Translator.get_translation`)
     * *_pl*: plural translation function (see
       :meth:`pynojo.nls.Translator.get_plural_translation`)
 """
 
-from os.path import dirname as _dirname, join as _join
-
 from pyramid.events import subscriber, BeforeRender, NewRequest
-from chameleon import PageTemplateFile as _PtFile
 
 from pynojo.lib import register_thread_request
 from pynojo.config import config
 
-_layout_macro = _PtFile(_join(_dirname(__file__), 'template', 'layout.pt'))
 @subscriber(BeforeRender)
 def _add_global(event):
     # pylint: disable=W0212
-    event['layout'] = _layout_macro
     req = event['request']
     event['_'] = req._
     event['_pl'] = req._pl
