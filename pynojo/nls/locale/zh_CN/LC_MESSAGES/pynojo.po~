@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pynojo 0.1-alpha\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-08 22:14+0800\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2012-02-14 15:55+0800\n"
 "PO-Revision-Date: 2012-02-08 22:14+0800\n"
 "Last-Translator:  <jia.kai66@gmail.com>\n"
 "Language-Team: Chinese (simplified)\n"
@@ -18,18 +18,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: utils/ptmsg.py:2
-msgid "msgfromlayout1"
-msgstr "来自layout1的消息"
+#: pynojo/lib/user.py:58
+msgid "Failed to log in."
+msgstr ""
 
-#: utils/ptmsg.py:4
-msgid "{0}from{t}"
-msgstr "{0}来自{t}"
+#: pynojo/model/permdef.py:64
+msgid "Adding Problem"
+msgstr ""
 
-#: utils/ptmsg.py:5 utils/ptmsg.py:6
-msgid "singular"
-msgid_plural "plural"
-msgstr[0] "哈哈，汉语里不需要区分单复数！！"
+#: pynojo/model/permdef.py:64
+msgid ""
+"Capability of adding problems to the database and managing problems added by "
+"that user.  The newly added problems will not have associated problem group, "
+"and thus not displayed. The administrator should move it to some problem "
+"group to make it available to other users."
+msgstr ""
 
 #: pynojo/view/index.py:31
 msgid "msgfrompython"
@@ -39,3 +42,14 @@ msgstr "来自python的消息"
 msgid "builtin-trans"
 msgstr "内置-翻译"
 
+#: pynojo/view/template/index.mako:2
+msgid "{0}from{t}"
+msgstr "{0}来自{t}"
+
+#: pynojo/view/template/index.mako:4 pynojo/view/template/index.mako:5
+msgid "singular"
+msgid_plural "plural"
+msgstr[0] "哈哈，汉语里不需要区分单复数！！"
+
+#~ msgid "msgfromlayout1"
+#~ msgstr "来自layout1的消息"

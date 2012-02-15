@@ -1,0 +1,17 @@
+#!/bin/bash -e
+# $File: genjs
+# $Date: Wed Feb 15 20:04:29 2012 +0800
+# $Author: jiakai <jia.kai66@gmail.com>
+
+UGLIFY_DIR=$(pwd)/3rd-party/uglifyjs
+WORKDIR='pynojo/view/static'
+
+export NODE_PATH=$UGLIFY_DIR
+
+
+find $WORKDIR/js -type f -name "*.js" | \
+	xargs $(which cat) | \
+	$UGLIFY_DIR/bin/uglifyjs -nc \
+	> $WORKDIR/pynojo_all.js
+
+# vim: ft=sh

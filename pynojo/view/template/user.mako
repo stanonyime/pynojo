@@ -1,5 +1,5 @@
-## $File: base.mako
-## $Date: Tue Feb 14 20:07:23 2012 +0800
+## $File: user.mako
+## $Date: Wed Feb 15 23:36:17 2012 +0800
 ##
 ## Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 ## 
@@ -21,21 +21,29 @@
 ## You should have received a copy of the GNU General Public License
 ## along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 ##
-## blocks:
-##		page_name, page_content, additional_header
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
-		<link rel="shortcut icon" href="${request.static_path('favicon.ico')}" />
-		<title><%block name="page_name"/> - ${config.WEBSITE_NAME}</title>
-		<%block name='additional_header' />
-	</head>
-	<body>
-		msgfromlayout0 <br />
-		${_('msgfromlayout1')} <br />
-		<%block name="page_content">
-			this should not be seen
-		</%block>
-	</body>
-</html>
+user register page
+<%def name="show_user_info(model)">
+	user info <br />
+	${str(model) | h}
+</%def>
+<%def name="show_login_form()">
+	<form method="POST" class="form2"
+		action="${request.route_path('user.login')}">
+		<div>
+			<label>${_('Username:')}</label>
+			<span><input type="text" name="username" /></span>
+		</div>
+		<div>
+			<label>${_('Password:')}</label>
+			<span><input type="password" name="passwd" /></span>
+		</div>
+		<div>
+			<div style="text-align: center">
+				<button type="submit" class="jqui-button">${_('Login')}</button>
+				<a href="${request.route_path('user.register')}" class="jqui-button">
+					${_('Register')}
+				</a>
+			</div>
+		</div>
+	</form>
+</%def>

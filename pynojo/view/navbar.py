@@ -1,5 +1,5 @@
-# $File: pkg.py
-# $Date: Wed Feb 15 23:00:35 2012 +0800
+# $File: navbar.py
+# $Date: Wed Feb 15 22:58:09 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -20,23 +20,32 @@
 # 
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
-#
 
-# pylint: disable=C0111
-from pynojo.config._base import ConfigBase
+"""The content of the navigation bar. See the source of this file for details."""
 
-class PkgInfo(ConfigBase):
-    """package information"""
+class PageDesc:
+    """describe a page that should appear in the navigation bar"""
 
-    NAME = 'pynojo'
+    route_name = None
+    _title = None
 
-    COPYRIGHT = '2012, pynojo development team'
+    def __init__(self, route_name, title):
+        """
+        :param title: a callable to generate the page title which is
+                      displayed in the navigation bar.
+        """
+        self.route_name = route_name
+        self._title = title
 
-    VERSION = '0.1'
-    """the short X.Y version"""
+    @property
+    def title(self):
+        """the title of this page"""
+        return self._title()
 
-    RELEASE = '0.1-alpha'
-    """the full version, including alpha/beta/rc tags"""
 
-    WEBSITE = 'http://code.google.com/p/pynojo/'
-    """URL of the project website"""
+
+PAGES = [
+    PageDesc('home', lambda: _('Home')),
+    PageDesc('about', lambda: _('About')),
+]
+

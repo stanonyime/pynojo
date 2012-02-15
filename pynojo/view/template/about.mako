@@ -1,5 +1,5 @@
-## $File: home.mako
-## $Date: Wed Feb 15 20:11:11 2012 +0800
+## $File: about.mako
+## $Date: Wed Feb 15 23:06:04 2012 +0800
 ##
 ## Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 ## 
@@ -20,14 +20,16 @@
 ## 
 ## You should have received a copy of the GNU General Public License
 ## along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
+<%!
+from pynojo.config import config
+pkg = config.pkg
+%>
 <%inherit file="page_base.mako" />
-<%block name="page_name">${_('Home')}</%block>
+<%block name="page_name">${_('About')}</%block>
 <%block name="page_content">
-	<div>
-		${_('{0}from{t}', 'msg', t = 'template')} <br />
-		${msg} <br />
-		${_pl('singular', 'plural', 1)} <br />
-		${_pl('singular', 'plural', 2)} <br />
-		Translation function: ${str(_) | h}
-	</div>
+	Project name: ${pkg.NAME} <br />
+	Project website: <a href="${pkg.WEBSITE}">${pkg.WEBSITE}</a> <br />
+	Release: ${pkg.RELEASE} <br />
+	Copyright: ${pkg.COPYRIGHT} (see the
+		<a href="http://code.google.com/p/pynojo/source/browse/AUTHORS">AUTHORS</a> file)
 </%block>

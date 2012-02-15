@@ -1,5 +1,5 @@
-# $File: pkg.py
-# $Date: Wed Feb 15 23:00:35 2012 +0800
+# $File: about.py
+# $Date: Wed Feb 15 22:57:52 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,22 +21,12 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
-
 # pylint: disable=C0111
-from pynojo.config._base import ConfigBase
+from pyramid.view import view_config
+from pynojo.view import mkroute
 
-class PkgInfo(ConfigBase):
-    """package information"""
 
-    NAME = 'pynojo'
-
-    COPYRIGHT = '2012, pynojo development team'
-
-    VERSION = '0.1'
-    """the short X.Y version"""
-
-    RELEASE = '0.1-alpha'
-    """the full version, including alpha/beta/rc tags"""
-
-    WEBSITE = 'http://code.google.com/p/pynojo/'
-    """URL of the project website"""
+@view_config(route_name = mkroute(pattern = 'about', name = 'about'),
+        renderer = 'about.mako')
+def about(request):
+    return {}

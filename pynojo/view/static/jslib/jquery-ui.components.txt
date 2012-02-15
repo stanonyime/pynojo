@@ -1,0 +1,9 @@
+Theme: smoothness
+
+Widgets:
+Button
+Dialog
+Tabs
+
+Effects:
+Fade

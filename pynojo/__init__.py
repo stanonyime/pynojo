@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Tue Feb 14 22:04:44 2012 +0800
+# $Date: Tue Feb 14 22:30:39 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -46,7 +46,7 @@ class Request(OrigRequest):
         super(self.__class__, self).__init__(*args, **kargs)
 
     def set_cookie(self, key, value, max_age = None, **kargs):
-        """A convenient function for setting cookies, with *path*, *secure* set
+        """A convenient function for setting cookies, with *path* and *secure* set
         properly.
         
         :param kargs: other arguments passed to

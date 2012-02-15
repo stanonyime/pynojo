@@ -1,28 +1,29 @@
 #!/bin/bash -e
 # $File: genpot
-# $Date: Tue Feb 14 16:10:26 2012 +0800
+# $Date: Wed Feb 15 20:15:54 2012 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
-FOUT=pynojo/nls/pynojo.pot
-cd ..
+cd ../..
+
 . ./init.sh
 
+FOUT=utils/nls/pynojo.pot
 
 eval $(grep 'RELEASE =' pynojo/config/pkg.py | sed -e 's/ //g')
+
+
+pybabel extract \
+	--no-default-keywords --omit-header \
+	--keyword=_  --keyword=_pl:1,2 \
+	-F utils/nls/babel.cfg \
+	-o - . > "$FOUT"
 
 echo -n "Extracting from python source ..."
 find pynojo -name "*.py" | \
 	xgettext --copyright-holder 'pynojo development team' --package-name pynojo \
 	--package-version "$RELEASE" --from-code=UTF-8 --keyword=_  \
-	--keyword=_pl:1,2 -f - -o "$FOUT"
+	--keyword=_pl:1,2 -f - -o "$FOUT" -j
 
 echo ' done'
-
-echo >> "$FOUT"
-
-pybabel extract \
-	--no-default-keywords --omit-header \
-	--keyword=_  --keyword=_pl:1,2 -F utils/babel.cfg \
-	-o - . >> "$FOUT"
 
 # vim: ft=sh

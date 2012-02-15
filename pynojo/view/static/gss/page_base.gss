@@ -1,0 +1,121 @@
+/*
+ * $File: page_base.gss
+ * $Date: Wed Feb 15 23:07:19 2012 +0800
+ *
+ * Copyright (C) 2012 the pynojo development team <see AUTHORS file>
+ * 
+ * Contributors to this file:
+ *    Kai Jia	<jia.kai66@gmail.com>
+ *
+ * This file is part of pynojo
+ * 
+ * pynojo is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * pynojo is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+@def PAGE_WIDTH		800px;
+
+div#page-wrap
+{
+	width: PAGE_WIDTH;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1em;
+	font: 16px Verdana, Arial, sans-serif;
+	background: white;
+	color: black;
+}
+
+/* {banner start */
+div#page-banner
+{
+	position: relative;
+}
+
+div#page-banner > img
+{
+	left: 0;
+}
+
+div#page-banner > div
+{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+/* banner end} */
+
+
+/* {navigation bar start */
+div#page-nav
+{
+	margin: 5px;
+	text-align: center;
+}
+
+div#page-nav div#bg1
+{
+	background: url('img/nav-corner-tl.jpg') no-repeat;
+	display: inline;
+	padding-top: 5px;
+	padding-left: 10px;
+}
+
+div#page-nav div#bg2
+{
+	background: url('img/nav-corner-br.jpg') no-repeat bottom right;
+	display: inline;
+	padding-bottom: 5px;
+	padding-right: 10px;
+}
+
+
+div#page-nav div#content
+{
+	display: inline;
+}
+
+div#page-nav ul
+{
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	display: inline;
+}
+
+div#page-nav li
+{
+	display: inline;
+	padding: 0;
+	margin: 0 2px;
+}
+
+div#page-nav a
+{
+	color: black;
+	text-decoration: none;
+	display: inline;
+}
+
+div#page-nav li:hover, div#page-nav li.active:hover
+{
+	background: #CCA3CC;
+}
+
+div#page-nav li.active
+{
+	background: #FFB4FF;
+}
+
+/* navigation bar end} */

@@ -1,8 +1,9 @@
+#!/bin/bash -e
 # $File: genmo
-# $Date: Fri Feb 03 14:27:35 2012 +0800
+# $Date: Wed Feb 15 20:04:52 2012 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
-for i in pynojo/nls/locale/*/LC_MESSAGES/pynojo.po
+for i in ../pynojo/nls/locale/*/LC_MESSAGES/pynojo.po
 do
 	msgfmt -cv --statistics "$i" -o "${i/.po/.mo}"
 done

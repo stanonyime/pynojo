@@ -1,5 +1,5 @@
 ..  $File: devnotes.rst
-    $Date: Tue Feb 14 22:06:57 2012 +0800
+    $Date: Wed Feb 15 19:51:21 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     Contributors to this file:
@@ -69,15 +69,33 @@ Environment Setup
         $ pip install sphinx pyenchant babel \
             sphinxcontrib-spelling pylint               # development dependencies
 
-#.  Generate the .mo files and documents (they are not tracked by the version
-    control system):
+#.  Generate the .mo files and documents, which are not tracked by the version
+    control system (see also :ref:`devnotes-nls` and
+    :ref:`devnotes-documenting`):
+
+    .. code-block:: sh
+
+        $ cd <path-to-pynojo-source-root>/utils/nls
+        $ ./genmo
+        $ cd ../../docs
+        $ ./gendoc
+
+
+#.  Download all the 3rd party utils according to *utils/3rd-party/list*:
+
+    .. code-block:: sh
+
+        $ cd <path-to-pynojo-source-root>/utils/3rd-party
+        $ ./download-all.sh
+
+
+#.  Generate the CSS and javascript files (see also :ref:`devnotes-css-js`):
 
     .. code-block:: sh
 
         $ cd <path-to-pynojo-source-root>/utils
-        $ ./genmo
-        $ cd ../docs
-        $ ./gendoc
+        $ ./gencss
+        $ ./genjs
 
 .. _devnotes-sysconf:
 
@@ -104,19 +122,16 @@ Miscellaneous Specifications and Instructions
 Framework
 ^^^^^^^^^
 
-`Pyramid <http://pylonsproject.org/>`_ is used as the web
-framework, and `SQLAlchemy <http://www.sqlalchemy.org/>`_
-as the ORM. Note that pynojo uses a subclass of :class:`pyramid.request.Request`
-as the request factory; see :class:`pynojo.__init__.Request`.
+`Pyramid`_ is used as the web framework, and `SQLAlchemy`_ as the ORM. Note that
+pynojo uses a subclass of :class:`pyramid.request.Request` as the request
+factory; see :class:`pynojo.__init__.Request`.
 
 
 Code Style
 ^^^^^^^^^^
 
-Follow the
-`Style Guide for Python Code <http://www.python.org/dev/peps/pep-0008>`_.
-Use `pylint <http://pypi.python.org/pypi/pylint>`_ to check the style
-and find potential bugs. Execute the *run-pylint* script to invoke pylint.
+Follow the `Style Guide for Python Code`_.  Use `pylint`_ to check the style and
+find potential bugs. Execute the *run-pylint* script to invoke pylint.
 
 The following lines should be included in every Python source file::
 
@@ -156,6 +171,8 @@ your vimrc:
     autocmd filetype python set textwidth=79
 
 
+.. _devnotes-documenting:
+
 Documenting
 ^^^^^^^^^^^
 
@@ -164,10 +181,8 @@ function, etc. The documents should be written in English.
 
 Register all the global names in :ref:`global-name-list`.
 
-These documents are generated from
-`reStructuredText <http://docutils.sf.net/rst.html>`_
-sources and docstrings by `Sphinx <http://sphinx.pocoo.org/>`_.
-Issue the following command to generate all the documents:
+These documents are generated from `reStructuredText`_ sources and docstrings by
+`Sphinx`_.  Issue the following command to generate all the documents:
 
 .. code-block:: sh
 
@@ -175,8 +190,8 @@ Issue the following command to generate all the documents:
     $ ./gendoc
 
 
-*sphinxcontrib.spelling.* is used for spell-checking of all the documents. The
-extra word list file is located at docs/wordlist.txt.
+*sphinxcontrib.spelling* is used for spell-checking of all the documents. The
+extra word list file is located at *docs/wordlist.txt*.
 
 
 Threading
@@ -208,11 +223,10 @@ translations.
 
 pynojo dose not use the NLS mechanism provided by Pyramid and Chameleon.
 Instead, pynojo has its own :mod:`pynojo.nls` package, which is based on
-`GNU gettext <http://www.gnu.org/software/gettext/>`_.  To generate the pot
-file, cd to *utils* and execute *./genpot*.  The pot file will be written
-to pynojo/nls/pynojo.pot. The locale directory is pynojo/nls/locale. To update the
-po files or regenerate the mo files, cd to *utils* and execute *./update-po* or
-*./genmo* respectively.
+`GNU gettext`_.  To generate the pot file, cd to *utils/nls* and execute
+*./genpot*.  The pot file will be stored in the current directory. The locale
+directory is pynojo/nls/locale. To update the po files or generate the mo files,
+cd to *utils/nls* and execute *./update-po* or *./genmo* respectively.
 
 To localize:
 
@@ -265,3 +279,44 @@ Locale detection details:
       the HTTP request header.
     * Cookie: TODO
 
+
+
+
+.. _devnotes-css-js:
+
+Stylesheets and Javascripts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+pynojo uses `closure-stylesheets`_ to minify the stylesheets. Put all the GSS
+files in *pynojo/view/static/gss/*, and generate the all-in-one CSS file using
+the following:
+
+.. code-block:: sh
+
+    $ cd <path-to-pynojo-source-root>/utils
+    $ ./gencss
+
+`UglifyJS`_ is used to minify the javascripts. Note that you have to get
+`nodejs`_ installed. Put all the scripts in *pynojo/view/static/gss/*, and
+generate the all-in-one js file by:
+
+.. code-block:: sh
+
+    $ cd <path-to-pynojo-source-root>/utils
+    $ ./genjs
+
+
+
+
+
+.. links
+.. _Pyramid:  http://pylonsproject.org/ 
+.. _SQLAlchemy: http://www.sqlalchemy.org/
+.. _Style Guide for Python Code: http://www.python.org/dev/peps/pep-0008
+.. _pylint: http://pypi.python.org/pypi/pylint
+.. _reStructuredText: http://docutils.sf.net/rst.html
+.. _Sphinx: http://sphinx.pocoo.org/
+.. _GNU gettext: http://www.gnu.org/software/gettext/
+.. _closure-stylesheets: http://code.google.com/p/closure-stylesheets/>
+.. _UglifyJS: https://github.com/mishoo/UglifyJS
+.. _nodejs: http://nodejs.org/

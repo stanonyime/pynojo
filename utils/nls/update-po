@@ -1,0 +1,13 @@
+#!/bin/bash -e
+# $File: update-po
+# $Date: Wed Feb 15 20:05:03 2012 +0800
+# $Author: jiakai <jia.kai66@gmail.com>
+
+./genpot
+for i in ../pynojo/nls/locale/*/LC_MESSAGES/pynojo.po
+do
+	echo "Updating $i ..."
+	msgmerge -Uv "$i" pynojo.pot
+done
+
+# vim: ft=sh

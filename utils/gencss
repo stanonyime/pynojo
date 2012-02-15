@@ -1,0 +1,12 @@
+#!/bin/bash -e
+# $File: gencss
+# $Date: Wed Feb 15 20:04:23 2012 +0800
+# $Author: jiakai <jia.kai66@gmail.com>
+
+WORKDIR='pynojo/view/static'
+
+find $WORKDIR/gss -type f -name "*.gss" | \
+	xargs $(which java) -jar 3rd-party/closure-stylesheets.jar \
+	> $WORKDIR/pynojo_all.css
+
+# vim: ft=sh

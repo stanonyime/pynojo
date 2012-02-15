@@ -1,5 +1,5 @@
-## $File: home.mako
-## $Date: Wed Feb 15 20:11:11 2012 +0800
+## $File: banner.mako
+## $Date: Wed Feb 15 22:16:44 2012 +0800
 ##
 ## Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 ## 
@@ -20,14 +20,18 @@
 ## 
 ## You should have received a copy of the GNU General Public License
 ## along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
-<%inherit file="page_base.mako" />
-<%block name="page_name">${_('Home')}</%block>
-<%block name="page_content">
+##
+<%! from pynojo.lib import user %>
+<%namespace file="../user.mako" name="user_tp" />
+<div id="page-banner">
+	<img src="${request.static_path('img/pynojo-wide-logo.png')}" alt="banner" />
 	<div>
-		${_('{0}from{t}', 'msg', t = 'template')} <br />
-		${msg} <br />
-		${_pl('singular', 'plural', 1)} <br />
-		${_pl('singular', 'plural', 2)} <br />
-		Translation function: ${str(_) | h}
+		<%
+			model = user.get_model(request)
+			if model is None:
+				user_tp.show_login_form()
+			else:
+				user_tp.show_user_info(model)
+		%>
 	</div>
-</%block>
+</div>

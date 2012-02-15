@@ -1,5 +1,5 @@
 # $File: user.py
-# $Date: Sun Feb 12 23:15:37 2012 +0800
+# $Date: Wed Feb 15 14:04:15 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -33,8 +33,8 @@ def get_model(request):
     """Return an instance of :class:`pynojo.model.User`, or *None* if no user
     has logged in."""
     val = request.pynojo_cache.get(get_model, -1)
-    if val is -1:
-        request.pynojo_cache[get_model] = _get_model(request)
+    if val == -1:
+        val = request.pynojo_cache[get_model] = _get_model(request)
     return val
 
 
@@ -64,7 +64,7 @@ def check_login_pw(request, username, passwd, cookie_max_age = None):
 
 def _get_model(req):
     uid = req.cookies.get('uid', -1)
-    if uid is -1:
+    if uid == -1:
         return None
 
     ses = Session()

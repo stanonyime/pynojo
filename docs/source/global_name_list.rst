@@ -1,5 +1,5 @@
 ..  $File: global_name_list.rst
-    $Date: Tue Feb 14 21:39:19 2012 +0800
+    $Date: Tue Feb 14 22:13:04 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     -----------------------------------------------------------------
@@ -50,7 +50,7 @@ Renderers
 ---------
 
 The following renderers are provided by pynojo (see the source of
-:mod:`pynojo.view`):
+:func:`pynojo.view.setup_pyramid_conf`):
 
     * cjson: replace the json renderer, to gain some efficiency.
 
