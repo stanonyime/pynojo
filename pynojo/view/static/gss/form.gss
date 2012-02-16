@@ -1,6 +1,6 @@
 /*
  * $File: form.gss
- * $Date: Wed Feb 15 16:29:33 2012 +0800
+ * $Date: Thu Feb 16 23:19:10 2012 +0800
  *
  * Copyright (C) 2012 the pynojo development team <see AUTHORS file>
  * 
@@ -32,32 +32,96 @@
  *			<label>the title</label>
  *			<span>the content</span>
  *		</div>
+ *		-- or --
+ *		<div class="msg">
+ *			some text messages
+ *		</div>
  *  </form>
+ *
+ *  or <form class="form2 wide"> to use wide title column
  */
+
+@def FORM2_LABEL_WIDTH		5em;
+@def FORM2_BUTTON_WIDTH		6em;
+@def FORM2_WIDE_LABEL_WIDTH	10em;
+
+/*
+ * dirty fix:
+ *   if remove min-width and margin on form, not correct in colorbox in firefox (10.0.1) 
+ *   if only min-width, not correct in chromium (17.0.963.46)
+ *   WTF...
+ */
+form.form2
+{
+	min-width: add(FORM2_LABEL_WIDTH, INPUT_DEFAULT_WIDTH, 3em);
+	padding: 1em;
+}
+
+form.form2.wide
+{
+	min-width: add(FORM2_WIDE_LABEL_WIDTH, INPUT_DEFAULT_WIDTH, 3em);
+}
+
+
 
 form.form2 > div
 {
 	clear: both;
 	float: none;
+	text-align: center;
+}
+
+form.form2 > div:after
+{
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
 }
 
 form.form2 > div > label
 {
-	float: left;
-	width: 6em;
+	width: FORM2_LABEL_WIDTH;
 	display: block;
-	text-align: right;
+	float: left;
 	margin-right: 0.2em;
+	text-align: left;
+}
+
+form.form2.wide > div > label
+{
+	width: FORM2_WIDE_LABEL_WIDTH;
 }
 
 form.form2 > div > span
 {
-	float: right;
 	display: block;
+	float: right;
+	text-align: left;
+}
+
+form.form2 > div.msg
+{
+	margin: 0.5em;
+	height: 18px;
+	font-size: 0.8em;
+	text-align: left;
+}
+
+form.form2 > div.msg.success
+{
+	color: black;
+}
+
+form.form2 > div.msg.fail
+{
+	color: red;
 }
 
 form.form2 button
 {
-	width: 6em;
+	margin-top: 1em;
+	width: FORM2_BUTTON_WIDTH;
 }
 

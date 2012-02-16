@@ -1,6 +1,6 @@
 /*
  * $File: page_base.gss
- * $Date: Wed Feb 15 23:07:19 2012 +0800
+ * $Date: Thu Feb 16 23:18:19 2012 +0800
  *
  * Copyright (C) 2012 the pynojo development team <see AUTHORS file>
  * 
@@ -32,20 +32,14 @@ div#page-wrap
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 1em;
-	font: 16px Verdana, Arial, sans-serif;
-	background: white;
-	color: black;
 }
 
 /* {banner start */
 div#page-banner
 {
 	position: relative;
-}
-
-div#page-banner > img
-{
-	left: 0;
+	clear: both;
+	min-height: 7em;
 }
 
 div#page-banner > div
@@ -60,62 +54,78 @@ div#page-banner > div
 /* {navigation bar start */
 div#page-nav
 {
-	margin: 5px;
+	margin: 5px 0;
+	clear: both;
 	text-align: center;
+}
+
+div#page-nav-wrapper
+{
+	position: relative;
+	display: inline-block;
+}
+
+div#page-nav div#bg1, div#page-nav div#bg2
+{
+	position: absolute;
+	width: 0.8em;
+	height: 0.8em;
+	border: 1px dotted;
 }
 
 div#page-nav div#bg1
 {
-	background: url('img/nav-corner-tl.jpg') no-repeat;
-	display: inline;
-	padding-top: 5px;
-	padding-left: 10px;
+	left: 0;
+	top: 0;
+	border-right: none;
+	border-bottom: none;
 }
 
 div#page-nav div#bg2
 {
-	background: url('img/nav-corner-br.jpg') no-repeat bottom right;
-	display: inline;
-	padding-bottom: 5px;
-	padding-right: 10px;
+	right: 0;
+	bottom: 0;
+	border-left: none;
+	border-top: none;
 }
 
-
-div#page-nav div#content
-{
-	display: inline;
-}
 
 div#page-nav ul
 {
 	margin: 0;
-	padding: 0;
+	padding: 0.2em 0.4em;
 	list-style-type: none;
-	display: inline;
+	display: block;
 }
 
 div#page-nav li
 {
-	display: inline;
 	padding: 0;
 	margin: 0 2px;
+	float: left;
+	display: block;
 }
 
 div#page-nav a
 {
 	color: black;
 	text-decoration: none;
-	display: inline;
 }
 
-div#page-nav li:hover, div#page-nav li.active:hover
+div#page-nav a:hover
 {
-	background: #CCA3CC;
+	color: white;
+	background: black;
 }
 
 div#page-nav li.active
 {
-	background: #FFB4FF;
+	font-weight: 900;
 }
-
 /* navigation bar end} */
+
+
+div#page-content
+{
+	clear: both;
+}

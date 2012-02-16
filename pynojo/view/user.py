@@ -1,5 +1,5 @@
 # $File: user.py
-# $Date: Wed Feb 15 23:21:31 2012 +0800
+# $Date: Thu Feb 16 19:38:14 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -31,7 +31,15 @@ from pynojo.view import mkroute
 def login(request):
     return None
 
-@view_config(route_name = mkroute(pattern = 'user/register',
-    name = 'user.register'), renderer = 'user.mako')
+@view_config(route_name = mkroute(pattern = 'user/reg',
+    name = 'user.reg'), renderer = 'user.mako')
 def register(request):
     return {}
+
+
+@view_config(route_name = mkroute(pattern = 'user/reg/vdname',
+    name = 'user.reg.validate-username'), renderer = 'cjson')
+def validate_username(request):
+    username = request.GET['v']
+    return {'fail': int(username == 'x'), 'msg': username}
+

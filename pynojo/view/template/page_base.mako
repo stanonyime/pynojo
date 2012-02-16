@@ -1,5 +1,5 @@
 ## $File: page_base.mako
-## $Date: Wed Feb 15 20:28:00 2012 +0800
+## $Date: Thu Feb 16 19:23:57 2012 +0800
 ##
 ## Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 ## 
@@ -29,11 +29,14 @@
 		<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 		<link rel="shortcut icon" href="${request.static_path('favicon.ico')}" />
 
+		<link rel="stylesheet" type="text/css" href="${request.static_path('jslib/jquery-ui.css')}" />
+		<link rel="stylesheet" type="text/css" href="${request.static_path('jslib/colorbox.css')}" />
+		<script type="text/javascript" src="${request.static_path('jslib/jquery.js')}"></script>
+		<script type="text/javascript" src="${request.static_path('jslib/jquery.colorbox.js')}"></script>
+		<script type="text/javascript" src="${request.static_path('jslib/jquery.form.js')}"></script>
+
 		<link rel="stylesheet" type="text/css" href="${request.static_path('pynojo_all.css')}" />
 		<script type="text/javascript" src="${request.static_path('pynojo_all.js')}"></script>
-
-		<link rel="stylesheet" type="text/css" href="${request.static_path('jslib/jquery-ui.css')}" />
-		<script type="text/javascript" src="${request.static_path('jslib/jquery.js')}"></script>
 
 		<title><%block name="page_name"/> - ${config.WEBSITE_NAME}</title>
 	</head>
@@ -46,7 +49,9 @@
 			</div>
 		</div>
 		<script type="text/javascript">
-			$(document).ready(pynojo_init)
+			$(document).ready(function(){
+				pynojo_init("${config.path.STATIC_PREFIX}")
+			})
 		</script>
 	</body>
 </html>

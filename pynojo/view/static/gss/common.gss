@@ -1,6 +1,6 @@
 /*
  * $File: common.gss
- * $Date: Wed Feb 15 23:45:09 2012 +0800
+ * $Date: Thu Feb 16 21:14:39 2012 +0800
  *
  * Copyright (C) 2012 the pynojo development team <see AUTHORS file>
  * 
@@ -24,6 +24,15 @@
  *
  */
 
+@def INPUT_DEFAULT_WIDTH    10em;
+
+body
+{
+	font: 16px Verdana, sans-serif;
+	background: white;
+	color: black;
+}
+
 input[type="text"]:hover, input[type="password"]:hover, textarea:hover
 {
 	border-color: green;
@@ -40,7 +49,7 @@ input[type="text"], input[type="password"], textarea
 input[type="text"], input[type="password"]
 {
 	height: 1em;
-	width: 10em;
+	width: INPUT_DEFAULT_WIDTH;
 }
 
 .ui-widget
@@ -48,7 +57,7 @@ input[type="text"], input[type="password"]
 	font-size: 1em!important;
 }
 
-*.jqui-button
+.jqui-button, .ui-dialog-title
 {
 	font-size: 0.75em!important;
 }

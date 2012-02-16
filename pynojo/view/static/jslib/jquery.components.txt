@@ -1,0 +1,10 @@
+[jquery]
+
+[ui]
+theme=smoothness
+
+[ui.core]
+core, widget
+
+[ui.widgets]
+button

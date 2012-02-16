@@ -1,5 +1,5 @@
 ## $File: nav.mako
-## $Date: Wed Feb 15 22:45:30 2012 +0800
+## $Date: Thu Feb 16 14:34:45 2012 +0800
 ##
 ## Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 ## 
@@ -27,12 +27,17 @@
 	if pg_route_name is not None:
 		pg_route_name = pg_route_name.name
 %>
-<div id="page-nav"><div id="bg1"><div id="bg2"><div id="content">
-	<ul>
-		% for i in PAGES:
-			<li ${'class="active"' if pg_route_name == i.route_name else ''}>
+<div id="page-nav">
+	<div id="page-nav-wrapper">
+		<div id="bg1"></div>
+		<div id="bg2"></div>
+		<ul>
+			% for i in PAGES:
+				<li ${'class="active"' if pg_route_name == i.route_name else ''}>
 				<a href="${request.route_path(i.route_name)}">${i.title}</a>
-			</li>
-		% endfor
-	</ul>
-</div></div></div></div>
+				</li>
+			% endfor
+		</ul>
+		<br style="clear: both" />
+	</div>
+</div>
