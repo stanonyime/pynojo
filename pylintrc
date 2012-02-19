@@ -26,7 +26,7 @@ include-ids=yes
 reports=no
 
 [TYPECHECK]
-generated-members=get_table_name
+generated-members=get_table_name,__setattr__
 
 [BASIC]
 const-rgx=(([A-Z_][A-Z0-9_]*)|(_.*))$

@@ -1,5 +1,5 @@
 # $File: _base.py
-# $Date: Fri Feb 10 14:49:47 2012 +0800
+# $Date: Fri Feb 17 13:01:55 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -31,7 +31,7 @@ from sqlalchemy.types import *
 from sqlalchemy.types import BINARY
 from sqlalchemy.schema import *
 from sqlalchemy.sql.expression import text
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship, backref, validates
 from sqlalchemy.orm.session import object_session
 from sqlalchemy.ext.associationproxy import association_proxy
 

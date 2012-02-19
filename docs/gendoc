@@ -1,6 +1,6 @@
 #!/bin/bash -e
 # $File: gendoc
-# $Date: Tue Feb 14 21:15:37 2012 +0800
+# $Date: Fri Feb 17 16:44:16 2012 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
 . ../init.sh
@@ -9,12 +9,18 @@ rm -rf source/autogen/* build/*
 sphinx-apidoc -o source/autogen ../pynojo
 rm -f source/autogen/modules.rst
 
-echo -n 'Extracting view_config docs ...'
-python ./extract-view-config-doc.py > source/autogen/viewdoc.rst
-echo 'done'
+echo > source/autogen/viewdoc.rst
+# extract real view docs after spell check, so that the names are not
+# considered misspelled
 
 make spelling
 make doctest
+
+echo -n 'Extracting view_config docs ...'
+python ./extract-view-config-doc.py source/autogen/viewdoc.rst
+echo 'done'
+
+
 make html
 
 # vim: ft=sh

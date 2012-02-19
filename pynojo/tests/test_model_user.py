@@ -1,5 +1,5 @@
 # $File: test_model_user.py
-# $Date: Sun Feb 12 23:56:57 2012 +0800
+# $Date: Fri Feb 17 13:05:05 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -44,7 +44,7 @@ class UserUnitTests(unittest.TestCase):
 
         g0 = UserGrp(name = 'g0')
         g1 = UserGrp(name = 'g1')
-        u0 = User(username = 'u0')
+        u0 = User(username = 'user0')
 
         u0.groups.append(g0)
         u0.groups.append(g1)
@@ -56,7 +56,7 @@ class UserUnitTests(unittest.TestCase):
 
     def get_user(self):
         ses = self.ses
-        u = ses.query(User).filter(User.username == 'u0').one()
+        u = ses.query(User).filter(User.username == 'user0').one()
         return u
 
     def test_user_perms(self):

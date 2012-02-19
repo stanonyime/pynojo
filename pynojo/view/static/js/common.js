@@ -1,6 +1,6 @@
 /*
  * $File: common.js
- * $Date: Thu Feb 16 21:58:57 2012 +0800
+ * $Date: Fri Feb 17 15:33:13 2012 +0800
  *
  * Copyright (C) 2012 the pynojo development team <see AUTHORS file>
  * 
@@ -33,12 +33,14 @@ function pynojo_init(static_prefix)
 }
 
 (function($){
-	$.fn.ajax_validate = function(url, msg_obj) {
+	$.fn.ajax_validate = function(url, msg_obj, update_hook) {
 		/*
 		 * send the data to *url* via GET method using the key 'v'
 		 * the server should return a json-encoded object:
 		 *		fail: 0 for success, otherwise for failure
 		 *		msg: message to be put to msg_obj
+		 * *update_hook*, if supplied, will be called after the data
+		 *		in *msg_obj* got updated
 		 */
 		return this.blur(function(){
 			msg_obj.html('<img alt="loading" src="' +
@@ -49,11 +51,12 @@ function pynojo_init(static_prefix)
 				'data': {'v': $(this).val()},
 				'dataType': 'json',
 				'success': function(data) {
-					if (data.fail) {
+					if (data.fail)
 						msg_obj.validate_msg_fail(data.msg);
-					} else {
+					else 
 						msg_obj.validate_msg_success(data.msg);
-					}
+					if (update_hook)
+						update_hook();
 				}
 			})
 		})

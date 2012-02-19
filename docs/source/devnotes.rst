@@ -1,5 +1,5 @@
 ..  $File: devnotes.rst
-    $Date: Wed Feb 15 19:51:21 2012 +0800
+    $Date: Sun Feb 19 20:08:18 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     Contributors to this file:
@@ -105,14 +105,58 @@ Configuration
 The static system configuration package is :mod:`pynojo.config`. To allow the
 developers applying their local settings without having to change the system
 defaults, *pynojo/config/overwrite.py* has been added to *.gitignore*. Define a
-function named *overwrite* in that file and change the configuration there.
+function named *overwrite* in that file and change the configuration there. 
 
 An example file::
 
-    # pylint: disable=C0111
+    # pylint: disable=C0111,R0201
+    from pynojo.config.db import DBConfig
+
+    _engine = None
+    _DBFILE = '/tmp/pynojo.db'
+    # _DBFILE = ':memory:'
+
+    class MyDB(DBConfig):
+        @staticmethod
+        def make_session():
+            global _engine
+            from sqlalchemy import create_engine, event
+            from sqlalchemy.orm import sessionmaker, scoped_session
+            engine = create_engine('sqlite:///' + _DBFILE)
+            event.listen(engine, 'connect', lambda con, record:
+                    con.execute('PRAGMA foreign_keys=ON'))
+            ses = scoped_session(sessionmaker(bind = engine))
+            _engine = engine
+            return ses
+
+    def _init():
+        import logging
+        class SQLFilter(logging.Filter):
+            def filter(self, record):
+                record.name = 'SQL'
+                return True
+
+        logging.basicConfig(
+                filename = '/tmp/pynojo.log',
+                format = '%(asctime)s [%(name)s] %(message)s',
+                datefmt = '%H:%M:%S'
+                )
+        logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+        logging.getLogger('sqlalchemy.engine.base.Engine').addFilter(SQLFilter())
+
+
     def overwrite(conf):
-        conf.WEBSITE_NAME = u'PYnojo(dev)'
+        _init()
+        from os.path import isfile
+        db_exists = isfile(_DBFILE)
+
         conf.pyramid.SETTINGS['reload_templates'] = True
+        conf.db = MyDB()
+
+        # install_db must be imported after conf.db is set
+        from pynojo.model import install_db
+        if not db_exists:
+            install_db(_engine)
 
 
 

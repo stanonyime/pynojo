@@ -2,9 +2,11 @@ ascii
 backref
 callables
 cd
+checkbox
 cjson
 config
 CPython
+dispname
 docstrings
 indices
 init
@@ -20,10 +22,13 @@ lookup
 mako
 minify
 mkrt
+msg
 multithreading
 namespace
 nls
+passwd
 po
+preselected
 py
 pylint
 pynojo
@@ -39,6 +44,7 @@ subpackages
 txt
 uid
 username
+usernames
 util
 utils
 vimrc

@@ -1,5 +1,5 @@
 ## $File: banner.mako
-## $Date: Wed Feb 15 22:16:44 2012 +0800
+## $Date: Sun Feb 19 16:34:47 2012 +0800
 ##
 ## Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 ## 
@@ -24,7 +24,7 @@
 <%! from pynojo.lib import user %>
 <%namespace file="../user.mako" name="user_tp" />
 <div id="page-banner">
-	<img src="${request.static_path('img/pynojo-wide-logo.png')}" alt="banner" />
+	<img src="${request.static_path('img/pynojo-banner.jpg')}" alt="banner" />
 	<div>
 		<%
 			model = user.get_model(request)

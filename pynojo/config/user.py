@@ -1,5 +1,5 @@
 # $File: user.py
-# $Date: Sun Feb 05 13:40:57 2012 +0800
+# $Date: Fri Feb 17 13:04:13 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -29,15 +29,21 @@ from pynojo.config._base import ConfigBase
 class UserConfig(ConfigBase):
     """configuration for user maintenance"""
 
+    USERNAME_LEN_MIN = 3
+    """minimum length of username"""
+
     USERNAME_LEN_MAX = 20
-    """maximal length of username"""
+    """maximum length of username"""
 
     DISPNAME_LEN_MAX = 20
-    """maximal length of display name"""
+    """maximum length of display name"""
 
     GRPNAME_LEN_MAX = 20
-    """maximal length of user group name"""
+    """maximum length of user group name"""
 
     ALLOW_REGISTER = True
-    """allow new user to register"""
+    """whether to allow new users to register"""
+
+    RESERVED_USERNAME = frozenset(['admin', 'administrator', 'root', 'r00t'])
+    """the set of reserved usernames that could not be registered"""
 

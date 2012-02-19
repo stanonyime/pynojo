@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Sun Feb 12 23:55:13 2012 +0800
+# $Date: Sun Feb 19 20:48:09 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -94,6 +94,13 @@ class User(Base):
     backref in :attr:`UserAuthPW.user
     <pynojo.model.user.auth_pw.UserAuthPW.user>`."""
 
+
+    @validates('username')
+    def _validate_username(self, key, val):
+        # pylint: disable=W0613,R0201
+        from pynojo.lib import user
+        user.validate_username(val)
+        return val
 
 
     # maintaining user permission

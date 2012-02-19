@@ -1,6 +1,6 @@
 /*
  * $File: form.gss
- * $Date: Thu Feb 16 23:19:10 2012 +0800
+ * $Date: Sun Feb 19 19:29:24 2012 +0800
  *
  * Copyright (C) 2012 the pynojo development team <see AUTHORS file>
  * 
@@ -33,8 +33,14 @@
  *			<span>the content</span>
  *		</div>
  *		-- or --
+ *		<div class="nf">
+ *			## the label and span won't be floated
+ *			<span>the content</span>
+ *			<label>the title</label>
+ *		</div>
+ *		-- or --
  *		<div class="msg">
- *			some text messages
+ *			usually used for ajax form message
  *		</div>
  *  </form>
  *
@@ -53,13 +59,13 @@
  */
 form.form2
 {
-	min-width: add(FORM2_LABEL_WIDTH, INPUT_DEFAULT_WIDTH, 3em);
+	min-width: add(FORM2_LABEL_WIDTH, INPUT_DEFAULT_WIDTH, 1em);
 	padding: 1em;
 }
 
 form.form2.wide
 {
-	min-width: add(FORM2_WIDE_LABEL_WIDTH, INPUT_DEFAULT_WIDTH, 3em);
+	min-width: add(FORM2_WIDE_LABEL_WIDTH, INPUT_DEFAULT_WIDTH, 1em);
 }
 
 
@@ -101,10 +107,24 @@ form.form2 > div > span
 	text-align: left;
 }
 
+form.form2 > div.nf > label
+{
+	float: none;
+	display: inline;
+	width: auto;
+}
+
+form.form2 > div.nf > span
+{
+	float: none;
+	display: inline;
+	width: auto;
+}
+
 form.form2 > div.msg
 {
 	margin: 0.5em;
-	height: 18px;
+	min-height: 18px;
 	font-size: 0.8em;
 	text-align: left;
 }

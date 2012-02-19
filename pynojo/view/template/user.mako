@@ -1,5 +1,5 @@
 ## $File: user.mako
-## $Date: Thu Feb 16 23:30:12 2012 +0800
+## $Date: Sun Feb 19 20:19:57 2012 +0800
 ##
 ## Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 ## 
@@ -21,51 +21,48 @@
 ## You should have received a copy of the GNU General Public License
 ## along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 ##
-<%namespace file="lib/form2.mako" import="mkinput" />
-<form method="POST" class="form2 wide" id="userreg-form"
-	action="${request.route_path('user.reg')}">
 
-	<div class='msg' id="userreg-msg">${_('Please fill in your information')}</div>
-	${mkinput(_('Username:'), name = 'username', id = 'reg-username',
-		hint = _('Username is a unique identifier of a user, used for login.'))}
-	${mkinput(_('Password:'), name = 'passwd', type = 'password', id = 'reg-passwd')}
-	${mkinput(_('Confirm Password:'), name = 'confirm_passwd', type = 'password', id = 'reg-passwd2')}
+## by default, this file renderes to a user register form
+## two functions *show_user_info* and *show_login_form* are also provided
+
+<%! from pynojo.view.lib.form2 import MakoForm2Helper %>
+<% fh = MakoForm2Helper(locals()) %>
+<form method="post" class="form2 wide" id="reg-form"
+	action="${request.route_path('user.reg.submit')}">
+
+	<div class='msg' id="reg-msg">${_('Please fill in your information.')}</div>
+	<% fh.mkinput(_('Username:'), name = 'username', id = 'reg-username',
+		hint = _('Username is a unique identifier of a user, used for login. ' \
+		'It can not be changed. Note that username is case sensitive.')) %>
+	<% fh.mkinput(_('Display Name:'), name = 'dispname',
+		hint = _('The name to be displayed on the page. You can also consider it as a nickname.')) %>
+	<% fh.mkinput(_('Password:'), name = 'passwd', type = 'password', id = 'reg-passwd') %>
+	<% fh.mkinput(_('Confirm Password:'), type = 'password', id = 'reg-passwd2') %>
 	<div><button type="sumit" id="reg-button" class="jqui-button">${_('Submit')}</button></div>
-
 </form>
 <script type="text/javascript">
-	var msg = $('#userreg-msg');
-	$('#reg-username').ajax_validate('${request.route_path("user.reg.validate-username")}', msg)
-	$('#reg-passwd').blur(function(){
-		if ($(this).val() == '') {
-			msg.validate_msg_fail('${_("You should enter a password.")}');
-		} else {
-			msg.validate_msg_success(' ');
-		}
-	})
-	$('#reg-passwd2').blur(function(){
-		if ($(this).val() != $('#reg-passwd').val()) {
-			msg.validate_msg_fail('${_("The passwords do not match.")}');
-		}else {
-			msg.validate_msg_success(' ');
-		}
-
-	})
-	$('#reg-button').button();
+	user_register_form_init('${request.route_path("user.reg.validate-username")}', {
+		'ask_passwd': '${_("You should enter a password.")}',
+		'passwd_unmatch': '${_("The passwords do not match.")}'
+	});
 </script>
 <%def name="show_user_info(model)">
 	user info <br />
 	${str(model) | h}
 </%def>
 <%def name="show_login_form()">
-	<form method="POST" class="form2"
+	<% fh = MakoForm2Helper(locals()) %>
+	<form method="post" class="form2" id="login-form"
 		action="${request.route_path('user.login')}">
-		${mkinput(_('Username:'), name = 'username')}
-		${mkinput(_('Password:'), name = 'passwd', type = 'password')}
+		<% fh.mkinput(_('Username:'), name = 'username') %>
+		<% fh.mkinput(_('Password:'), name = 'passwd', type = 'password') %>
+		<% fh.mkcheckbox(_('Stay logged in for 2 weeks'), name = 'set_cookie') %>
 		<div>
-			<button type="submit" class="jqui-button">${_('Login')}</button>
+			<button type="submit" class="jqui-button">${_('Log in')}</button>
 			<a href="${request.route_path('user.reg')}" class="jqcolorbox jqui-button">${_('Register')}</a>
 		</div>
 	</form>
-	<div id="user-reg-page-div"></div>
+	<script type="text/javascript">
+		user_login_form_init();
+	</script>
 </%def>

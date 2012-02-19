@@ -1,5 +1,5 @@
 # $File: user.py
-# $Date: Thu Feb 16 19:38:14 2012 +0800
+# $Date: Sun Feb 19 20:46:59 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -25,21 +25,86 @@
 """handling requests about users, such as login/logout/register"""
 
 from pyramid.view import view_config
-from pynojo.view import mkroute
 
-@view_config(route_name = mkroute(pattern = 'user/login', name = 'user.login'))
+from pynojo.view import mkroute
+from pynojo.lib import user
+from pynojo.exc import PynojoRuntimeError
+from pynojo.model import Session
+from pynojo.model.user import User
+from pynojo.model.user.auth_pw import UserAuthPW
+
+@view_config(route_name = mkroute(pattern = 'user/login', name = 'user.login'),
+        renderer = 'cjson')
 def login(request):
-    return None
+    """POST: username, passwd, [set_cookie]
+    
+    Return: fail, msg
+
+        note that *msg* is returned only if *fail* != 0"""
+    p = request.POST
+    age = None
+    if 'set_cookie' in p:
+        age = 3600 * 24 * 7 * 2 # 2 weeks
+    try:
+        user.check_login_pw(request, p['username'], p['passwd'], age)
+        return {'fail': 0}
+    except PynojoRuntimeError as e:
+        return {'fail': 1, 'msg': _('Failed to log in: {msg}', msg = str(e))}
+
+
 
 @view_config(route_name = mkroute(pattern = 'user/reg',
     name = 'user.reg'), renderer = 'user.mako')
 def register(request):
+    # pylint: disable=W0613
     return {}
+
+
+@view_config(route_name = mkroute(pattern = 'user/reg/submit',
+    name = 'user.reg.submit'), renderer = 'cjson')
+def register_submit(request):
+    """POST: username, passwd, dispname
+
+    Return: fail, msg
+    """
+    p = request.POST
+    try:
+        validate_username(p['username'])
+        ses = Session()
+        u = User()
+        for i in 'username', 'dispname':
+            u.__setattr__(i, p[i])
+        u.auth_pw = UserAuthPW(p['passwd'])
+        ses.add(u)
+        ses.commit()
+    except PynojoRuntimeError as e:
+        return {'fail': 1, 'msg': _('Failed to register: {msg}', msg = str(e))}
+    return {
+            'fail': 0,
+            'msg': _('Congratulations! You have successfully registered.' \
+                    '{line_break}Log in after 2 seconds...',
+                    line_break = '<br />')
+            }
 
 
 @view_config(route_name = mkroute(pattern = 'user/reg/vdname',
     name = 'user.reg.validate-username'), renderer = 'cjson')
-def validate_username(request):
-    username = request.GET['v']
-    return {'fail': int(username == 'x'), 'msg': username}
+def validate_username_on_request(request):
+    v = request.GET['v']
+    try:
+        validate_username(v)
+    except PynojoRuntimeError as e:
+        return {'fail': 1, 'msg': str(e)}
+    return {'fail': 0, 'msg': _('Good! Username "{0}" still available.', v)}
+
+
+def validate_username(username):
+    """Validate the username, raise :exc:`pynojo.exc.PynojoRuntimeError` on
+    error. This function checks the name's legality and non-existence."""
+    user.validate_username(username)
+    ses = Session()
+    if ses.query(User).filter(User.username == username).count():
+        raise PynojoRuntimeError(_('Sorry, username "{0}" already exists.',
+            username))
+
 

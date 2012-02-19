@@ -1,7 +1,20 @@
 #!/bin/bash -e
 # $File: genpot
-# $Date: Wed Feb 15 20:15:54 2012 +0800
+# $Date: Fri Feb 17 17:32:09 2012 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
+
+txtgrn='\e[0;32m' # Green
+txtwht='\e[0;37m' # White
+txtrst='\e[0m'    # Text Reset
+
+function print_msg()
+{
+	echo -e "${txtwht}${1}${txtgrn}"
+}
+
+print_msg  "Extracting from mako templates ... "
+
+pushd . >/dev/null
 
 cd ../..
 
@@ -18,12 +31,18 @@ pybabel extract \
 	-F utils/nls/babel.cfg \
 	-o - . > "$FOUT"
 
-echo -n "Extracting from python source ..."
+print_msg "Extracting from python source ..."
 find pynojo -name "*.py" | \
 	xgettext --copyright-holder 'pynojo development team' --package-name pynojo \
 	--package-version "$RELEASE" --from-code=UTF-8 --keyword=_  \
 	--keyword=_pl:1,2 -f - -o "$FOUT" -j
 
-echo ' done'
+print_msg 'running aspell, note that the personal directionary is wordlist.txt'
+print_msg 'misspelled words: '
 
+tail -n +20 "$FOUT" | grep -v '^\(#\|msgstr\)' | \
+	sed -e 's/^msgid[_a-z]*//g' | \
+	(popd >/dev/null && aspell list -d en_US --personal ./wordlist.txt)
+
+echo -e $txtrst
 # vim: ft=sh

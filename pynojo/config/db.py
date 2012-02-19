@@ -1,5 +1,5 @@
 # $File: db.py
-# $Date: Sun Feb 12 23:18:13 2012 +0800
+# $Date: Fri Feb 17 16:29:14 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -31,9 +31,11 @@ class DBConfig(ConfigBase):
     @staticmethod
     def make_session():
         """create a configured contextual Session class"""
-        from sqlalchemy import create_engine
+        from sqlalchemy import create_engine, event
         from sqlalchemy.orm import sessionmaker, scoped_session
         engine = create_engine('sqlite:///:memory:')
+        event.listen(engine, 'connect', lambda con, record:
+                con.execute('PRAGMA foreign_keys=ON'))
         ses = scoped_session(sessionmaker(bind = engine))
         return ses
 

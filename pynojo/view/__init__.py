@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Tue Feb 14 21:57:50 2012 +0800
+# $Date: Sun Feb 19 20:47:28 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -79,6 +79,7 @@ def mkroute(**kargs):
 
 
 def _cjson_renderer_factory(info):
+    # pylint: disable=W0613
     import cjson
     def _render(value, system):
         request = system.get('request')

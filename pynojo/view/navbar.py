@@ -1,5 +1,5 @@
 # $File: navbar.py
-# $Date: Wed Feb 15 22:58:09 2012 +0800
+# $Date: Fri Feb 17 00:18:20 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,7 +21,8 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 
-"""The content of the navigation bar. See the source of this file for details."""
+"""The content of the navigation bar. See the source of this file for
+details."""
 
 class PageDesc:
     """describe a page that should appear in the navigation bar"""

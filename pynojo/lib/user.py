@@ -1,5 +1,5 @@
 # $File: user.py
-# $Date: Wed Feb 15 14:04:15 2012 +0800
+# $Date: Sun Feb 19 20:14:37 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -23,11 +23,34 @@
 #
 """helper functions for maintaining users"""
 
+import re
+
 from sqlalchemy.orm.exc import NoResultFound
 
 from pynojo.exc import PynojoRuntimeError
 from pynojo.model import Session
 from pynojo.model.user import User
+from pynojo.config import config
+
+
+_username_re = re.compile(r'^[-_a-zA-Z0-9]{{{min},{max}}}$'.format(
+    min = config.user.USERNAME_LEN_MIN, max = config.user.USERNAME_LEN_MAX))
+# it's said that compiled re is thread-safe, so no lock needed
+# http://www.gossamer-threads.com/lists/python/python/391977
+def validate_username(username):
+    """Check whether *username* is a legal one. Raise
+    :exc:`pynojo.exc.PynojoRuntimeError` on error."""
+    if _username_re.match(username) is None:
+        raise PynojoRuntimeError(_('Invalid username. Valid ones should ' \
+            'contain only numbers, letters, dash (-) and underscore (_), ' \
+            'and at least {min} characters and at most {max}.',
+            min = config.user.USERNAME_LEN_MIN,
+            max = config.user.USERNAME_LEN_MAX))
+
+    if username in config.user.RESERVED_USERNAME:
+        raise PynojoRuntimeError(_('Username "{name}" is reserved.',
+            name = username))
+
 
 def get_model(request):
     """Return an instance of :class:`pynojo.model.User`, or *None* if no user
@@ -55,7 +78,7 @@ def check_login_pw(request, username, passwd, cookie_max_age = None):
             ok = user.auth_pw.check(passwd)
 
     if not ok:
-        raise PynojoRuntimeError(_('Failed to log in.'))
+        raise PynojoRuntimeError(_('incorrect username/password'))
 
     request.pynojo_cache[get_model] = user
     request.set_cookie('uid', user.id, cookie_max_age)

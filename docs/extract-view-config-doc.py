@@ -1,9 +1,11 @@
 # $File: extract-view-config-doc.py
-# $Date: Tue Feb 14 21:59:57 2012 +0800
+# $Date: Fri Feb 17 16:44:08 2012 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
 
 output_table = [('Name', 'Pattern', 'Renderer', 'Function')]
+
+fout = None
 
 def add_view_extract_doc(self, *args, **kargs):
     func = kargs.get('view')
@@ -41,8 +43,9 @@ def mktable(table):
         maxwidth.append(max(len(j[i]) for j in table))
 
     def mkrow(val, sep = '|'):
-        print ''.join(('+', sep.join('{{0:<{0}}}'.format(maxwidth[i]).format(val[i]) \
-                for i in range(len(maxwidth))), '+'))
+        fout.write(''.join(('+', sep.join('{{0:<{0}}}'.format(maxwidth[i]).format(val[i]) \
+                for i in range(len(maxwidth))), '+')))
+        fout.write('\n')
 
     def mksep(sep = '-'):
         mkrow([sep * i for i in maxwidth], '+')
@@ -57,6 +60,10 @@ def mktable(table):
 
 if __name__ == '__main__':
     import sys, os
+    if len(sys.argv) != 2:
+        sys.exit('usage: {0} <output file>'.format(sys.argv[0]))
+    fout = open(sys.argv[1], 'w')
+
     sys.path.insert(0, os.path.abspath('..'))
 
     from pyramid.config import Configurator

@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Tue Feb 14 22:30:39 2012 +0800
+# $Date: Sun Feb 19 20:12:27 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -32,7 +32,7 @@ class Request(OrigRequest):
     *_* and *_pl*, see :ref:`devnotes-nls` for details."""
 
     # pylint: disable=C0301
-    charset = 'utf-8'
+    charset = 'UTF-8'
     """see http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/webob.html#unicode ."""
 
     pynojo_cache = None
@@ -47,13 +47,15 @@ class Request(OrigRequest):
 
     def set_cookie(self, key, value, max_age = None, **kargs):
         """A convenient function for setting cookies, with *path* and *secure* set
-        properly.
+        properly. If value is not of type *str*, it will be converted to *str*.
         
         :param kargs: other arguments passed to
                       :meth:`pyramid.response.Response.set_cookie` to overwrite
                       the pynojo defaults. Note that it might be modified."""
         kargs.setdefault('path', config.path.COOKIE_PATH)
         kargs.setdefault('secure', config.USE_HTTPS)
+        if not isinstance(value, str):
+            value = str(value)
         self.response.set_cookie(key, value, max_age, **kargs)
 
     def del_cookie(self, key):
