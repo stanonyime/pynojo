@@ -1,5 +1,5 @@
 # $File: _ext_type.py
-# $Date: Mon Feb 20 14:59:16 2012 +0800
+# $Date: Mon Feb 20 18:23:58 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -30,6 +30,8 @@ import cjson
 from sqlalchemy.types import TypeDecorator, String
 from sqlalchemy.ext.mutable import Mutable
 
+from pynojo.exc import PynojoRuntimeError
+
 class JSONEncodeDict(TypeDecorator):
     """Represents an mutable python *dict* as a json-encoded string."""
 
@@ -38,6 +40,9 @@ class JSONEncodeDict(TypeDecorator):
     def process_bind_param(self, value, dialect):
         if value is not None:
             value = cjson.encode(value)
+            if len(value) > self.length:
+                raise PynojoRuntimeError(_(
+                    '{class_name}: encoded string too long'))
         return value
 
     def process_result_value(self, value, dialect):

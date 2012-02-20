@@ -1,5 +1,5 @@
 ..  $File: devnotes.rst
-    $Date: Mon Feb 20 18:04:34 2012 +0800
+    $Date: Mon Feb 20 18:18:53 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     Contributors to this file:
@@ -58,7 +58,7 @@ Environment Setup
     .. code-block:: sh
 
         $ cd <path-to-pynojo-source-root>
-        $ echo "export PATH=<path-to-your-workplace>/bin:$PATH" > init.sh
+        $ echo 'export PATH=<path-to-your-workplace>/bin:$PATH' > init.sh
         $ . ./init.sh
 
 
