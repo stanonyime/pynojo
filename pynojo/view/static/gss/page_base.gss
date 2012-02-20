@@ -1,6 +1,6 @@
 /*
  * $File: page_base.gss
- * $Date: Thu Feb 16 23:18:19 2012 +0800
+ * $Date: Mon Feb 20 11:44:13 2012 +0800
  *
  * Copyright (C) 2012 the pynojo development team <see AUTHORS file>
  * 
@@ -39,14 +39,14 @@ div#page-banner
 {
 	position: relative;
 	clear: both;
-	min-height: 7em;
+	min-height: 8em;
 }
 
 div#page-banner > div
 {
 	position: absolute;
 	right: 0;
-	bottom: 0;
+	bottom: 0.5em;
 }
 /* banner end} */
 
@@ -54,7 +54,7 @@ div#page-banner > div
 /* {navigation bar start */
 div#page-nav
 {
-	margin: 5px 0;
+	margin: 1em 0;
 	clear: both;
 	text-align: center;
 }

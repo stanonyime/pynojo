@@ -1,5 +1,5 @@
 # $File: user.py
-# $Date: Sun Feb 19 20:46:59 2012 +0800
+# $Date: Mon Feb 20 14:56:52 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -23,6 +23,8 @@
 #
 # pylint: disable=C0111
 """handling requests about users, such as login/logout/register"""
+
+import cgi
 
 from pyramid.view import view_config
 
@@ -68,12 +70,14 @@ def register_submit(request):
     Return: fail, msg
     """
     p = request.POST
+    p['dispname'] = cgi.escape(p['dispname'])
+    uname = p['username']
     try:
-        validate_username(p['username'])
+        validate_username(uname)
         ses = Session()
-        u = User()
-        for i in 'username', 'dispname':
-            u.__setattr__(i, p[i])
+        u = User(username = uname)
+        for i in 'dispname':
+            u.extra[i] = p[i]
         u.auth_pw = UserAuthPW(p['passwd'])
         ses.add(u)
         ses.commit()

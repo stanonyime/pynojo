@@ -1,6 +1,6 @@
 /*
  * $File: user.js
- * $Date: Sun Feb 19 20:43:06 2012 +0800
+ * $Date: Mon Feb 20 11:36:39 2012 +0800
  *
  * Copyright (C) 2012 the pynojo development team <see AUTHORS file>
  * 
@@ -73,7 +73,7 @@ function user_login_form_init()
 			if (data.fail)
                 $.colorbox({'html': data.msg});
 			else
-				window.location.reload(true);
+				refresh_page();
 		}
 	})
 }

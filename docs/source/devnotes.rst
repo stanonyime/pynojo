@@ -1,5 +1,5 @@
 ..  $File: devnotes.rst
-    $Date: Sun Feb 19 20:08:18 2012 +0800
+    $Date: Mon Feb 20 18:04:34 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     Contributors to this file:
@@ -60,6 +60,10 @@ Environment Setup
         $ cd <path-to-pynojo-source-root>
         $ echo "export PATH=<path-to-your-workplace>/bin:$PATH" > init.sh
         $ . ./init.sh
+
+
+    **Note:** the following steps assume that you have put *init.sh* at the right
+    place and have executed ``. ./init.sh``.
 
 #.  Use pip to get the dependencies installed:
 
@@ -221,7 +225,7 @@ Documenting
 ^^^^^^^^^^^
 
 Write docstrings for every package, module, public class, public method, public
-function, etc. The documents should be written in English. 
+function, etc. The documents should be written in English.
 
 Register all the global names in :ref:`global-name-list`.
 
@@ -234,8 +238,9 @@ These documents are generated from `reStructuredText`_ sources and docstrings by
     $ ./gendoc
 
 
-*sphinxcontrib.spelling* is used for spell-checking of all the documents. The
-extra word list file is located at *docs/wordlist.txt*.
+If environment variable *PYNOJO_DOC_SPELLCHECK* exists, then
+*sphinxcontrib.spelling* will be used for spell-checking of all the documents.
+The extra word list file is located at *docs/wordlist.txt*.
 
 
 Threading

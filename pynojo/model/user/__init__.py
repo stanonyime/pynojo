@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Sun Feb 19 20:48:09 2012 +0800
+# $Date: Mon Feb 20 14:56:04 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -25,10 +25,13 @@
 
 """models for users and user groups"""
 
+__all__ = ['User', 'UserGrp']
+
 from pynojo.config import config
 from pynojo.model._base import *
 
-_AUTH_CODE_LEN = 9
+
+_PERMS_CACHE_LEN = 127
 
 class _Tablename:
     User = 'user'
@@ -79,9 +82,6 @@ class User(Base):
             index = True, unique = True)
     """username for login, immutable"""
 
-    dispname = Column(String(config.user.DISPNAME_LEN_MAX))
-    """display name"""
-
     groups = relationship('UserGrp', secondary = _Tablename.MapUserAndUserGrp)
     """groups that this user belongs to; a relationship to :class:`UserGrp`."""
 
@@ -95,6 +95,12 @@ class User(Base):
     <pynojo.model.user.auth_pw.UserAuthPW.user>`."""
 
 
+    extra = Column(JSONEncodeDict(config.user.EXTRA_FIELD_LEN),
+            default = dict(), nullable = False)
+    """a :class:`JSONEncodeDict <pynojo.model._ext_type.JSONEncodeDict>`, for
+    storing fields that are not usually changed and have no indexes."""
+
+
     @validates('username')
     def _validate_username(self, key, val):
         # pylint: disable=W0613,R0201
@@ -106,7 +112,7 @@ class User(Base):
     # maintaining user permission
 
     _perms_cache_rst = None
-    _perms_cache = Column('permscache', Text())
+    _perms_cache = Column('permscache', String(_PERMS_CACHE_LEN))
 
     @property
     def perms(self):
@@ -158,7 +164,7 @@ class User(Base):
 
     # user authentication
 
-    _auth_code = Column('authcode', BINARY(_AUTH_CODE_LEN))
+    _auth_code = Column('authcode', BINARY(config.user.AUTH_CODE_LEN))
 
     def get_auth_code(self):
         """Return an ascii authentication code string, which can be set to
@@ -173,7 +179,7 @@ class User(Base):
         """Update the authentication code, invalidating the previously
         generated one. Return the new authentication code."""
         from pynojo.lib import gen_random_str
-        self._auth_code = gen_random_str(_AUTH_CODE_LEN)
+        self._auth_code = gen_random_str(config.user.AUTH_CODE_LEN)
         return self.get_auth_code()
 
 

@@ -1,10 +1,12 @@
 #!/bin/bash -e
 # $File: gendoc
-# $Date: Fri Feb 17 16:44:16 2012 +0800
+# $Date: Mon Feb 20 18:05:04 2012 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
 . ../init.sh
 rm -rf source/autogen/* build/*
+
+export PYNOJO_DOC_SPELLCHECK=1
 
 sphinx-apidoc -o source/autogen ../pynojo
 rm -f source/autogen/modules.rst

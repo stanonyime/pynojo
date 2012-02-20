@@ -1,5 +1,5 @@
 # $File: _base.py
-# $Date: Fri Feb 17 13:01:55 2012 +0800
+# $Date: Mon Feb 20 14:47:05 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -36,6 +36,8 @@ from sqlalchemy.orm.session import object_session
 from sqlalchemy.ext.associationproxy import association_proxy
 
 from sqlalchemy.ext.declarative import declarative_base as _base
+
+from pynojo.model._ext_type import *
 
 class DeclarativeBase(object):
     """Base class for pynojo ORM."""

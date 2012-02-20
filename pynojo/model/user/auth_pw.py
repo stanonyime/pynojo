@@ -1,5 +1,5 @@
 # $File: auth_pw.py
-# $Date: Sun Feb 12 23:54:38 2012 +0800
+# $Date: Mon Feb 20 14:31:01 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -24,6 +24,8 @@
 # pylint: disable=C0111
 
 """user authentication via password"""
+
+__all__ = ['UserAuthPW']
 
 from hashlib import sha256 
 

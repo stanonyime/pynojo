@@ -1,5 +1,5 @@
 ## $File: user.mako
-## $Date: Sun Feb 19 20:19:57 2012 +0800
+## $Date: Mon Feb 20 12:48:40 2012 +0800
 ##
 ## Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 ## 
@@ -42,13 +42,12 @@
 </form>
 <script type="text/javascript">
 	user_register_form_init('${request.route_path("user.reg.validate-username")}', {
-		'ask_passwd': '${_("You should enter a password.")}',
+		'ask_passwd': '${_("Please enter a password.")}',
 		'passwd_unmatch': '${_("The passwords do not match.")}'
 	});
 </script>
 <%def name="show_user_info(model)">
-	user info <br />
-	${str(model) | h}
+	Hello, ${model.dispname}! <br />
 </%def>
 <%def name="show_login_form()">
 	<% fh = MakoForm2Helper(locals()) %>

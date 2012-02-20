@@ -1,6 +1,6 @@
 /*
  * $File: common.js
- * $Date: Fri Feb 17 15:33:13 2012 +0800
+ * $Date: Mon Feb 20 11:36:55 2012 +0800
  *
  * Copyright (C) 2012 the pynojo development team <see AUTHORS file>
  * 
@@ -76,4 +76,10 @@ function pynojo_init(static_prefix)
 		$this.html(msg);
 	}
 })(jQuery);
+
+
+function refresh_page()
+{
+	window.location.reload(true);
+}
 

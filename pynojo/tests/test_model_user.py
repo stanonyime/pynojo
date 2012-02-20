@@ -1,5 +1,5 @@
 # $File: test_model_user.py
-# $Date: Fri Feb 17 13:05:05 2012 +0800
+# $Date: Mon Feb 20 14:50:55 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -23,8 +23,8 @@
 #
 import unittest
 
+from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
 
 from pynojo.model import install_db
 from pynojo.model.user import *

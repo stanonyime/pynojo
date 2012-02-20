@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # $File: serialize-set.py
-# $Date: Fri Feb 10 11:10:13 2012 +0800
+# $Date: Mon Feb 20 13:10:50 2012 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
 from clock import clock
 
-import pickle, cPickle, json, cjson
+import pickle, cPickle, json, cjson, marshal
 
 data = set(range(10))
 
@@ -14,7 +14,7 @@ def test(lib, enc, dec, niter = 100000):
         for i in range(niter):
             s = enc(data)
 
-    print lib, 'encode result:', repr(s)
+    print lib, 'encode len:', len(s)
 
     with clock(lib + ' decode:'):
         for i in range(niter):
@@ -34,4 +34,5 @@ test('json', lambda s: json.dumps(list(s)), lambda s: set(json.loads(s)))
 test('cjson', lambda s: cjson.encode(list(s)), lambda s: set(cjson.decode(s)))
 test('pickle', pickle.dumps, pickle.loads)
 test('cPickle', cPickle.dumps, cPickle.loads)
+test('marshal', marshal.dumps, marshal.loads)
 

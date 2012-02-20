@@ -1,5 +1,5 @@
 # $File: user.py
-# $Date: Fri Feb 17 13:04:13 2012 +0800
+# $Date: Mon Feb 20 14:47:34 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -35,9 +35,6 @@ class UserConfig(ConfigBase):
     USERNAME_LEN_MAX = 20
     """maximum length of username"""
 
-    DISPNAME_LEN_MAX = 20
-    """maximum length of display name"""
-
     GRPNAME_LEN_MAX = 20
     """maximum length of user group name"""
 
@@ -46,4 +43,13 @@ class UserConfig(ConfigBase):
 
     RESERVED_USERNAME = frozenset(['admin', 'administrator', 'root', 'r00t'])
     """the set of reserved usernames that could not be registered"""
+
+    AUTH_CODE_LEN = 9
+    """the length of authentication code (see also
+    :meth:`pynojo.model.user.User.get_auth_code`)"""
+
+    EXTRA_FIELD_LEN = 255
+    """maximum length of the extra field of the user model (see also
+    :attr:`pynojo.model.user.User.extra`)"""
+
 

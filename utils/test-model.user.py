@@ -1,11 +1,11 @@
 from os.path import isfile
 
+from sqlalchemy import create_engine, event
+from sqlalchemy.orm import sessionmaker
+
 from pynojo.model import install_db
 from pynojo.model.user import *
 from pynojo.model.user.auth_pw import *
-
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
 
 #DBFILE = '/tmp/pynojo-test.db'
 DBFILE = ':memory:'
@@ -18,7 +18,7 @@ else:
 
         g0 = UserGrp(name = 'g0')
         g1 = UserGrp(name = 'g1')
-        u0 = User(username = 'u0')
+        u0 = User(username = 'user0')
 
         u0.groups.append(g0)
         u0.groups.append(g1)
