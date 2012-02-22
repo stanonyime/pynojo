@@ -1,6 +1,6 @@
 /*
  * $File: page_base.gss
- * $Date: Mon Feb 20 11:44:13 2012 +0800
+ * $Date: Mon Feb 20 20:12:07 2012 +0800
  *
  * Copyright (C) 2012 the pynojo development team <see AUTHORS file>
  * 
@@ -31,22 +31,32 @@ div#page-wrap
 	width: PAGE_WIDTH;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 1em;
+	margin-top: 1.5em;
 }
 
 /* {banner start */
 div#page-banner
 {
-	position: relative;
 	clear: both;
-	min-height: 8em;
+}
+
+div#page-banner > img
+{
+	display: block;
+	float: left;
 }
 
 div#page-banner > div
 {
-	position: absolute;
-	right: 0;
-	bottom: 0.5em;
+	float: right;
+}
+
+div#page-banner > div ul.user-action
+{
+	display: block;
+	margin: 0 1em;
+	padding: 0;
+	list-style-type: disc;
 }
 /* banner end} */
 

@@ -1,5 +1,5 @@
-## $File: user.mako
-## $Date: Mon Feb 20 12:48:40 2012 +0800
+## $File: reg.mako
+## $Date: Mon Feb 20 19:47:04 2012 +0800
 ##
 ## Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 ## 
@@ -21,10 +21,6 @@
 ## You should have received a copy of the GNU General Public License
 ## along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 ##
-
-## by default, this file renderes to a user register form
-## two functions *show_user_info* and *show_login_form* are also provided
-
 <%! from pynojo.view.lib.form2 import MakoForm2Helper %>
 <% fh = MakoForm2Helper(locals()) %>
 <form method="post" class="form2 wide" id="reg-form"
@@ -46,22 +42,3 @@
 		'passwd_unmatch': '${_("The passwords do not match.")}'
 	});
 </script>
-<%def name="show_user_info(model)">
-	Hello, ${model.dispname}! <br />
-</%def>
-<%def name="show_login_form()">
-	<% fh = MakoForm2Helper(locals()) %>
-	<form method="post" class="form2" id="login-form"
-		action="${request.route_path('user.login')}">
-		<% fh.mkinput(_('Username:'), name = 'username') %>
-		<% fh.mkinput(_('Password:'), name = 'passwd', type = 'password') %>
-		<% fh.mkcheckbox(_('Stay logged in for 2 weeks'), name = 'set_cookie') %>
-		<div>
-			<button type="submit" class="jqui-button">${_('Log in')}</button>
-			<a href="${request.route_path('user.reg')}" class="jqcolorbox jqui-button">${_('Register')}</a>
-		</div>
-	</form>
-	<script type="text/javascript">
-		user_login_form_init();
-	</script>
-</%def>

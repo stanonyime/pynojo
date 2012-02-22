@@ -1,5 +1,5 @@
-## $File: banner.mako
-## $Date: Mon Feb 20 20:00:52 2012 +0800
+## $File: info.mako
+## $Date: Mon Feb 20 20:37:18 2012 +0800
 ##
 ## Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 ## 
@@ -22,14 +22,17 @@
 ## along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 ##
 <%! from pynojo.lib import user %>
-<div id="page-banner">
-	<img src="${request.static_path('img/pynojo-banner.jpg')}" alt="banner" />
-	<div>
-		<% model = user.get_model(request) %>
-		% if model is None:
-			<%include file="../user/login.mako" />
-		% else:
-			<%include file="../user/info.mako" />
-		% endif
-	</div>
-</div>
+<%
+	model = user.get_model(request)
+	if model is None:
+		return
+%>
+<%def name="_mkli(name, url)">
+	<li><a href="${url}" class="jqcolorbox">${name}</a></li>
+</%def>
+Hello, ${model.extra['dispname']}! <br />
+<ul class="user-action">
+	${_mkli(_('Change Password'), request.route_path('user.chgpw'))}
+	${_mkli(_('Update Profile'), request.route_path('user.chgpw'))}
+	<li><a href="#" onclick="user_logout()">${_('Log Out')}</a></li>
+</ul>

@@ -1,5 +1,5 @@
 ..  $File: devnotes.rst
-    $Date: Mon Feb 20 18:18:53 2012 +0800
+    $Date: Mon Feb 20 18:31:05 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     Contributors to this file:
@@ -366,6 +366,6 @@ generate the all-in-one js file by:
 .. _reStructuredText: http://docutils.sf.net/rst.html
 .. _Sphinx: http://sphinx.pocoo.org/
 .. _GNU gettext: http://www.gnu.org/software/gettext/
-.. _closure-stylesheets: http://code.google.com/p/closure-stylesheets/>
+.. _closure-stylesheets: http://code.google.com/p/closure-stylesheets/
 .. _UglifyJS: https://github.com/mishoo/UglifyJS
 .. _nodejs: http://nodejs.org/

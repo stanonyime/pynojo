@@ -1,5 +1,5 @@
 ## $File: page_base.mako
-## $Date: Thu Feb 16 19:23:57 2012 +0800
+## $Date: Mon Feb 20 20:48:23 2012 +0800
 ##
 ## Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 ## 
@@ -34,6 +34,7 @@
 		<script type="text/javascript" src="${request.static_path('jslib/jquery.js')}"></script>
 		<script type="text/javascript" src="${request.static_path('jslib/jquery.colorbox.js')}"></script>
 		<script type="text/javascript" src="${request.static_path('jslib/jquery.form.js')}"></script>
+		<script type="text/javascript" src="${request.static_path('jslib/jquery.cookie.js')}"></script>
 
 		<link rel="stylesheet" type="text/css" href="${request.static_path('pynojo_all.css')}" />
 		<script type="text/javascript" src="${request.static_path('pynojo_all.js')}"></script>

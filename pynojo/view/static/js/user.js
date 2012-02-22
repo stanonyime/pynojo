@@ -1,6 +1,6 @@
 /*
  * $File: user.js
- * $Date: Mon Feb 20 11:36:39 2012 +0800
+ * $Date: Mon Feb 20 20:48:49 2012 +0800
  *
  * Copyright (C) 2012 the pynojo development team <see AUTHORS file>
  * 
@@ -76,5 +76,12 @@ function user_login_form_init()
 				refresh_page();
 		}
 	})
+}
+
+function user_logout()
+{
+	$.cookie('uid', null);
+	$.cookie('token', null);
+	refresh_page();
 }
 

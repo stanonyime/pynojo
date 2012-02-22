@@ -1,5 +1,5 @@
 # $File: user.py
-# $Date: Mon Feb 20 14:56:52 2012 +0800
+# $Date: Mon Feb 20 19:46:59 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -56,7 +56,7 @@ def login(request):
 
 
 @view_config(route_name = mkroute(pattern = 'user/reg',
-    name = 'user.reg'), renderer = 'user.mako')
+    name = 'user.reg'), renderer = 'user/reg.mako')
 def register(request):
     # pylint: disable=W0613
     return {}
@@ -75,8 +75,8 @@ def register_submit(request):
     try:
         validate_username(uname)
         ses = Session()
-        u = User(username = uname)
-        for i in 'dispname':
+        u = User(username = uname, extra = dict())
+        for i in ('dispname', ):
             u.extra[i] = p[i]
         u.auth_pw = UserAuthPW(p['passwd'])
         ses.add(u)
@@ -91,6 +91,7 @@ def register_submit(request):
             }
 
 
+
 @view_config(route_name = mkroute(pattern = 'user/reg/vdname',
     name = 'user.reg.validate-username'), renderer = 'cjson')
 def validate_username_on_request(request):
@@ -101,6 +102,13 @@ def validate_username_on_request(request):
         return {'fail': 1, 'msg': str(e)}
     return {'fail': 0, 'msg': _('Good! Username "{0}" still available.', v)}
 
+
+
+@view_config(route_name = mkroute(pattern = 'user/chgpasswd',
+    name = 'user.chgpw'), renderer = 'user/chgpw.mako')
+def chg_passwd(request):
+    # pylint: disable=W0613
+    return {}
 
 def validate_username(username):
     """Validate the username, raise :exc:`pynojo.exc.PynojoRuntimeError` on

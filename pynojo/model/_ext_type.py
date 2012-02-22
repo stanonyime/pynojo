@@ -1,5 +1,5 @@
 # $File: _ext_type.py
-# $Date: Mon Feb 20 18:23:58 2012 +0800
+# $Date: Wed Feb 22 15:04:06 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -34,6 +34,7 @@ from pynojo.exc import PynojoRuntimeError
 
 class JSONEncodeDict(TypeDecorator):
     """Represents an mutable python *dict* as a json-encoded string."""
+    # pylint: disable=W0223
 
     impl = String
 
@@ -42,7 +43,9 @@ class JSONEncodeDict(TypeDecorator):
             value = cjson.encode(value)
             if len(value) > self.length:
                 raise PynojoRuntimeError(_(
-                    '{class_name}: encoded string too long'))
+                        '{class_name}: encoded string too long',
+                        class_name = self.__class__.__name__))
+
         return value
 
     def process_result_value(self, value, dialect):
@@ -75,3 +78,4 @@ class _JSONEncodeDictMutabilize(Mutable, dict):
 
 
 _JSONEncodeDictMutabilize.associate_with(JSONEncodeDict)
+

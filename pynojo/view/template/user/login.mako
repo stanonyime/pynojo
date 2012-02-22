@@ -1,5 +1,5 @@
-## $File: banner.mako
-## $Date: Mon Feb 20 20:00:52 2012 +0800
+## $File: login.mako
+## $Date: Mon Feb 20 19:56:29 2012 +0800
 ##
 ## Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 ## 
@@ -21,15 +21,18 @@
 ## You should have received a copy of the GNU General Public License
 ## along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 ##
-<%! from pynojo.lib import user %>
-<div id="page-banner">
-	<img src="${request.static_path('img/pynojo-banner.jpg')}" alt="banner" />
+<%! from pynojo.view.lib.form2 import MakoForm2Helper %>
+<% fh = MakoForm2Helper(locals()) %>
+<form method="post" class="form2" id="login-form"
+	action="${request.route_path('user.login')}">
+	<% fh.mkinput(_('Username:'), name = 'username') %>
+	<% fh.mkinput(_('Password:'), name = 'passwd', type = 'password') %>
+	<% fh.mkcheckbox(_('Stay logged in for 2 weeks'), name = 'set_cookie') %>
 	<div>
-		<% model = user.get_model(request) %>
-		% if model is None:
-			<%include file="../user/login.mako" />
-		% else:
-			<%include file="../user/info.mako" />
-		% endif
+		<button type="submit" class="jqui-button">${_('Log in')}</button>
+		<a href="${request.route_path('user.reg')}" class="jqcolorbox jqui-button">${_('Register')}</a>
 	</div>
-</div>
+</form>
+<script type="text/javascript">
+	user_login_form_init();
+</script>
