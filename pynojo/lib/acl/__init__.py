@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Mon Feb 27 20:18:38 2012 +0800
+# $Date: Mon Feb 27 20:32:28 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,23 +21,9 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
+"""access limiter, see also :ref:`perm-model.acl`"""
 
-# pylint: disable=C0103
-"""This package provides pynojo static configurations. To access the config,
-import *config* from *pynojo.config*. See also :ref:`devnotes.sysconf`."""
-
-from pynojo.config._base import set_init_finished
-from pynojo.config.all import AllConfig
-
-config = AllConfig()
-
-try:
-    from pynojo.config.overwrite import overwrite
-except ImportError:
+def check(request, acl_id):
+    """Check whether the ACL with id *acl_id* allows the access request."""
     pass
-else:
-    overwrite(config)
-
-set_init_finished()
-
 

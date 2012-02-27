@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Sun Feb 12 14:41:51 2012 +0800
+# $Date: Mon Feb 27 20:18:25 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,7 +21,7 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
-"""Native Language Support for pynojo. See also :ref:`devnotes-nls`."""
+"""Native Language Support for pynojo. See also :ref:`devnotes.nls`."""
 
 from pynojo.exc import PynojoInternalError
 from pynojo.nls.config import TRANS_LIST

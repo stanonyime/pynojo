@@ -1,5 +1,5 @@
 # $File: auth_pw.py
-# $Date: Mon Feb 20 14:31:01 2012 +0800
+# $Date: Mon Feb 27 21:06:09 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -25,19 +25,19 @@
 
 """user authentication via password"""
 
-__all__ = ['UserAuthPW']
+__all__ = ['UserAuthPWMdl']
 
 from hashlib import sha256 
 
 from pynojo.lib import pynojo_assert
 from pynojo.model._base import *
-from pynojo.model.user import User
+from pynojo.model.user import UserMdl
 
 _SALT_LEN = 5
 _PASSWD_LEN = sha256().digest_size
 
 # password encryption functions should take two arguments:
-# user: an instance of UserAuthPW class
+# user: an instance of UserAuthPWMdl class
 # passwd: the password to be ecrypted
 def _pw_enc_v0(uauth, passwd):
     # pylint: disable=W0212
@@ -51,18 +51,19 @@ def _pw_enc_v0(uauth, passwd):
 _pw_enc_funcs = [_pw_enc_v0]
 
 
-class UserAuthPW(Base):
+class UserAuthPWMdl(Base):
     """Usually this model is not directly used, except when creating a new
-    user; use :attr:`User.auth_pw <pynojo.model.user.User.auth_pw>` instead."""
+    user; use :attr:`UserMdl.auth_pw <pynojo.model.user.UserMdl.auth_pw>`
+    instead."""
     __tablename__ = 'userauthpw'
 
     def __init__(self, passwd):
         self.set(passwd)
 
-    uid = Column(Integer, ForeignKey(User.get_table_name() + '.id'),
+    uid = Column(Integer, ForeignKey(UserMdl.get_table_name() + '.id'),
             primary_key = True)
 
-    user = relationship(User, uselist = False,
+    user = relationship(UserMdl, uselist = False,
             backref = backref('auth_pw', uselist = False))
 
     _salt = Column('salt', BINARY(_SALT_LEN))

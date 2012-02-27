@@ -1,5 +1,5 @@
 # $File: user.py
-# $Date: Sun Feb 19 20:14:37 2012 +0800
+# $Date: Mon Feb 27 20:54:33 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -29,7 +29,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from pynojo.exc import PynojoRuntimeError
 from pynojo.model import Session
-from pynojo.model.user import User
+from pynojo.model.user import UserMdl
 from pynojo.config import config
 
 
@@ -53,7 +53,7 @@ def validate_username(username):
 
 
 def get_model(request):
-    """Return an instance of :class:`pynojo.model.User`, or *None* if no user
+    """Return an instance of :class:`pynojo.model.UserMdl`, or *None* if no user
     has logged in."""
     val = request.pynojo_cache.get(get_model, -1)
     if val == -1:
@@ -68,7 +68,7 @@ def check_login_pw(request, username, passwd, cookie_max_age = None):
     ses = Session()
     ok = True
     try:
-        user = ses.query(User).filter(User.username == username).one()
+        user = ses.query(UserMdl).filter(UserMdl.username == username).one()
     except NoResultFound:
         ok = False
     else:
@@ -92,7 +92,7 @@ def _get_model(req):
 
     ses = Session()
     try:
-        user = ses.query(User).filter(User.id == uid).one()
+        user = ses.query(UserMdl).filter(UserMdl.id == uid).one()
     except NoResultFound:
         return None
 

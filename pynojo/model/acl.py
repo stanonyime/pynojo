@@ -1,5 +1,5 @@
-# $File: __init__.py
-# $Date: Mon Feb 27 20:18:38 2012 +0800
+# $File: acl.py
+# $Date: Mon Feb 27 21:07:33 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,23 +21,16 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
+# pylint: disable=C0111
 
-# pylint: disable=C0103
-"""This package provides pynojo static configurations. To access the config,
-import *config* from *pynojo.config*. See also :ref:`devnotes.sysconf`."""
+"""models for users and user groups"""
 
-from pynojo.config._base import set_init_finished
-from pynojo.config.all import AllConfig
+__all__ = ['ACLMdl']
 
-config = AllConfig()
+from pynojo.model._base import *
 
-try:
-    from pynojo.config.overwrite import overwrite
-except ImportError:
-    pass
-else:
-    overwrite(config)
+class ACLMdl(Base):
+    __tablename__ = 'acl'
 
-set_init_finished()
-
+    id = Column(Integer, primary_key = True)
 

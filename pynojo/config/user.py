@@ -1,5 +1,5 @@
 # $File: user.py
-# $Date: Mon Feb 20 14:47:34 2012 +0800
+# $Date: Mon Feb 27 20:55:02 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -46,10 +46,10 @@ class UserConfig(ConfigBase):
 
     AUTH_CODE_LEN = 9
     """the length of authentication code (see also
-    :meth:`pynojo.model.user.User.get_auth_code`)"""
+    :meth:`pynojo.model.user.UserModel.get_auth_code`)"""
 
     EXTRA_FIELD_LEN = 255
     """maximum length of the extra field of the user model (see also
-    :attr:`pynojo.model.user.User.extra`)"""
+    :attr:`pynojo.model.user.UserModel.extra`)"""
 
 

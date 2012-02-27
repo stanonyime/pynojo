@@ -1,5 +1,5 @@
 ..  $File: devnotes.rst
-    $Date: Mon Feb 20 18:31:05 2012 +0800
+    $Date: Mon Feb 27 20:23:53 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     Contributors to this file:
@@ -74,8 +74,8 @@ Environment Setup
             sphinxcontrib-spelling pylint               # development dependencies
 
 #.  Generate the .mo files and documents, which are not tracked by the version
-    control system (see also :ref:`devnotes-nls` and
-    :ref:`devnotes-documenting`):
+    control system (see also :ref:`devnotes.nls` and
+    :ref:`devnotes.documenting`):
 
     .. code-block:: sh
 
@@ -93,7 +93,7 @@ Environment Setup
         $ ./download-all.sh
 
 
-#.  Generate the CSS and javascript files (see also :ref:`devnotes-css-js`):
+#.  Generate the CSS and javascript files (see also :ref:`devnotes.css-js`):
 
     .. code-block:: sh
 
@@ -101,7 +101,7 @@ Environment Setup
         $ ./gencss
         $ ./genjs
 
-.. _devnotes-sysconf:
+.. _devnotes.sysconf:
 
 Configuration
 ^^^^^^^^^^^^^
@@ -219,7 +219,7 @@ your vimrc:
     autocmd filetype python set textwidth=79
 
 
-.. _devnotes-documenting:
+.. _devnotes.documenting:
 
 Documenting
 ^^^^^^^^^^^
@@ -260,7 +260,7 @@ functions depending on :func:`pynojo.lib.get_thread_request` work correctly.
 
 
 
-.. _devnotes-nls:
+.. _devnotes.nls:
 
 Native Language Support (NLS)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -331,7 +331,7 @@ Locale detection details:
 
 
 
-.. _devnotes-css-js:
+.. _devnotes.css-js:
 
 Stylesheets and Javascripts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -359,11 +359,11 @@ generate the all-in-one js file by:
 
 
 .. links
-.. _Pyramid:  http://pylonsproject.org/ 
+.. _Pyramid:  http://www.pylonsproject.org/
 .. _SQLAlchemy: http://www.sqlalchemy.org/
 .. _Style Guide for Python Code: http://www.python.org/dev/peps/pep-0008
 .. _pylint: http://pypi.python.org/pypi/pylint
-.. _reStructuredText: http://docutils.sf.net/rst.html
+.. _reStructuredText: http://docutils.sourceforge.net/rst.html
 .. _Sphinx: http://sphinx.pocoo.org/
 .. _GNU gettext: http://www.gnu.org/software/gettext/
 .. _closure-stylesheets: http://code.google.com/p/closure-stylesheets/

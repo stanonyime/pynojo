@@ -1,5 +1,5 @@
 ..  $File: index.rst
-    $Date: Sun Feb 12 14:32:17 2012 +0800
+    $Date: Mon Feb 27 19:18:26 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     -----------------------------------------------------------------
@@ -28,8 +28,8 @@ Contents:
     :maxdepth: 2
 
     devnotes
-    perm_model
-    global_name_list
+    perm-model
+    global-name-list
     API Reference <autogen/pynojo>
 
 

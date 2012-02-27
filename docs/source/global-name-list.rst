@@ -1,5 +1,5 @@
-..  $File: global_name_list.rst
-    $Date: Tue Feb 14 22:13:04 2012 +0800
+..  $File: global-name-list.rst
+    $Date: Mon Feb 27 19:18:11 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     -----------------------------------------------------------------
@@ -72,4 +72,4 @@ Cookies
 Views
 -----
 
-.. include:: autogen/viewdoc.rst
+.. include:: autogen/viewdoc.rst.txt

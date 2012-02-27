@@ -1,5 +1,5 @@
 # $File: user.py
-# $Date: Mon Feb 20 19:46:59 2012 +0800
+# $Date: Mon Feb 27 21:03:15 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -32,8 +32,8 @@ from pynojo.view import mkroute
 from pynojo.lib import user
 from pynojo.exc import PynojoRuntimeError
 from pynojo.model import Session
-from pynojo.model.user import User
-from pynojo.model.user.auth_pw import UserAuthPW
+from pynojo.model.user import UserMdl
+from pynojo.model.user.auth_pw import UserAuthPWMdl
 
 @view_config(route_name = mkroute(pattern = 'user/login', name = 'user.login'),
         renderer = 'cjson')
@@ -75,10 +75,10 @@ def register_submit(request):
     try:
         validate_username(uname)
         ses = Session()
-        u = User(username = uname, extra = dict())
+        u = UserMdl(username = uname, extra = dict())
         for i in ('dispname', ):
             u.extra[i] = p[i]
-        u.auth_pw = UserAuthPW(p['passwd'])
+        u.auth_pw = UserAuthPWMdl(p['passwd'])
         ses.add(u)
         ses.commit()
     except PynojoRuntimeError as e:
@@ -115,7 +115,7 @@ def validate_username(username):
     error. This function checks the name's legality and non-existence."""
     user.validate_username(username)
     ses = Session()
-    if ses.query(User).filter(User.username == username).count():
+    if ses.query(UserMdl).filter(UserMdl.username == username).count():
         raise PynojoRuntimeError(_('Sorry, username "{0}" already exists.',
             username))
 

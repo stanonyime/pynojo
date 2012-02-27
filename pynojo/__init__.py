@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Sun Feb 19 20:12:27 2012 +0800
+# $Date: Mon Feb 27 20:18:31 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -29,7 +29,7 @@ from pynojo.config import config as config
 
 class Request(OrigRequest):
     """request factory class for pynojo. This class also includes two methods
-    *_* and *_pl*, see :ref:`devnotes-nls` for details."""
+    *_* and *_pl*, see :ref:`devnotes.nls` for details."""
 
     # pylint: disable=C0301
     charset = 'UTF-8'
