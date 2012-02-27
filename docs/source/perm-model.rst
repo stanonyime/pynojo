@@ -1,5 +1,5 @@
 ..  $File: perm-model.rst
-    $Date: Mon Feb 27 20:47:41 2012 +0800
+    $Date: Mon Feb 27 21:50:45 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     Contributors to this file:
@@ -58,13 +58,14 @@ Event Access Control
 
 An event is an activity that lasts for a period of time, associated with some
 problems and can be associated with an :ref:`ACL <perm-model.acl>`. For example,
-it can be a time-limited assignment, a test or a contest. The event manager will
-modify the problem groups(PG) of the problems in upcoming events. For an event,
-a virtual PG associated with the ACL of it will be created, and all the problems
-in this event will be associated only with that virtual PG. So the event can
-have full access control in those problems. After an event ends, the event
-manager is responsible to restore the original relationship between problems and
-PGs, and delete the virtual PG.
+it can be a time-limited assignment, a test or a contest. During an event, the
+problems in this event are locked. Locking a problem means that in the problem
+list, it can only be viewed, but the user can not post new submissions or read
+the sources of his previous submissions; instead, the user must go to the event
+page to submit the problem, and only sources submitted after the event starts
+might be viewed. There are different kinds of events, and each event
+implementation can have control over the accessibility of problems, submissions
+or any other related resource.
 
 
 .. _perm-model.acl:
