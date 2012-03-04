@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 # $File: session.py
-# $Date: 2012-3-2 上午11:20:35
+# $Date: Sun Mar 04 19:27:38 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -108,7 +108,7 @@ class Session(protocol.Dispatcher):
         self._disconnected()
         
     def serve(self):
-        '''Start socket messge loop.'''
+        '''Start socket message loop.'''
         while self._sck is not None:
             msg = self.readline()
             if (not msg):

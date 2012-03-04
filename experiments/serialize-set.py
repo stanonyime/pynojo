@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # $File: serialize-set.py
-# $Date: Mon Feb 20 13:10:50 2012 +0800
+# $Date: Sun Mar 04 18:48:58 2012 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
 from clock import clock
@@ -32,7 +32,11 @@ def mydump(s):
 test('my', mydump, myload)
 test('json', lambda s: json.dumps(list(s)), lambda s: set(json.loads(s)))
 test('cjson', lambda s: cjson.encode(list(s)), lambda s: set(cjson.decode(s)))
-test('pickle', pickle.dumps, pickle.loads)
-test('cPickle', cPickle.dumps, cPickle.loads)
+test('pickle', 
+        lambda s: pickle.dumps(s, pickle.HIGHEST_PROTOCOL),
+        lambda s: pickle.loads(s))
+test('cPickle', 
+        lambda s: cPickle.dumps(s, cPickle.HIGHEST_PROTOCOL),
+        lambda s: cPickle.loads(s))
 test('marshal', marshal.dumps, marshal.loads)
 

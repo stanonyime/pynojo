@@ -1,5 +1,5 @@
-# $File: test_model_user.py
-# $Date: Mon Feb 27 20:56:26 2012 +0800
+# $File: test_user.py
+# $Date: Sun Mar 04 17:39:48 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,26 +21,17 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
-import unittest
-
-from sqlalchemy import create_engine, event
-from sqlalchemy.orm import sessionmaker
+from pynojo.tests.model._base import Base
 
 from pynojo.model import install_db
 from pynojo.model.user import *
 from pynojo.model.user.auth_pw import *
 
-class UserUnitTests(unittest.TestCase):
+class UserUnitTests(Base):
 
-    def setUp(self):
-        engine = create_engine('sqlite:///:memory:')
-        event.listen(engine, 'connect', lambda con, record:
-                con.execute('PRAGMA foreign_keys=ON'))
-        self.Session = sessionmaker(bind = engine)
-        install_db(engine)
-
-        ses = self.Session()
-        self.ses = ses
+    @classmethod
+    def set_up_class(cls):
+        ses = cls.session_maker()
 
         g0 = UserGrpMdl(name = 'g0')
         g1 = UserGrpMdl(name = 'g1')
@@ -55,11 +46,11 @@ class UserUnitTests(unittest.TestCase):
         ses.commit()
 
     def get_user(self):
-        ses = self.ses
+        ses = self.session_maker()
         u = ses.query(UserMdl).filter(UserMdl.username == 'user0').one()
         return u
 
-    def test_user_perms(self):
+    def test_perms(self):
         u = self.get_user()
         self.assertEqual(u.perms, frozenset([1, 2, 3]))
         self.assertIsNotNone(u._perms_cache)
@@ -79,7 +70,7 @@ class UserUnitTests(unittest.TestCase):
         self.assertIsNotNone(u._perms_cache)
         self.assertIsNotNone(u._perms_cache_rst)
 
-    def test_user_auth_pw(self):
+    def test_auth_pw(self):
         u = self.get_user()
         u.auth_pw = UserAuthPWMdl('xx')
         self.assertTrue(u.auth_pw.check('xx'))
@@ -88,7 +79,7 @@ class UserUnitTests(unittest.TestCase):
         self.assertFalse(u.auth_pw.check('xx'))
         self.assertTrue(u.auth_pw.check('xxx'))
 
-    def test_user_auth_code(self):
+    def test_auth_code(self):
         u = self.get_user()
         code = u.get_auth_code()
         self.assertEqual(code, u.get_auth_code())

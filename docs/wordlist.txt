@@ -1,5 +1,6 @@
 acl
 app
+args
 ascii
 backref
 callables
@@ -11,6 +12,7 @@ controllability
 CPython
 dispname
 docstrings
+gevent
 indices
 init
 javascript
@@ -30,6 +32,7 @@ msg
 multithreading
 namespace
 nls
+params
 passwd
 po
 preselected
@@ -45,8 +48,11 @@ stylesheet
 stylesheets
 subclasses
 subpackages
+sudo
+tuple
 txt
 uid
+ulimit
 username
 usernames
 util

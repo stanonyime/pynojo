@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Mon Feb 27 20:32:28 2012 +0800
+# $Date: Sun Mar 04 11:19:00 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 

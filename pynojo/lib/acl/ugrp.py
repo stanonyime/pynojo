@@ -1,5 +1,5 @@
-# $File: __init__.py
-# $Date: Sun Mar 04 17:13:06 2012 +0800
+# $File: ugrp.py
+# $Date: Sun Mar 04 11:20:29 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,10 +21,5 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
+"""ACL based on limiting certain user groups"""
 
-"""pynojo test suits"""
-
-
-# provides the translators
-import __builtin__
-__builtin__.__ = __builtin__._ = lambda *args, **kargs: None

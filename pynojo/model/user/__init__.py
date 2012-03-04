@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Mon Feb 27 21:05:56 2012 +0800
+# $Date: Sun Mar 04 12:15:10 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -79,7 +79,7 @@ class UserMdl(Base):
     id = Column(Integer, primary_key = True)
 
     username = Column(String(config.user.USERNAME_LEN_MAX),
-            index = True, unique = True)
+            index = True, unique = True, nullable = False)
     """username for login, immutable"""
 
     groups = relationship('UserGrpMdl',
@@ -192,7 +192,8 @@ class UserGrpMdl(Base):
 
     id = Column(Integer, primary_key = True)
 
-    name = Column(String(config.user.GRPNAME_LEN_MAX), index = True)
+    name = Column(String(config.user.GRPNAME_LEN_MAX), index = True,
+            nullable = False)
     """name of the group"""
 
     users = relationship('UserMdl', lazy = 'dynamic',
@@ -201,7 +202,7 @@ class UserGrpMdl(Base):
     that dynamic loading is used."""
 
     _perms = relationship('MapUserGrpAndGrpPerm', collection_class = set,
-            cascade = "all, delete-orphan", passive_deletes = True)
+            cascade = 'all, delete-orphan', passive_deletes = True)
 
     # pylint: disable=C0322
     perms = association_proxy('_perms', 'perm')

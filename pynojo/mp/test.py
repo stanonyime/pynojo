@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 # $File: test.py
-# $Date: 2012-3-3 上午11:33:50
+# $Date: Sun Mar 04 19:27:24 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -130,7 +130,7 @@ class Test(unittest.TestCase):
     def test_client_broadcast(self):
         '''
         Open 100 clients, each broadcast 10 messages to other 99. So 
-        evey client will receive around 1000 messages. In total, 100000 
+        every client will receive around 1000 messages. In total, 100000 
         messages will be transported via Server.
         
         The 100 clients will meet co-operative compete on global resource, 

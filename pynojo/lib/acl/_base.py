@@ -1,5 +1,5 @@
-# $File: __init__.py
-# $Date: Sun Mar 04 17:13:06 2012 +0800
+# $File: _base.py
+# $Date: Sun Mar 04 19:31:27 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,10 +21,18 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
+"""ACL base"""
 
-"""pynojo test suits"""
+class Base(object):
+    """The base class for ACL. All ACL implementations should be derived from
+    this class. The name of derived class should be unique among all the
+    subclasses, and should not exceed :attr:`TYPE_MAX_LEN
+    <pynojo.model.acl.ACLMdl.TYPE_MAX_LEN>` characters."""
 
+    @classmethod
+    def from_model(cls, model):
+        """A factory method for making an instance of this ACL based on the
+        data provided by *model*, which is an :class:`ACLMdl
+        <pynojo.model.acl.ACLMdl>` instance."""
+        raise NotImplementedError()
 
-# provides the translators
-import __builtin__
-__builtin__.__ = __builtin__._ = lambda *args, **kargs: None
