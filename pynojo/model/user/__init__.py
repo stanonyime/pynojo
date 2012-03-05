@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Sun Mar 04 12:15:10 2012 +0800
+# $Date: Mon Mar 05 19:06:09 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -30,8 +30,6 @@ __all__ = ['UserMdl', 'UserGrpMdl']
 from pynojo.config import config
 from pynojo.model._base import *
 
-
-_PERMS_CACHE_LEN = 127
 
 class _Tablename:
     UserMdl = 'user'
@@ -111,57 +109,73 @@ class UserMdl(Base):
         return val
 
 
-    # maintaining user permission
+    # maintaining user groups and permissions
 
-    _perms_cache_rst = None
-    _perms_cache = Column('permscache', String(_PERMS_CACHE_LEN))
+    _gp_cache_rst = None
+    _gp_cache = Column('gpcache', LargeBinary)
+    # cache for group ids and permissions
+    # _gp_cache_rst[0]: group id cache
+    # _gp_cache_rst[1]: permission cache
+
+    @property
+    def grp_ids(self):
+        """a frozenset of integer, the ids of groups that this user belongs
+        to."""
+        if self._gp_cache_rst is None:
+            self._mk_gp_cache()
+        return self._gp_cache_rst[0]
 
     @property
     def perms(self):
         """a frozenset of integer, the permissions that this user has."""
-        if self._perms_cache_rst is None:
-            self._perms_cache_rst = self._get_perms()
-        return self._perms_cache_rst
+        if self._gp_cache_rst is None:
+            self._mk_gp_cache()
+        return self._gp_cache_rst[1]
 
 
-    def _get_perms(self):
-        if self._perms_cache is None:
-            rst = set()
+    def _mk_gp_cache(self):
+        import cPickle
+        if self._gp_cache is None:
+            grps = set()
+            perms = set()
             for i in self.groups:
-                rst.update(i.perms)
-            rst = frozenset(rst)
-            self._perms_cache = '|' . join([str(i) for i in rst])
-            return rst
-        return frozenset([int(i) for i in self._perms_cache.split('|')])
+                grps.add(i.id)
+                perms.update(i.perms)
+            rst = [frozenset(grps), frozenset(perms)]
+            self._gp_cache_rst = rst
+            self._gp_cache = cPickle.dumps(rst, cPickle.HIGHEST_PROTOCOL)
+        else:
+            self._gp_cache_rst = cPickle.loads(self._gp_cache)
 
 
     @staticmethod
-    def invalidate_perm_cache(session, gid):
-        """Invalidate the permission cache of users belong to the group with id
-        *gid*. It is unnecessary to call this method if you just change user
-        group permissions via :attr:`UserGrpMdl.perms`. But it should be called
-        explicitly when a user group is delete, or any other operation that
-        might affect user permissions is made.."""
+    def invalidate_gp_cache(session, gid):
+        """Invalidate the group id and permission cache of users belong to the
+        group with id *gid*. It is unnecessary to call this method if you just
+        change user group permissions via :attr:`UserGrpMdl.perms`. But it
+        **must be called explicitly** when a user group is deleted, or any
+        other operation that might affect user permissions is made."""
 
         # pylint: disable=W0612
         for (cls, pk), obj in session.identity_map.iteritems():
             if cls is UserMdl:
-                session.expire(obj, ['_perms_cache'])
-                obj._perms_cache_rst = None
+                session.expire(obj, ['_gp_cache'])
+                obj._gp_cache_rst = None
 
         sub = session.query(MapUserAndUserGrp.uid) \
                 .filter(MapUserAndUserGrp.gid == gid)
         session.query(UserMdl).filter(UserMdl.id.in_(sub)) \
-                .update({UserMdl._perms_cache: None},
+                .update({UserMdl._gp_cache: None},
                         synchronize_session = False)
 
 
-    def invalidate_self_perm_cache(self):
-        """Invalidate the permission cache. Direct invoking of this method is
-        unnecessary if you change the relationship between users and user
-        groups via :attr:`UserMdl.groups` or :attr:`UserGrpMdl.users`."""
-        self._perms_cache = None
-        self._perms_cache_rst = None
+    def invalidate_self_gp_cache(self):
+        """Invalidate the group id and permission cache. Direct invoking of
+        this method is unnecessary if you change the relationship between users
+        and user groups via :attr:`UserMdl.groups` or
+        :attr:`UserGrpMdl.users`."""
+        self._gp_cache = None
+        self._gp_cache_rst = None
 
 
 
@@ -217,13 +231,13 @@ def _invcache_on_grp_perm_chg(target, *args):
     # pylint: disable=W0613
     ses = object_session(target)
     if ses is not None:
-        UserMdl.invalidate_perm_cache(ses, target.id)
+        UserMdl.invalidate_gp_cache(ses, target.id)
 
 # pylint: disable=W0212
 for _event in 'append', 'remove', 'set':
     event.listen(UserGrpMdl._perms, _event, _invcache_on_grp_perm_chg)
     event.listen(UserGrpMdl.users, _event, lambda target, value, *args:
-            value.invalidate_self_perm_cache())
+            value.invalidate_self_gp_cache())
     event.listen(UserMdl.groups, _event, lambda target, *args:
-            target.invalidate_self_perm_cache())
+            target.invalidate_self_gp_cache())
 

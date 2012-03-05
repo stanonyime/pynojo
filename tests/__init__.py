@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Mon Mar 05 19:45:19 2012 +0800
+# $Date: Mon Mar 05 20:14:53 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,18 +21,8 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
-"""access limiter, see also :ref:`perm-model.acl`"""
+"""pynojo test suit"""
 
-__all__ = ['check']
-
-from pkgutil import walk_packages
-for loader, module_name, is_pkg in walk_packages(__path__, __name__ + '.'):
-    __import__(module_name, globals(), locals(), [], -1)
-
-from pynojo.lib.acl._base import Base
-from pynojo.model.acl import ACLMdl
-
-def check(request, acl_id):
-    """Check whether the ACL with id *acl_id* allows the access request."""
-    return Base.from_id(acl_id).check(request)
-
+# provides the translators
+import __builtin__
+__builtin__.__ = __builtin__._ = lambda *args, **kargs: None

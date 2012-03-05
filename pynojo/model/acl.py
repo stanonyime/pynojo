@@ -1,5 +1,5 @@
 # $File: acl.py
-# $Date: Sun Mar 04 19:13:29 2012 +0800
+# $Date: Sun Mar 04 19:50:43 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -50,7 +50,7 @@ class ACLMdl(Base):
 
     id = Column(Integer, primary_key = True)
     type = Column(String(TYPE_MAX_LEN), nullable = False)
-    data = Column(LargeBinary, nullable = False)
+    data = Column(PickleType, nullable = False)
 
     dep = relationship('ACLMdl',
             lazy = 'dynamic',

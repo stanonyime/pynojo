@@ -1,5 +1,5 @@
 # $File: enum.py
-# $Date: Sun Feb 12 14:41:09 2012 +0800
+# $Date: Mon Mar 05 19:59:01 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -65,17 +65,17 @@ class _EnumMetaClass(type):
                     'in enumeration base class')
 
         enum_items = list()	# (key, val)
-        enumed_attr = dict()
+        target_attr = dict()
         for (key, val) in attr.iteritems():
             if isinstance(val, _EnumItem):
                 enum_items.append((key, val))
             else:
-                enumed_attr[key] = val
+                target_attr[key] = val
 
         enum_data = dict()
         enum_items.sort(cmp = lambda x, y: cmp(x[1].order, y[1].order))
         for i in enum_items:
-            enumed_attr[i[0]] = cur_enum
+            target_attr[i[0]] = cur_enum
             if i[1].has_data:
                 enum_data[cur_enum] = i[1].data
 
@@ -83,11 +83,11 @@ class _EnumMetaClass(type):
 
         # set this so that enumeration items in classes derived from the newly
         # created class can continue the enumeration count
-        enumed_attr['_enum_start'] = cur_enum
+        target_attr['_enum_start'] = cur_enum
 
-        enumed_attr['_enum_data'] = enum_data
+        target_attr['_enum_data'] = enum_data
 
-        return super(_EnumMetaClass, mcs).__new__(mcs, name, base, enumed_attr)
+        return super(_EnumMetaClass, mcs).__new__(mcs, name, base, target_attr)
 
     def __getattribute__(mcs, name):
         if name == 'enum':
@@ -119,7 +119,7 @@ def get_base(start = 0, step = 1):
     new items will affect all subclasses derived from it. Trying to modify an
     attribute or deriving from multiple bases will cause an error.  See the
     example below and the source of
-    :meth:`pynojo.tests.test_lib.LibUnitTests.test_enum` for details.
+    :meth:`tests.test_lib.LibUnitTests.test_enum` for details.
 
     :param start: the value assigned to the first enumeration item
     :type start: int

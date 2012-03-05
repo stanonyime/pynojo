@@ -1,5 +1,5 @@
 # $File: user.py
-# $Date: Mon Feb 27 20:54:33 2012 +0800
+# $Date: Mon Mar 05 22:26:46 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -28,7 +28,7 @@ import re
 from sqlalchemy.orm.exc import NoResultFound
 
 from pynojo.exc import PynojoRuntimeError
-from pynojo.model import Session
+from pynojo.model import make_session
 from pynojo.model.user import UserMdl
 from pynojo.config import config
 
@@ -65,7 +65,7 @@ def check_login_pw(request, username, passwd, cookie_max_age = None):
     """Check user login via password authentication. Raise
     :exc:`pynojo.exc.PynojoRuntimeError` on error. If login is successful,
     corresponding cookies are set."""
-    ses = Session()
+    ses = make_session()
     ok = True
     try:
         user = ses.query(UserMdl).filter(UserMdl.username == username).one()
@@ -90,7 +90,7 @@ def _get_model(req):
     if uid == -1:
         return None
 
-    ses = Session()
+    ses = make_session()
     try:
         user = ses.query(UserMdl).filter(UserMdl.id == uid).one()
     except NoResultFound:

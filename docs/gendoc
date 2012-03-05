@@ -1,13 +1,16 @@
 #!/bin/bash -e
 # $File: gendoc
-# $Date: Mon Feb 27 19:46:08 2012 +0800
+# $Date: Mon Mar 05 19:58:50 2012 +0800
 # $Author: jiakai <jia.kai66@gmail.com>
 
 . ../init.sh
 
 export PYNOJO_DOC_SPELLCHECK=1
 
+make clean
+
 sphinx-apidoc -o source/autogen ../pynojo
+sphinx-apidoc -o source/autogen ../tests
 rm -f source/autogen/modules.rst
 
 echo > source/autogen/viewdoc.rst.txt

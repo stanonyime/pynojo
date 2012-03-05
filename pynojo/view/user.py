@@ -1,5 +1,5 @@
 # $File: user.py
-# $Date: Mon Feb 27 21:03:15 2012 +0800
+# $Date: Sun Mar 04 21:14:54 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -31,7 +31,7 @@ from pyramid.view import view_config
 from pynojo.view import mkroute
 from pynojo.lib import user
 from pynojo.exc import PynojoRuntimeError
-from pynojo.model import Session
+from pynojo.model import make_session
 from pynojo.model.user import UserMdl
 from pynojo.model.user.auth_pw import UserAuthPWMdl
 
@@ -74,7 +74,7 @@ def register_submit(request):
     uname = p['username']
     try:
         validate_username(uname)
-        ses = Session()
+        ses = make_session()
         u = UserMdl(username = uname, extra = dict())
         for i in ('dispname', ):
             u.extra[i] = p[i]
@@ -114,7 +114,7 @@ def validate_username(username):
     """Validate the username, raise :exc:`pynojo.exc.PynojoRuntimeError` on
     error. This function checks the name's legality and non-existence."""
     user.validate_username(username)
-    ses = Session()
+    ses = make_session()
     if ses.query(UserMdl).filter(UserMdl.username == username).count():
         raise PynojoRuntimeError(_('Sorry, username "{0}" already exists.',
             username))

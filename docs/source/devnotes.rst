@@ -1,5 +1,5 @@
 ..  $File: devnotes.rst
-    $Date: Mon Feb 27 20:23:53 2012 +0800
+    $Date: Sun Mar 04 21:38:47 2012 +0800
     -----------------------------------------------------------------
     Copyright (C) 2012 the pynojo development team <see AUTHORS file>
     Contributors to this file:
@@ -122,16 +122,21 @@ An example file::
 
     class MyDB(DBConfig):
         @staticmethod
-        def make_session():
-            global _engine
-            from sqlalchemy import create_engine, event
+        def get_session_maker(engine):
             from sqlalchemy.orm import sessionmaker, scoped_session
-            engine = create_engine('sqlite:///' + _DBFILE)
-            event.listen(engine, 'connect', lambda con, record:
-                    con.execute('PRAGMA foreign_keys=ON'))
             ses = scoped_session(sessionmaker(bind = engine))
-            _engine = engine
             return ses
+
+        @staticmethod
+        def get_engine():
+            global _engine
+            if _engine is not None:
+                return _engine
+            from sqlalchemy import create_engine, event
+            _engine = create_engine('sqlite:///' + _DBFILE)
+            event.listen(_engine, 'connect', lambda con, record:
+                    con.execute('PRAGMA foreign_keys=ON'))
+            return _engine
 
     def _init():
         import logging
@@ -160,7 +165,7 @@ An example file::
         # install_db must be imported after conf.db is set
         from pynojo.model import install_db
         if not db_exists:
-            install_db(_engine)
+            install_db(conf.db.get_engine())
 
 
 

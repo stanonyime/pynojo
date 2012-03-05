@@ -1,5 +1,5 @@
-# $File: test_lib.py
-# $Date: Sun Feb 12 14:41:31 2012 +0800
+# $File: test_basic.py
+# $Date: Mon Mar 05 20:08:37 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,6 +21,7 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
+"""Test basic functions of :mod:`pynojo.lib`."""
 import unittest
 
 class LibUnitTests(unittest.TestCase):

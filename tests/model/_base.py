@@ -1,5 +1,5 @@
 # $File: _base.py
-# $Date: Sun Mar 04 17:42:51 2012 +0800
+# $Date: Mon Mar 05 22:24:47 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,27 +21,39 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
-__all__ = ['Base']
 
+__all__ = ['Base']
 import unittest
 
-engine = None
-session_maker = None
+_engine = None
+_session_maker = None
 
 def init():
-    global engine, session_maker
+    global _engine, _session_maker
 
     from sqlalchemy import create_engine, event
     from sqlalchemy.orm import sessionmaker, scoped_session
 
     from pynojo.model import install_db
 
-    engine = create_engine('sqlite:///:memory:')
-    event.listen(engine, 'connect', lambda con, record:
+    _engine = create_engine('sqlite:///:memory:')
+    event.listen(_engine, 'connect', lambda con, record:
             con.execute('PRAGMA foreign_keys=ON'))
-    install_db(engine)
+    install_db(_engine)
 
-    session_maker = scoped_session(sessionmaker(bind = engine))
+    _session_maker = scoped_session(sessionmaker(bind = _engine))
+
+    ses = _session_maker()
+    from pynojo.model import set_session_maker
+    set_session_maker(_session_maker)
+
+
+    from tests.model.datafiller import datafillers
+    for i in datafillers:
+        i(ses)
+
+    ses.commit()
+
 
 
 class Base(unittest.TestCase):
@@ -52,17 +64,18 @@ class Base(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        if engine is None:
+        if _engine is None:
             init()
 
-        cls.engine = engine
-        cls.session_maker = session_maker
+        cls.engine = _engine
+        cls.session_maker = _session_maker
 
         cls.set_up_class()
 
     @classmethod
     def tearDownClass(cls):
         cls.tear_down_class()
+        cls.session_maker.commit()
 
     @classmethod
     def set_up_class(cls):
@@ -75,3 +88,5 @@ class Base(unittest.TestCase):
         """A class method called after tests in an individual class have
         run."""
         pass
+
+

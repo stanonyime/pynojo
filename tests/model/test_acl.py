@@ -1,5 +1,5 @@
 # $File: test_acl.py
-# $Date: Sun Mar 04 19:12:46 2012 +0800
+# $Date: Mon Mar 05 20:40:34 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,34 +21,20 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
-from pynojo.tests.model._base import Base
+from tests.model._base import Base
 
 from pynojo.exc import PynojoRuntimeError
 from pynojo.model.acl import *
 
 class ACLUnitTests(Base):
 
-    @classmethod
-    def set_up_class(cls):
-        ses = cls.session_maker()
-        ses.query(ACLMdl).delete()
-
-        a = [ACLMdl(type = str(i), data = str(i)) for i in range(3)]
-        for i in a:
-            ses.add(i)
-
-        for i in range(2):
-            a[i].dep.append(a[i + 1])
-
-        ses.commit()
-
     def get_obj(self, num):
         ses = self.session_maker()
-        return ses.query(ACLMdl).filter(ACLMdl.data == str(num)).one()
+        return ses.query(ACLMdl).filter(ACLMdl.data == num).one()
 
     def test_used_by(self):
         for i in range(1, 3):
-            self.assertEqual(self.get_obj(i).used_by.one().data, str(i - 1))
+            self.assertEqual(self.get_obj(i).used_by.one().data, i - 1)
 
     def test_circle_dep(self):
         a = self.get_obj(0)

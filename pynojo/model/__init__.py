@@ -1,5 +1,5 @@
 # $File: __init__.py
-# $Date: Tue Feb 14 20:39:29 2012 +0800
+# $Date: Mon Mar 05 21:40:12 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -22,20 +22,32 @@
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-"""Database models for pynojo. See the source files for details. """
+"""Database models for pynojo."""
 
 from pyramid.events import subscriber, BeforeRender
 
-from pynojo.config import config
 
-# pylint: disable=C0103
-Session = config.db.make_session()
 
+def _get_session_maker():
+    from pynojo.config import config
+    global _session_maker
+    _session_maker = config.db.get_session_maker(config.db.get_engine())
+    return _session_maker()
+
+_session_maker = _get_session_maker
+def make_session():
+    """Return an SQLAlchemy session"""
+    return _session_maker()
+
+def set_session_maker(ses):
+    """only used for test suits"""
+    global _session_maker
+    _session_maker = ses
 
 @subscriber(BeforeRender)
 def _commit_session(event):
-    # pylint: disable=W0613,E1101
-    Session.commit()
+    # pylint: disable=W0613
+    make_session().commit()
 
 
 def install_db(engine):

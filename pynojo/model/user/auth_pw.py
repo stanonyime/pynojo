@@ -1,5 +1,5 @@
 # $File: auth_pw.py
-# $Date: Mon Feb 27 21:06:09 2012 +0800
+# $Date: Mon Mar 05 20:49:35 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -64,7 +64,8 @@ class UserAuthPWMdl(Base):
             primary_key = True)
 
     user = relationship(UserMdl, uselist = False,
-            backref = backref('auth_pw', uselist = False))
+            backref = backref('auth_pw', uselist = False,
+                cascade = 'all, delete-orphan'))
 
     _salt = Column('salt', BINARY(_SALT_LEN))
     _pw = Column('pw', BINARY(_PASSWD_LEN))

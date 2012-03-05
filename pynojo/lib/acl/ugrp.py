@@ -1,5 +1,5 @@
 # $File: ugrp.py
-# $Date: Sun Mar 04 11:20:29 2012 +0800
+# $Date: Mon Mar 05 22:30:34 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -21,5 +21,30 @@
 # You should have received a copy of the GNU General Public License
 # along with pynojo.  If not, see <http://www.gnu.org/licenses/>.
 #
-"""ACL based on limiting certain user groups"""
+# pylint: disable=C0111
+
+from pynojo.lib.acl._base import Base
+
+class UgrpACL(Base):
+    """An ACL which only allows certain user groups."""
+
+    grp_id = None
+    """the set of user group ids that should be allowed"""
+
+    def __init__(self, grp_id):
+        self.grp_id = set(grp_id)
+        super(UgrpACL, self).__init__()
+
+    @classmethod
+    def from_model(cls, model):
+        return UgrpACL(model.data)
+
+    def save_to_model(self, model):
+        model.type = self.__class__.__name__
+        model.data = set(self.grp_id)
+
+    def check(self, request):
+        from pynojo.lib.user import get_model
+        u = get_model(request)
+        return (u is not None) and (u.grp_ids & self.grp_id)
 
