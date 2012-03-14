@@ -44,6 +44,7 @@ renderer
 renderers
 runtime
 sqlalchemy
+str
 stylesheet
 stylesheets
 subclasses

@@ -1,5 +1,5 @@
 # $File: datafiller.py
-# $Date: Mon Mar 05 22:24:11 2012 +0800
+# $Date: Wed Mar 14 19:05:39 2012 +0800
 #
 # Copyright (C) 2012 the pynojo development team <see AUTHORS file>
 # 
@@ -64,7 +64,7 @@ def datafiller_user(ses):
 
 def datafiller_acl(ses):
     """a = [ACLMdl(type = str(i), data = i) for i in range(3)]:
-    a[i] dep on a[i+1] """
+    a[i] depends on a[i+1] """
 
     a = [ACLMdl(type = str(i), data = i) for i in range(3)]
     for i in a:
